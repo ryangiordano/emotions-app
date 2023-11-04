@@ -1,6 +1,31 @@
+import { useEffect } from "react";
+import anime from "animejs";
+
 export default function HappyFace() {
+  useEffect(() => {
+    const eye = document.querySelectorAll(".eye");
+    const face = document.querySelectorAll(".face");
+    anime({
+      targets: face,
+      translateY: [0, 20],
+      duration: 1000,
+      easing: "easeInOutSine",
+      loop: true,
+      direction: "alternate",
+    });
+    anime({
+      targets: eye,
+      scaleY: [1, 0, 1],
+      duration: 150,
+      easing: "easeInOutSine",
+      loop: true,
+      endDelay: 3000,
+    });
+  }, []);
+
   return (
     <svg
+      className="face"
       width="400"
       height="400"
       viewBox="0 0 400 400"
@@ -16,11 +41,13 @@ export default function HappyFace() {
         stroke-width="4"
       />
       <ellipse
+        className="eye"
         cx="95.302"
         cy="131.544"
         rx="14.7651"
         ry="16.1074"
         fill="white"
+        style={{ transformOrigin: "center 35%", position: "absolute" }}
       />
       <ellipse
         cx="41.6107"
@@ -37,11 +64,13 @@ export default function HappyFace() {
         fill="white"
       />
       <ellipse
+        className="eye"
         cx="304.698"
         cy="131.544"
         rx="14.7651"
         ry="16.1074"
         fill="white"
+        style={{ transformOrigin: "center 35%", position: "absolute" }}
       />
       <path
         d="M139.597 171.812L257.718 171.812"
