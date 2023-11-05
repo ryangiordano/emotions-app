@@ -1,27 +1,31 @@
 import { useEffect } from "react";
-import anime from "animejs";
+import { eyeBlink } from "./animations/eye-blink";
+import { happyTalk } from "./animations/talk";
+import { hover } from "./animations/hover";
+import { transitionInUp } from "./animations/transition";
 
-export default function HappyFace() {
+export default function HappyFace({
+  talkDuration,
+  onFinishTalk,
+}: {
+  talkDuration: number;
+  onFinishTalk: () => void;
+}) {
   useEffect(() => {
     const eye = document.querySelectorAll(".eye");
+    const body = document.querySelectorAll("#happy-face> *");
     const face = document.querySelectorAll(".face");
-    anime({
-      targets: face,
-      translateY: [0, 20],
-      duration: 1000,
-      easing: "easeInOutSine",
-      loop: true,
-      direction: "alternate",
-    });
-    anime({
-      targets: eye,
-      scaleY: [1, 0, 1],
-      duration: 150,
-      easing: "easeInOutSine",
-      loop: true,
-      endDelay: 3000,
+    transitionInUp(body, () => {
+      hover(face);
+      eyeBlink(eye);
     });
   }, []);
+
+  useEffect(() => {
+    const mouth = document.querySelectorAll(".mouth");
+
+    happyTalk(mouth, talkDuration, onFinishTalk);
+  }, [talkDuration, onFinishTalk]);
 
   return (
     <svg
@@ -30,7 +34,7 @@ export default function HappyFace() {
       height="400"
       viewBox="0 0 400 400"
       fill="none"
-      xmlns="http://www.w3.org/2000/svg"
+      id="happy-face"
     >
       <circle
         cx="200"
@@ -38,7 +42,7 @@ export default function HappyFace() {
         r="198"
         fill="url(#paint0_linear_326_53)"
         stroke="white"
-        stroke-width="4"
+        strokeWidth="4"
       />
       <ellipse
         className="eye"
@@ -70,31 +74,33 @@ export default function HappyFace() {
         rx="14.7651"
         ry="16.1074"
         fill="white"
-        style={{ transformOrigin: "center 35%", position: "absolute" }}
+        style={{ transformOrigin: "center 35%" }}
       />
       <path
         d="M139.597 171.812L257.718 171.812"
         stroke="white"
-        stroke-width="4"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinejoin="round"
       />
       <path
         d="M249.664 171.812C249.664 199.982 226.828 222.819 198.658 222.819C170.487 222.819 147.651 199.982 147.651 171.812"
         stroke="white"
-        stroke-width="4"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinejoin="round"
+        className="mouth"
+        style={{ transformOrigin: "center 45%" }}
       />
       <path
         d="M61.745 115.436C61.745 99.1271 74.9661 85.906 91.2752 85.906C107.584 85.906 120.805 99.1271 120.805 115.436"
         stroke="white"
-        stroke-width="4"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinejoin="round"
       />
       <path
         d="M271.141 110.067C271.141 95.2407 284.362 83.2215 300.671 83.2215C316.98 83.2215 330.201 95.2407 330.201 110.067"
         stroke="white"
-        stroke-width="4"
-        stroke-linejoin="round"
+        strokeWidth="4"
+        strokeLinejoin="round"
       />
       <defs>
         <linearGradient
@@ -105,8 +111,8 @@ export default function HappyFace() {
           y2="400"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#D9D9D9" stop-opacity="0" />
-          <stop offset="1" stop-color="white" stop-opacity="0.5" />
+          <stop stopColor="#D9D9D9" stopOpacity="0" />
+          <stop offset="1" stopColor="white" stopOpacity="0.5" />
         </linearGradient>
       </defs>
     </svg>
