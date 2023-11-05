@@ -1,12 +1,27 @@
+import { useEffect } from "react";
+import { eyeBlink } from "./animations/eye-blink";
+import { hover } from "./animations/hover";
+import { transitionInUp } from "./animations/transition";
 
 export default function AnxiousFace() {
+  useEffect(() => {
+    const eye = document.querySelectorAll(".eye");
+    const body = document.querySelectorAll("#anxious-face> *");
+    const face = document.querySelectorAll(".face");
+    transitionInUp(body, () => {
+      hover(face);
+      eyeBlink(eye);
+    });
+  }, []);
   return (
     <svg
+      className="face"
       width="400"
       height="400"
       viewBox="0 0 400 400"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      id="anxious-face"
     >
       <circle
         cx="200"
@@ -25,11 +40,15 @@ export default function AnxiousFace() {
         fill="white"
       />
       <path
+        className="eye"
+        style={{ transformOrigin: "center 35%" }}
         d="M80 93.3333L122.667 115.083L82.9942 141.333"
         stroke="white"
         stroke-width="4"
       />
       <path
+        className="eye"
+        style={{ transformOrigin: "center 35%" }}
         d="M322.667 93.3333L282.667 115.083L319.86 141.333"
         stroke="white"
         stroke-width="4"
