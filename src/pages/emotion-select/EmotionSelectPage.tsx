@@ -12,7 +12,7 @@ export default function EmotionSelectPage() {
     Emotions.happy
   );
   return (
-    <EmotionContainer>
+    <EmotionContainer emotion={selectedEmotion}>
       <DialogBox text={"Hi Aris, how are you feeling today?"} />
 
       <FaceContainer>
@@ -25,6 +25,7 @@ export default function EmotionSelectPage() {
             setSelectedEmotion(Emotions.happy);
           }}
           className="green"
+          selected={selectedEmotion === Emotions.happy}
         >
           😀
         </EmotionSelectButton>
@@ -33,6 +34,7 @@ export default function EmotionSelectPage() {
             setSelectedEmotion(Emotions.angry);
           }}
           className="red"
+          selected={selectedEmotion === Emotions.angry}
         >
           😡
         </EmotionSelectButton>
@@ -41,6 +43,7 @@ export default function EmotionSelectPage() {
             setSelectedEmotion(Emotions.sad);
           }}
           className="blue"
+          selected={selectedEmotion === Emotions.sad}
         >
           😢
         </EmotionSelectButton>
@@ -49,6 +52,7 @@ export default function EmotionSelectPage() {
             setSelectedEmotion(Emotions.anxious);
           }}
           className="yellow"
+          selected={selectedEmotion === Emotions.anxious}
         >
           🤪
         </EmotionSelectButton>
