@@ -3,19 +3,8 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  transition: all 2.5s ease;
-  &.red {
-    background: linear-gradient(to bottom, #ff0000, #ff0000);
-  }
-  &.blue {
-    background: linear-gradient(to bottom, #0000ff, #0000ff);
-  }
-  &.yellow {
-    background: linear-gradient(to bottom, #ffff00, #ffff00);
-  }
-  &.green {
-    background: linear-gradient(to bottom, #00b3e6, #00e67b);
-  }
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 .messageout-enter {

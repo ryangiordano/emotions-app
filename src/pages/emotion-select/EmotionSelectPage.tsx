@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import DialogBox from "../../components/dialog-box/DialogBox";
 import EmotionContainer from "../../components/emotion-container/EmotionContainer";
 import Face from "../../components/face/Face";
@@ -6,23 +6,38 @@ import FaceContainer from "../../components/face/FaceContainer";
 import { Emotions } from "../../components/face/constants";
 import ButtonContainer from "./ButtonContainer";
 import EmotionSelectButton from "./EmotionSelectButton";
+import { getEmotionSelectText } from "./use-emotion-select-text";
+import EmotionConfirmButton from "./emotion-confirm-button/EmotionConfirmButton";
 
 export default function EmotionSelectPage() {
-  const [selectedEmotion, setSelectedEmotion] = useState<Emotions>(
-    Emotions.happy
+  const [selectedEmotion, setSelectedEmotion] = useState<Emotions>();
+  const emotionText = getEmotionSelectText({ emotion: selectedEmotion });
+
+  const updateEmotion = useCallback(
+    (emotion: Emotions) => {
+      if (emotion === selectedEmotion) {
+        return setSelectedEmotion(undefined);
+      }
+      return setSelectedEmotion(emotion);
+    },
+    [selectedEmotion]
   );
+
   return (
-    <EmotionContainer emotion={selectedEmotion}>
-      <DialogBox text={"Hi Aris, how are you feeling today?"} />
+    <EmotionContainer emotion={selectedEmotion ?? Emotions.happy}>
+      <DialogBox
+        text={emotionText}
+        emotion={selectedEmotion ?? Emotions.happy}
+      />
 
       <FaceContainer>
-        <Face emotion={selectedEmotion} />
+        <Face emotion={selectedEmotion ?? Emotions.happy} />
       </FaceContainer>
-
+      <EmotionConfirmButton emotion={selectedEmotion} />
       <ButtonContainer>
         <EmotionSelectButton
           onClick={() => {
-            setSelectedEmotion(Emotions.happy);
+            updateEmotion(Emotions.happy);
           }}
           className="green"
           selected={selectedEmotion === Emotions.happy}
@@ -31,7 +46,7 @@ export default function EmotionSelectPage() {
         </EmotionSelectButton>
         <EmotionSelectButton
           onClick={() => {
-            setSelectedEmotion(Emotions.angry);
+            updateEmotion(Emotions.angry);
           }}
           className="red"
           selected={selectedEmotion === Emotions.angry}
@@ -40,7 +55,7 @@ export default function EmotionSelectPage() {
         </EmotionSelectButton>
         <EmotionSelectButton
           onClick={() => {
-            setSelectedEmotion(Emotions.sad);
+            updateEmotion(Emotions.sad);
           }}
           className="blue"
           selected={selectedEmotion === Emotions.sad}
@@ -49,7 +64,7 @@ export default function EmotionSelectPage() {
         </EmotionSelectButton>
         <EmotionSelectButton
           onClick={() => {
-            setSelectedEmotion(Emotions.anxious);
+            updateEmotion(Emotions.anxious);
           }}
           className="yellow"
           selected={selectedEmotion === Emotions.anxious}

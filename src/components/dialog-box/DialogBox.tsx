@@ -1,4 +1,20 @@
+import { motion } from "framer-motion";
+import { Emotions } from "../face/constants";
 import "./dialog-box.scss";
-export default function DialogBox({ text }: { text?: string }) {
-  return <div className="dialog-box">{text}</div>;
+import { emotionBackgroundMap } from "../constants";
+export default function DialogBox({
+  text,
+  emotion,
+}: {
+  text?: string;
+  emotion: Emotions;
+}) {
+  return (
+    <motion.div
+      animate={{ background: emotionBackgroundMap[emotion] }}
+      className="dialog-box"
+    >
+      {text}
+    </motion.div>
+  );
 }

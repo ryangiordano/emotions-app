@@ -2,8 +2,7 @@
   background: linear-gradient(to bottom, #00b3e6, #00e67b);
   border: 4px solid white;
   padding: 1rem;
-  word-break: break-all;
-  margin: 1rem;
+  word-break: break-word;
   border-radius: 1rem;
   box-shadow: 0px 5px 0px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -11,5 +10,6 @@
   max-height: 4rem;
   overflow: hidden;
   color: white;
+  font-size: 1.3rem;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }

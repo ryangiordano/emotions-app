@@ -1,3 +1,4 @@
+import useButtonHold from "../../utils/use-button-hold";
 import "./emotion-select.scss";
 export default function EmotionSelectButton({
   onClick,
@@ -10,9 +11,11 @@ export default function EmotionSelectButton({
   selected?: boolean;
 } & React.HTMLAttributes<HTMLButtonElement>) {
   const { className } = rest;
+
   return (
     <button
       className={[
+        "button",
         "emotion-select-button",
         className,
         selected ? "selected" : "",
