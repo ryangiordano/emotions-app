@@ -8,6 +8,7 @@ import ButtonContainer from "./ButtonContainer";
 import EmotionSelectButton from "./EmotionSelectButton";
 import { getEmotionSelectText } from "./use-emotion-select-text";
 import EmotionConfirmButton from "./emotion-confirm-button/EmotionConfirmButton";
+import { Link } from "react-router-dom";
 
 export default function EmotionSelectPage() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotions>();
@@ -33,7 +34,9 @@ export default function EmotionSelectPage() {
       <FaceContainer>
         <Face emotion={selectedEmotion ?? Emotions.happy} />
       </FaceContainer>
-      <EmotionConfirmButton emotion={selectedEmotion} />
+      <Link to={`confirm/${selectedEmotion}`}>
+        <EmotionConfirmButton emotion={selectedEmotion} />
+      </Link>
       <ButtonContainer>
         <EmotionSelectButton
           onClick={() => {

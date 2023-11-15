@@ -10,7 +10,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<EmotionSelectPage />} />
-        <Route path="/confirm" element={<EmotionConfirmPage />} />
+        <Route path="/confirm/:emotion" element={<EmotionConfirmPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
