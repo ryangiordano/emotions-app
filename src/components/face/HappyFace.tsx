@@ -3,6 +3,7 @@ import { eyeBlink } from "./animations/eye-blink";
 import { happyTalk } from "./animations/talk";
 import { hover } from "./animations/hover";
 import { transitionInUp } from "./animations/transition";
+import "./face-container.scss";
 
 export default function HappyFace({
   talkDuration,
