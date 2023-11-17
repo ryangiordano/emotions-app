@@ -1,24 +1,12 @@
-.button-container {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 5px;
-}
-
 .emotion-select-button {
   padding: 3rem 1rem;
-  &.green {
-    background: #00e67b;
-  }
-  &.red {
-    background: #ff4d4d;
-  }
-  &.blue {
-    background: #00b3e6;
-  }
-  &.yellow {
-    background: #ffff4d;
-  }
+
   &.selected {
     box-shadow: 0 0 0 4px #fff inset, 0px 4px 0px rgba(0, 0, 0, 0.25);
   }
 }
+
+.emotion-select-thumb {
+  box-shadow: 0 0 0 4px #fff inset, 0px 4px 0px rgba(0, 0, 0, 0.25);
+}
+

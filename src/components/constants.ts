@@ -13,3 +13,17 @@ export const emotionToTextMap = {
   [Emotions.sad]: "Sad",
   [Emotions.anxious]: "Anxious",
 };
+
+export const emotionColorMap = {
+  [Emotions.happy]: "green",
+  [Emotions.angry]: "red",
+  [Emotions.sad]: "blue",
+  [Emotions.anxious]: "yellow",
+};
+
+export const emotionIconMap = {
+  [Emotions.happy]: "😀",
+  [Emotions.angry]: "😡",
+  [Emotions.sad]: "😢",
+  [Emotions.anxious]: "🤪",
+};

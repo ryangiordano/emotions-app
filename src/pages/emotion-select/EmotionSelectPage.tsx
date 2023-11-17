@@ -9,16 +9,19 @@ import EmotionSelectButton from "./EmotionSelectButton";
 import { getEmotionSelectText } from "./use-emotion-select-text";
 import EmotionConfirmButton from "./emotion-confirm-button/EmotionConfirmButton";
 import { Link } from "react-router-dom";
+import ReactSlider from "react-slider";
+import { emotionColorMap, emotionIconMap } from "../../components/constants";
+import EmotionSlider from "./emotion-slider/EmotionSlider";
 
 export default function EmotionSelectPage() {
-  const [selectedEmotion, setSelectedEmotion] = useState<Emotions>();
+  const [selectedEmotion, setSelectedEmotion] = useState<Emotions>(
+    Emotions.happy
+  );
   const emotionText = getEmotionSelectText({ emotion: selectedEmotion });
+  const [emotionSlider, setEmotionSlider] = useState<number>(0);
 
   const updateEmotion = useCallback(
     (emotion: Emotions) => {
-      if (emotion === selectedEmotion) {
-        return setSelectedEmotion(undefined);
-      }
       return setSelectedEmotion(emotion);
     },
     [selectedEmotion]
@@ -34,46 +37,17 @@ export default function EmotionSelectPage() {
       <FaceContainer>
         <Face emotion={selectedEmotion ?? Emotions.happy} />
       </FaceContainer>
-      <Link to={`confirm/${selectedEmotion}`}>
-        <EmotionConfirmButton emotion={selectedEmotion} />
-      </Link>
+
       <ButtonContainer>
-        <EmotionSelectButton
-          onClick={() => {
-            updateEmotion(Emotions.happy);
-          }}
-          className="green"
-          selected={selectedEmotion === Emotions.happy}
-        >
-          😀
-        </EmotionSelectButton>
-        <EmotionSelectButton
-          onClick={() => {
-            updateEmotion(Emotions.angry);
-          }}
-          className="red"
-          selected={selectedEmotion === Emotions.angry}
-        >
-          😡
-        </EmotionSelectButton>
-        <EmotionSelectButton
-          onClick={() => {
-            updateEmotion(Emotions.sad);
-          }}
-          className="blue"
-          selected={selectedEmotion === Emotions.sad}
-        >
-          😢
-        </EmotionSelectButton>
-        <EmotionSelectButton
-          onClick={() => {
-            updateEmotion(Emotions.anxious);
-          }}
-          className="yellow"
-          selected={selectedEmotion === Emotions.anxious}
-        >
-          🤪
-        </EmotionSelectButton>
+        <Link to={`confirm/${selectedEmotion}`}>
+          <EmotionConfirmButton emotion={selectedEmotion} />
+        </Link>
+        <EmotionSlider
+          sliderValue={emotionSlider}
+          setEmotionSliderValue={setEmotionSlider}
+          selectedEmotion={selectedEmotion}
+          updateEmotion={updateEmotion}
+        />
       </ButtonContainer>
     </EmotionContainer>
   );

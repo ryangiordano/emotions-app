@@ -3,10 +3,12 @@ import { Emotions } from "../../components/face/constants";
 const defaultEmotionText = "Hi Aris, how are you feeling?";
 
 export const emotionSelectText = {
-  [Emotions.happy]: "You seem like you're feeling happy!",
-  [Emotions.sad]: "Oooh, I'm sorry you're feeling sad.",
-  [Emotions.angry]: "You seem like you're feeling REALLY angry.",
-  [Emotions.anxious]: "Oh, are we feeling a little weird?",
+  [Emotions.happy]: "You seem like you're feeling happy! That's wonderful!",
+  [Emotions.sad]:
+    "Oooh no, you're feeling sad. That's got to be really tough...",
+  [Emotions.angry]:
+    "You seem like you're feeling REALLY angry. Are you having some big emotions?",
+  [Emotions.anxious]: "Oh, are we feeling a little weird and silly? That's ok!",
 };
 
 export function getEmotionSelectText({ emotion }: { emotion?: Emotions }) {
