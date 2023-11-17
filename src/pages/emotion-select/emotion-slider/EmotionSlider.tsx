@@ -24,13 +24,12 @@ export default function EmotionSlider({
 }: {
   sliderValue: number;
   setEmotionSliderValue: (value: number) => void;
-  selectedEmotion: Emotions;
+  selectedEmotion?: Emotions;
   updateEmotion: (emotion: Emotions) => void;
 }) {
   return (
     <ReactSlider
       className="horizontal-slider"
-      // marks
       withTracks
       value={sliderValue}
       markClassName="emotion-mark"
@@ -40,9 +39,11 @@ export default function EmotionSlider({
       thumbClassName="emotion-thumb"
       trackClassName="emotion-track"
       onChange={(value: number) => {
+        console.log(value);
         setEmotionSliderValue(value);
         const emotion = getEmotionFromSlider(value);
-        if (emotion !== selectedEmotion) {
+
+        if (selectedEmotion === undefined || emotion !== selectedEmotion) {
           updateEmotion(getEmotionFromSlider(value));
         }
       }}

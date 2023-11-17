@@ -1,6 +1,6 @@
 import { Emotions } from "../../components/face/constants";
 
-const defaultEmotionText = "Hi Aris, how are you feeling?";
+const defaultEmotionText = "Hi, how are you feeling?";
 
 export const emotionSelectText = {
   [Emotions.happy]: "You seem like you're feeling happy! That's wonderful!",

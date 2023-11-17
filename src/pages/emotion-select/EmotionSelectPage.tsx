@@ -5,18 +5,13 @@ import Face from "../../components/face/Face";
 import FaceContainer from "../../components/face/FaceContainer";
 import { Emotions } from "../../components/face/constants";
 import ButtonContainer from "./ButtonContainer";
-import EmotionSelectButton from "./EmotionSelectButton";
 import { getEmotionSelectText } from "./use-emotion-select-text";
 import EmotionConfirmButton from "./emotion-confirm-button/EmotionConfirmButton";
 import { Link } from "react-router-dom";
-import ReactSlider from "react-slider";
-import { emotionColorMap, emotionIconMap } from "../../components/constants";
 import EmotionSlider from "./emotion-slider/EmotionSlider";
 
 export default function EmotionSelectPage() {
-  const [selectedEmotion, setSelectedEmotion] = useState<Emotions>(
-    Emotions.happy
-  );
+  const [selectedEmotion, setSelectedEmotion] = useState<Emotions>();
   const emotionText = getEmotionSelectText({ emotion: selectedEmotion });
   const [emotionSlider, setEmotionSlider] = useState<number>(0);
 
