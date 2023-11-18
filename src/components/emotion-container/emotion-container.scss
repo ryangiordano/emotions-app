@@ -2,6 +2,7 @@
   background: linear-gradient(to bottom, #00b3e6, #00e67b);
   height: 100%;
   display: grid;
+  grid-template-rows: .5fr 3fr;
   padding: 10px;
   box-sizing: border-box;
   position: relative;
