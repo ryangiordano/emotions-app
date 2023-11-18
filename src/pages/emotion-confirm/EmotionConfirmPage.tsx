@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import FaceContainer from "../../components/face/FaceContainer";
+import FaceContainer from "../emotion-select/FaceContainer";
 import ConfirmationContainer from "./ConfirmationContainer";
 import EmotionContainer from "../../components/emotion-container/EmotionContainer";
 import { Emotions } from "../../components/face/constants";
@@ -33,9 +33,19 @@ export default function EmotionConfirmPage() {
         text={getConfirmationText({ emotion: emotion as Emotions })}
         emotion={emotion as Emotions}
       />
-      <FaceContainer>
-        <Face emotion={emotion as Emotions} />
-      </FaceContainer>
+      <div
+        style={{
+          height: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <FaceContainer>
+          <Face emotion={emotion as Emotions} />
+        </FaceContainer>
+      </div>
+
       <ButtonContainer>
         <Link to={`/`}>
           <AnimatedButton

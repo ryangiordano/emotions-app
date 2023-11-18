@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import DialogBox from "../../components/dialog-box/DialogBox";
 import EmotionContainer from "../../components/emotion-container/EmotionContainer";
 import Face from "../../components/face/Face";
-import FaceContainer from "../../components/face/FaceContainer";
+import FaceContainer from "./FaceContainer";
 import { Emotions } from "../../components/face/constants";
 import ButtonContainer from "./ButtonContainer";
 import { getEmotionSelectText } from "./use-emotion-select-text";
