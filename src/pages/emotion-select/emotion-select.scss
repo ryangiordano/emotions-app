@@ -1,5 +1,5 @@
 .emotion-select-button {
-  padding: 3rem 1rem;
+  padding: 1rem 1rem;
   &.selected {
     box-shadow: 0 0 0 4px #fff inset, 0px 4px 0px rgba(0, 0, 0, 0.25);
   }
@@ -9,12 +9,59 @@
   box-shadow: 0 0 0 4px #fff inset, 0px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-.button-container {
-  position: absolute;
-  bottom: 10%;
-  width: 80%;
+.emotion-confirm-container {
+  width: 100%;
   padding: 3rem 1rem;
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
+
+  &.slider {
+    bottom: 10%;
+    position: absolute;
+  }
+  &.buttons {
+    bottom: 0%;
+    position: absolute;
+  }
+  > div {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.inner-emotion-confirm-container {
+  //need a grid setup with two items on each row
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Mobile Portrait */
+@media only screen and (max-width: 480px) {
+}
+
+/* Mobile Landscape and Small Tablets */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+}
+
+/* Tablets */
+@media only screen and (min-width: 768px) {
+  .emotion-confirm-container {
+    > div {
+      width: 50%;
+    }
+    .inner-emotion-confirm-container {
+      width: 50%;
+    }
+  }
+}
+
+/* Laptops and Desktops */
+@media only screen and (min-width: 1025px) and (max-width: 1280px) {
+}
+
+/* Large Screens */
+@media only screen and (min-width: 1281px) {
 }

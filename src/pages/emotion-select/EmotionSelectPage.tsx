@@ -9,12 +9,16 @@ import { getEmotionSelectText } from "./use-emotion-select-text";
 import EmotionConfirmButton from "./emotion-confirm-button/EmotionConfirmButton";
 import { Link } from "react-router-dom";
 import EmotionSlider from "./emotion-slider/EmotionSlider";
+import EmotionSelectButton from "./EmotionSelectButton";
+import { InputType } from "../../components/constants";
+import InputSwitchButton from "./InputSwitchButton";
 
 export default function EmotionSelectPage() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotions>();
   const emotionText = getEmotionSelectText({ emotion: selectedEmotion });
   const [emotionSlider, setEmotionSlider] = useState<number>(0);
 
+  const [inputType, setInputType] = useState<InputType>(InputType.slider);
   const updateEmotion = useCallback(
     (emotion: Emotions) => {
       return setSelectedEmotion(emotion);
@@ -33,17 +37,67 @@ export default function EmotionSelectPage() {
         <Face emotion={selectedEmotion ?? Emotions.happy} />
       </FaceContainer>
 
-      <ButtonContainer>
-        <Link to={`confirm/${selectedEmotion}`}>
-          <EmotionConfirmButton emotion={selectedEmotion} />
-        </Link>
-        <EmotionSlider
-          sliderValue={emotionSlider}
-          setEmotionSliderValue={setEmotionSlider}
-          selectedEmotion={selectedEmotion}
-          updateEmotion={updateEmotion}
-        />
-      </ButtonContainer>
+      {inputType === InputType.buttons && (
+        <div className="emotion-confirm-container buttons">
+          <Link to={`confirm/${selectedEmotion}`}>
+            <EmotionConfirmButton emotion={selectedEmotion} />
+          </Link>
+          <div className="inner-emotion-confirm-container">
+            <EmotionSelectButton
+              onClick={() => {
+                updateEmotion(Emotions.happy);
+              }}
+              className="green"
+              selected={selectedEmotion === Emotions.happy}
+            >
+              😀
+            </EmotionSelectButton>
+            <EmotionSelectButton
+              onClick={() => {
+                updateEmotion(Emotions.angry);
+              }}
+              className="red"
+              selected={selectedEmotion === Emotions.angry}
+            >
+              😡
+            </EmotionSelectButton>
+            <EmotionSelectButton
+              onClick={() => {
+                updateEmotion(Emotions.sad);
+              }}
+              className="blue"
+              selected={selectedEmotion === Emotions.sad}
+            >
+              😢
+            </EmotionSelectButton>
+            <EmotionSelectButton
+              onClick={() => {
+                updateEmotion(Emotions.anxious);
+              }}
+              className="yellow"
+              selected={selectedEmotion === Emotions.anxious}
+            >
+              🤪
+            </EmotionSelectButton>
+          </div>
+        </div>
+      )}
+      {inputType === InputType.slider && (
+        <div className="emotion-confirm-container slider">
+          <div>
+            <Link to={`confirm/${selectedEmotion}`}>
+              <EmotionConfirmButton emotion={selectedEmotion} />
+            </Link>
+            <EmotionSlider
+              sliderValue={emotionSlider}
+              setEmotionSliderValue={setEmotionSlider}
+              selectedEmotion={selectedEmotion}
+              updateEmotion={updateEmotion}
+            />
+          </div>
+        </div>
+      )}
+      <InputSwitchButton inputType={inputType} setInputType={setInputType} />
     </EmotionContainer>
   );
 }

@@ -11,7 +11,7 @@ export default function DialogBox({
 }) {
   return (
     <div style={{ position: "relative", width: "100%" }}>
-      <div style={{ position: "absolute", width: "100%" }}>
+      <div style={{ position: "absolute", width: "100%", display: "flex" }}>
         <motion.div
           animate={{ background: emotionBackgroundMap[emotion] }}
           className="dialog-box"

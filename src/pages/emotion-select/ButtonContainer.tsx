@@ -5,5 +5,9 @@ export default function ButtonContainer({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="button-container">{children}</div>;
+  return (
+    <div className="button-container">
+      <div>{children}</div>
+    </div>
+  );
 }

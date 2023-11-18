@@ -7,6 +7,7 @@ import DialogBox from "../../components/dialog-box/DialogBox";
 import Face from "../../components/face/Face";
 import AnimatedButton from "../../components/buttons/AnimatedButton";
 import { emotionBackgroundMap } from "../../components/constants";
+import ButtonContainer from "../emotion-select/ButtonContainer";
 
 function getConfirmationText({ emotion }: { emotion: Emotions }) {
   switch (emotion) {
@@ -35,11 +36,15 @@ export default function EmotionConfirmPage() {
       <FaceContainer>
         <Face emotion={emotion as Emotions} />
       </FaceContainer>
-      <Link to={`/`}>
-        <AnimatedButton background={emotionBackgroundMap[emotion as Emotions]}>
-          Nevermind, go back.
-        </AnimatedButton>
-      </Link>
+      <ButtonContainer>
+        <Link to={`/`}>
+          <AnimatedButton
+            background={emotionBackgroundMap[emotion as Emotions]}
+          >
+            Nevermind, go back.
+          </AnimatedButton>
+        </Link>
+      </ButtonContainer>
       <ConfirmationContainer />
     </EmotionContainer>
   );

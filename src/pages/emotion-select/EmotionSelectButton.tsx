@@ -1,4 +1,3 @@
-import useButtonHold from "../../utils/use-button-hold";
 import "./emotion-select.scss";
 export default function EmotionSelectButton({
   onClick,

@@ -27,3 +27,8 @@ export const emotionIconMap = {
   [Emotions.sad]: "😢",
   [Emotions.anxious]: "🤪",
 };
+
+export enum InputType {
+  slider,
+  buttons,
+}
