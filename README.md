@@ -3,7 +3,7 @@ Emotion App
 </h1>
 
 <p align="center">
-  <img src="https://darumadevdiaryhome.files.wordpress.com/2023/11/emotion-app.gif?w=385" />
+  <img src="./public/emotion-app.gif" />
 </p>
 
 ## Development
