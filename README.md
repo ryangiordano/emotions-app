@@ -2,6 +2,10 @@
 Emotion App
 </h1>
 
+<p align="center">
+  <img src="./public/emotion-app.gif" />
+</p>
+
 ## Development
 
 The following terminal commands are from _[Vite.js command line interface](https://vitejs.dev/guide/#command-line-interface)_. Also check the _[package.json](https://github.com/MengLinMaker/PWA-Vite-React-Boilerplate/blob/main/package.json)_ file "scripts" section for all command line scripts.
