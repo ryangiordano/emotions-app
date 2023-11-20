@@ -1,0 +1,34 @@
+.fireball {
+  animation: opacity 1s ease-in-out infinite alternate,
+    translate 1s ease-in-out infinite alternate;
+  position: fixed;
+  z-index: 100;
+}
+
+.small-fire {
+  border-radius: 50%;
+  background-color: #fff;
+  height: 100px;
+  width: 100px;
+  z-index: 100;
+  position: fixed;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+
+// generate keytsframes for both scaling and translating
+@keyframes translate {
+  0% {
+    transform: scaleY(1.3) scaleX(0.4) translate(0, 0);
+  }
+  100% {
+    transform: scaleY(1.1) scaleX(1) translate(0, 100px);
+  }
+}

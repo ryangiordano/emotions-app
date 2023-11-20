@@ -39,7 +39,6 @@ export default function EmotionSlider({
       thumbClassName="emotion-thumb"
       trackClassName="emotion-track"
       onChange={(value: number) => {
-        console.log(value);
         setEmotionSliderValue(value);
         const emotion = getEmotionFromSlider(value);
 

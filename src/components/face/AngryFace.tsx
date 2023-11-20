@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { eyeBlink } from "./animations/eye-blink";
-import { hover } from "./animations/hover";
+import { hover, shake } from "./animations/idle";
 import { transitionInUp } from "./animations/transition";
 import "./face.scss";
 
@@ -10,7 +10,7 @@ export default function AngryFace() {
     const body = document.querySelectorAll("#angry-face> *");
     const face = document.querySelectorAll(".face");
     transitionInUp(body, () => {
-      hover(face);
+      shake(face);
       eyeBlink(eye);
     });
   }, []);

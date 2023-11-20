@@ -4,7 +4,6 @@ import EmotionContainer from "../../components/emotion-container/EmotionContaine
 import Face from "../../components/face/Face";
 import FaceContainer from "./FaceContainer";
 import { Emotions } from "../../components/face/constants";
-import ButtonContainer from "./ButtonContainer";
 import { getEmotionSelectText } from "./use-emotion-select-text";
 import EmotionConfirmButton from "./emotion-confirm-button/EmotionConfirmButton";
 import { Link } from "react-router-dom";

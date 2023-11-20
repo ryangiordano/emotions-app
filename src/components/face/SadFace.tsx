@@ -1,17 +1,39 @@
 import { useEffect } from "react";
 import { eyeBlink } from "./animations/eye-blink";
-import { hover } from "./animations/hover";
+import { sniffle } from "./animations/idle";
 import { transitionInUp } from "./animations/transition";
 import "./face.scss";
+import anime from "animejs";
+
+export function pout(body: NodeListOf<Element> | Element) {
+  const tl = anime.timeline({
+    easing: "easeInOutSine",
+    loop: true,
+  });
+  tl.add({
+    targets: body,
+    translateY: [0, 15],
+    duration: 100,
+    easing: "easeInOutSine",
+  });
+  tl.add({
+    targets: body,
+    translateY: [15, 0],
+    duration: 1000,
+    easing: "easeInOutSine",
+  });
+}
 
 export default function SadFace() {
   useEffect(() => {
     const eye = document.querySelectorAll(".eye");
     const body = document.querySelectorAll("#sad-face> *");
     const face = document.querySelectorAll(".face");
+    const mouth = document.querySelectorAll(".mouth");
     transitionInUp(body, () => {
-      hover(face);
+      sniffle(face);
       eyeBlink(eye);
+      pout(mouth);
     });
   }, []);
   return (
@@ -69,6 +91,7 @@ export default function SadFace() {
         stroke="white"
         strokeWidth="4"
         strokeLinejoin="round"
+        className="mouth"
       />
       <path
         d="M267.563 91.7251C266.629 96.4095 283.435 103.707 305.101 108.025C326.766 112.342 345.086 112.045 346.02 107.361"

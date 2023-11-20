@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { eyeBlink } from "./animations/eye-blink";
 import { happyTalk } from "./animations/talk";
-import { hover } from "./animations/hover";
+import { hover } from "./animations/idle";
 import { transitionInUp } from "./animations/transition";
 import "./face.scss";
 

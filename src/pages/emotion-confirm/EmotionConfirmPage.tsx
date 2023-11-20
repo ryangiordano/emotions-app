@@ -46,15 +46,28 @@ export default function EmotionConfirmPage() {
         </FaceContainer>
       </div>
 
-      <ButtonContainer>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "10px",
+        }}
+      >
         <Link to={`/`}>
           <AnimatedButton
             background={emotionBackgroundMap[emotion as Emotions]}
           >
-            Nevermind, go back.
+            ◀
           </AnimatedButton>
         </Link>
-      </ButtonContainer>
+        <Link to={`/activity/${emotion}`}>
+          <AnimatedButton
+            background={emotionBackgroundMap[emotion as Emotions]}
+          >
+            Activity
+          </AnimatedButton>
+        </Link>
+      </div>
       <ConfirmationContainer />
     </EmotionContainer>
   );
