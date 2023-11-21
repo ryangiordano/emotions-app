@@ -5,10 +5,12 @@ export default function AnimatedButton({
   children,
   className,
   background,
+  onClick,
 }: {
   children: React.ReactNode;
   className?: string;
   background?: string;
+  onClick?: () => void;
 }) {
   return (
     <motion.button
@@ -26,6 +28,7 @@ export default function AnimatedButton({
         damping: 25,
       }}
       className={["button", "animated-button", className].join(" ")}
+      onClick={onClick}
     >
       {children}
     </motion.button>

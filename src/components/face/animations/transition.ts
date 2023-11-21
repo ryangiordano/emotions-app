@@ -8,13 +8,11 @@ export function transitionInUp(
   anime({
     targets: elements,
     opacity: [0, 1],
-    translateY: [getRandomBetween(-100, 100), 0],
-    scaleX: [0, 1],
     duration: 500,
     easing: "easeInOutBack",
     loop: false,
     direction: "alternate",
-    delay: anime.stagger(25), // increase delay by 100ms for each elements.
+    delay: anime.stagger(50),
     complete: onComplete,
   });
 }

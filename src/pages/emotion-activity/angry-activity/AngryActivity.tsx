@@ -96,13 +96,15 @@ function getTextByScore(score: number) {
     return "You're doing great! Keep going!";
   } else if (score < 9) {
     return "I'm starting to feel much better!";
+  } else if (score === 9) {
+    return "Almost done!";
   }
-  return "Almost done!";
+  return "I'm feeling much better, thank you.";
 }
 
 export default function AngryActivity() {
   const fires = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const navigate = useNavigate();
+  const [gameOver, setGameOver] = useState(false);
   const [text, setText] = useState("Tap the flames to cool us down");
   const score = useRef(0);
 
@@ -111,19 +113,23 @@ export default function AngryActivity() {
     setText(getTextByScore(score.current) ?? "");
     if (score.current >= fires.length) {
       setTimeout(() => {
-        navigate("/");
-      }, 3000);
+        setGameOver(true);
+      }, 1000);
     }
   };
 
-  const renderFires = fires.map((key) => (
-    <FloatingFire key={key} onClick={removeFire} />
-  ));
+  const renderFires = useMemo(() => {
+    if (gameOver) {
+      return [];
+    }
+    return fires.map((key) => <FloatingFire key={key} onClick={removeFire} />);
+  }, [gameOver]);
+  const emotion = gameOver ? Emotions.happy : Emotions.angry;
 
   return (
-    <EmotionContainer emotion={Emotions.angry}>
+    <EmotionContainer emotion={emotion}>
       {renderFires}
-      <DialogBox text={text} emotion={Emotions.angry} />
+      <DialogBox text={text} emotion={emotion} />
       <div
         style={{
           height: "100%",
@@ -133,7 +139,7 @@ export default function AngryActivity() {
         }}
       >
         <FaceContainer>
-          <Face emotion={Emotions.angry} />
+          <Face emotion={emotion} />
         </FaceContainer>
       </div>
 
@@ -144,11 +150,22 @@ export default function AngryActivity() {
           gap: "10px",
         }}
       >
-        <Link to={`/confirm/angry`}>
-          <AnimatedButton background={emotionBackgroundMap[Emotions.angry]}>
+        <Link to={`/`}>
+          <AnimatedButton background={emotionBackgroundMap[emotion]}>
             ◀
           </AnimatedButton>
         </Link>
+        {gameOver && (
+          <AnimatedButton
+            onClick={() => {
+              setGameOver(false);
+              score.current = 0;
+            }}
+            background={emotionBackgroundMap[emotion]}
+          >
+            I'm still angry.
+          </AnimatedButton>
+        )}
       </div>
       <ConfirmationContainer />
     </EmotionContainer>
