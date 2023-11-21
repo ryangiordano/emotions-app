@@ -1,0 +1,22 @@
+.tear {
+  //animate the tear sort of slowly  pulsing
+  animation: tear 2s ease-in-out infinite alternate;
+}
+
+.small-tear {
+  border-radius: 50%;
+  background-color: #fff;
+  height: 100px;
+  width: 100px;
+  z-index: 100;
+  position: fixed;
+}
+
+@keyframes tear {
+  0% {
+    transform: scaleY(1) scaleX(1) translate(0, 0);
+  }
+  100% {
+    transform: scaleY(1.2) scaleX(0.7) translate(0, 50px);
+  }
+}

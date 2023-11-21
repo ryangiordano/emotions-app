@@ -1,6 +1,15 @@
-export default function Teardrop() {
+import { forwardRef } from "react";
+
+const Teardrop = forwardRef<SVGSVGElement, any>((props, ref) => {
   return (
-    <svg width="160" height="160" viewBox="0 0 160 160" fill="none">
+    <svg
+      width="160"
+      height="160"
+      viewBox="0 0 160 160"
+      fill="none"
+      {...props}
+      ref={ref}
+    >
       <circle
         cx="80"
         cy="80"
@@ -59,4 +68,6 @@ export default function Teardrop() {
       </defs>
     </svg>
   );
-}
+});
+
+export default Teardrop;

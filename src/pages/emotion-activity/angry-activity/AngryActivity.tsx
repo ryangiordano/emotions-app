@@ -8,42 +8,10 @@ import { Emotions } from "../../../components/face/constants";
 import ConfirmationContainer from "../../emotion-confirm/ConfirmationContainer";
 import FaceContainer from "../../emotion-select/FaceContainer";
 import Fireball from "../../../components/face/assets/Fireball";
-import anime from "animejs";
 import { memo, useMemo, useRef, useState } from "react";
 import "./angry-activity.scss";
 import { getRandomBetween } from "../../../utils/random";
-
-function randomBetweenTwoInts(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
-function disperse(element?: SVGSVGElement) {
-  for (let i = 0; i < 15; i++) {
-    const fire = document.createElement("div");
-    fire.classList.add("small-fire");
-    fire.setAttribute(
-      "style",
-      `
-      bottom: ${element?.style.bottom};
-      left: ${element?.style.left};
-      pointer-events: none;
-      `
-    );
-    document.body.appendChild(fire);
-    anime({
-      targets: fire,
-      translateX: getRandomBetween(-400, 400),
-      translateY: getRandomBetween(-400, 400),
-      scale: [1, 0],
-      opacity: [1, 0],
-      duration: randomBetweenTwoInts(1000, 2000),
-      easing: "easeOutQuad",
-      complete: () => {
-        fire.remove();
-      },
-    });
-  }
-}
+import disperse from "../../../components/face/animations/disperse";
 
 const FloatingFire = memo(
   ({ onClick }: { key: number; onClick?: () => void }) => {
@@ -51,20 +19,20 @@ const FloatingFire = memo(
     const ref = useRef<any>(null);
 
     const bottom = useMemo(() => {
-      return randomBetweenTwoInts(
+      return getRandomBetween(
         0,
         document.body.clientHeight - document.body.clientHeight * 0.1
       );
     }, []);
 
     const left = useMemo(() => {
-      return randomBetweenTwoInts(
+      return getRandomBetween(
         -document.body.clientWidth * 0.15,
         document.body.clientWidth - document.body.clientWidth * 0.25
       );
     }, []);
     const animationDuration = useMemo(() => {
-      return `${randomBetweenTwoInts(250, 500)}ms`;
+      return `${getRandomBetween(250, 500)}ms`;
     }, []);
 
     if (!visible) {
