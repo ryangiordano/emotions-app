@@ -16,6 +16,7 @@ import wave from "../../../components/face/animations/wave";
 import disperse from "../../../components/face/animations/disperse";
 
 const SadTears = memo(({ onClick }: { key: number; onClick?: () => void }) => {
+  const id = useRef(Math.random() * 1000);
   const hp = useRef(3);
   const [visible, setVisible] = useState(true);
   const ref = useRef<any>(null);
@@ -52,6 +53,7 @@ const SadTears = memo(({ onClick }: { key: number; onClick?: () => void }) => {
       }}
     >
       <Teardrop
+        id={id.current}
         ref={ref}
         onClick={async () => {
           wave(wrapperRef.current ?? undefined);

@@ -1,39 +1,39 @@
 import { forwardRef } from "react";
 
-const Teardrop = forwardRef<SVGSVGElement, any>((props, ref) => {
+const Teardrop = forwardRef<SVGSVGElement, any>(({ id, ...rest }, ref) => {
   return (
     <svg
       width="160"
       height="160"
       viewBox="0 0 160 160"
       fill="none"
-      {...props}
+      {...rest}
       ref={ref}
     >
       <circle
         cx="80"
         cy="80"
         r="80"
-        fill="url(#paint0_radial_348_49)"
+        fill={`url(#${id}-1)`}
         className="large-circle"
       />
       <circle
         cx="80.0001"
         cy="80"
         r="55.8491"
-        fill="url(#paint1_radial_348_49)"
+        fill={`url(#${id}-2)`}
         className="mid-circle"
       />
       <circle
         cx="110.189"
         cy="49.8113"
         r="24.6541"
-        fill="url(#paint2_radial_348_49)"
+        fill={`url(#${id}-3)`}
         className="small-circle"
       />
       <defs>
         <radialGradient
-          id="paint0_radial_348_49"
+          id={`${id}-1`}
           cx="0"
           cy="0"
           r="1"
@@ -44,7 +44,7 @@ const Teardrop = forwardRef<SVGSVGElement, any>((props, ref) => {
           <stop offset="1" stop-color="white" stop-opacity="0.08" />
         </radialGradient>
         <radialGradient
-          id="paint1_radial_348_49"
+          id={`${id}-2`}
           cx="0"
           cy="0"
           r="1"
@@ -55,7 +55,7 @@ const Teardrop = forwardRef<SVGSVGElement, any>((props, ref) => {
           <stop offset="1" stop-color="#C1FEFA" stop-opacity="0.39" />
         </radialGradient>
         <radialGradient
-          id="paint2_radial_348_49"
+          id={`${id}-3`}
           cx="0"
           cy="0"
           r="1"

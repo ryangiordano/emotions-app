@@ -15,6 +15,7 @@ import disperse from "../../../components/face/animations/disperse";
 
 const FloatingFire = memo(
   ({ onClick }: { key: number; onClick?: () => void }) => {
+    const id = useRef(Math.random() * 1000);
     const [visible, setVisible] = useState(true);
     const ref = useRef<any>(null);
 
@@ -40,6 +41,7 @@ const FloatingFire = memo(
     }
     return (
       <Fireball
+        id={id.current}
         ref={ref}
         onClick={() => {
           disperse(ref.current ?? undefined);

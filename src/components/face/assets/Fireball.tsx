@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-const Fireball = forwardRef<SVGSVGElement, any>((props, ref) => {
+const Fireball = forwardRef<SVGSVGElement, any>(({ id, ...rest }, ref) => {
   return (
     <svg
       ref={ref}
@@ -8,32 +8,32 @@ const Fireball = forwardRef<SVGSVGElement, any>((props, ref) => {
       height="160"
       viewBox="0 0 160 160"
       fill="none"
-      {...props}
+      {...rest}
     >
       <circle
         cx="80"
         cy="80"
         r="80"
         className="large-circle"
-        fill="url(#paint0_radial_348_38)"
+        fill={`url(#${id}-1)`}
       />
       <circle
         cx="80.0001"
         cy="80"
         r="55.8491"
         className="mid-circle"
-        fill="url(#paint1_radial_348_38)"
+        fill={`url(#${id}-2)`}
       />
       <circle
         cx="80"
         cy="80"
         r="24.6541"
         className="small-circle"
-        fill="url(#paint2_radial_348_38)"
+        fill={`url(#${id}-3)`}
       />
       <defs>
         <radialGradient
-          id="paint0_radial_348_38"
+          id={`${id}-1`}
           cx="0"
           cy="0"
           r="1"
@@ -44,7 +44,7 @@ const Fireball = forwardRef<SVGSVGElement, any>((props, ref) => {
           <stop offset="1" stop-color="white" stop-opacity="0.08" />
         </radialGradient>
         <radialGradient
-          id="paint1_radial_348_38"
+          id={`${id}-2`}
           cx="0"
           cy="0"
           r="1"
@@ -55,7 +55,7 @@ const Fireball = forwardRef<SVGSVGElement, any>((props, ref) => {
           <stop offset="1" stop-color="#FAF348" stop-opacity="0.39" />
         </radialGradient>
         <radialGradient
-          id="paint2_radial_348_38"
+          id={`${id}-3`}
           cx="0"
           cy="0"
           r="1"
