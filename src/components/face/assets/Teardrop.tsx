@@ -40,8 +40,8 @@ const Teardrop = forwardRef<SVGSVGElement, any>(({ id, ...rest }, ref) => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(80 80) rotate(90) scale(80)"
         >
-          <stop stop-color="#AA8DFD" />
-          <stop offset="1" stop-color="white" stop-opacity="0.08" />
+          <stop stopColor="#AA8DFD" />
+          <stop offset="1" stopColor="white" stopOpacity="0.08" />
         </radialGradient>
         <radialGradient
           id={`${id}-2`}
@@ -51,8 +51,8 @@ const Teardrop = forwardRef<SVGSVGElement, any>(({ id, ...rest }, ref) => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(80.0001 80) rotate(90) scale(55.8491)"
         >
-          <stop stop-color="#95A4DB" />
-          <stop offset="1" stop-color="#C1FEFA" stop-opacity="0.39" />
+          <stop stopColor="#95A4DB" />
+          <stop offset="1" stopColor="#C1FEFA" stopOpacity="0.39" />
         </radialGradient>
         <radialGradient
           id={`${id}-3`}
@@ -62,8 +62,8 @@ const Teardrop = forwardRef<SVGSVGElement, any>(({ id, ...rest }, ref) => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(110.189 49.8113) rotate(90) scale(24.6541)"
         >
-          <stop stop-color="white" />
-          <stop offset="1" stop-color="#ADE3D6" stop-opacity="0" />
+          <stop stopColor="white" />
+          <stop offset="1" stopColor="#ADE3D6" stopOpacity="0" />
         </radialGradient>
       </defs>
     </svg>

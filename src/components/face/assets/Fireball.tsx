@@ -40,8 +40,8 @@ const Fireball = forwardRef<SVGSVGElement, any>(({ id, ...rest }, ref) => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(80 80) rotate(90) scale(80)"
         >
-          <stop stop-color="#FFEA30" />
-          <stop offset="1" stop-color="white" stop-opacity="0.08" />
+          <stop stopColor="#FFEA30" />
+          <stop offset="1" stopColor="white" stopOpacity="0.08" />
         </radialGradient>
         <radialGradient
           id={`${id}-2`}
@@ -51,8 +51,8 @@ const Fireball = forwardRef<SVGSVGElement, any>(({ id, ...rest }, ref) => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(80.0001 80) rotate(90) scale(55.8491)"
         >
-          <stop stop-color="#FF7A30" />
-          <stop offset="1" stop-color="#FAF348" stop-opacity="0.39" />
+          <stop stopColor="#FF7A30" />
+          <stop offset="1" stopColor="#FAF348" stopOpacity="0.39" />
         </radialGradient>
         <radialGradient
           id={`${id}-3`}
@@ -62,9 +62,9 @@ const Fireball = forwardRef<SVGSVGElement, any>(({ id, ...rest }, ref) => {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(80 80) rotate(90) scale(24.6541)"
         >
-          <stop stop-color="white" />
-          <stop offset="0.46875" stop-color="#F49F4F" stop-opacity="0.53125" />
-          <stop offset="1" stop-color="#FFF500" stop-opacity="0" />
+          <stop stopColor="white" />
+          <stop offset="0.46875" stopColor="#F49F4F" stopOpacity="0.53125" />
+          <stop offset="1" stopColor="#FFF500" stopOpacity="0" />
         </radialGradient>
       </defs>
     </svg>
