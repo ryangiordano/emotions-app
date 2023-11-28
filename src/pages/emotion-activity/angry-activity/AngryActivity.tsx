@@ -5,7 +5,6 @@ import DialogBox from "../../../components/dialog-box/DialogBox";
 import EmotionContainer from "../../../components/emotion-container/EmotionContainer";
 import Face from "../../../components/face/Face";
 import { Emotions } from "../../../components/face/constants";
-import ConfirmationContainer from "../../emotion-confirm/ConfirmationContainer";
 import FaceContainer from "../../emotion-select/FaceContainer";
 import Fireball from "../../../components/face/assets/Fireball";
 import { memo, useMemo, useRef, useState } from "react";
@@ -137,7 +136,6 @@ export default function AngryActivity() {
           </AnimatedButton>
         )}
       </div>
-      <ConfirmationContainer />
     </EmotionContainer>
   );
 }
