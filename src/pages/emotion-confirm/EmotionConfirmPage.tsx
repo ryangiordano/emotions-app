@@ -46,13 +46,7 @@ export default function EmotionConfirmPage() {
         </FaceContainer>
       </div>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "10px",
-        }}
-      >
+      <div className="nav-button-container">
         <Link to={`/`}>
           <AnimatedButton
             background={emotionBackgroundMap[emotion as Emotions]}
