@@ -5,6 +5,7 @@ import EmotionSelectPage from "./pages/emotion-select/EmotionSelectPage";
 import EmotionConfirmPage from "./pages/emotion-confirm/EmotionConfirmPage";
 import "./App.scss";
 import EmotionActivityPage from "./pages/emotion-activity/EmotionActivityPage";
+import EmotionJournalPage from "./pages/emotion-journal/EmotionJournalPage";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -13,6 +14,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="/" element={<EmotionSelectPage />} />
         <Route path="/confirm/:emotion" element={<EmotionConfirmPage />} />
         <Route path="/activity/:emotion" element={<EmotionActivityPage />} />
+        <Route path="/journal/:emotion" element={<EmotionJournalPage />} />
         <Route path="*" element={<EmotionSelectPage />} />
       </Routes>
     </BrowserRouter>

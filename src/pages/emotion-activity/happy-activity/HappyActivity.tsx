@@ -5,7 +5,6 @@ import DialogBox from "../../../components/dialog-box/DialogBox";
 import EmotionContainer from "../../../components/emotion-container/EmotionContainer";
 import Face from "../../../components/face/Face";
 import { Emotions } from "../../../components/face/constants";
-import ConfirmationContainer from "../../emotion-confirm/ConfirmationContainer";
 import FaceContainer from "../../emotion-select/FaceContainer";
 import { useMemo, useRef } from "react";
 import HappyCardGrid from "./HappyCardGrid";
@@ -74,7 +73,6 @@ export default function HappyActivity() {
           </AnimatedButton>
         </Link>
       </div>
-      <ConfirmationContainer />
     </EmotionContainer>
   );
 }

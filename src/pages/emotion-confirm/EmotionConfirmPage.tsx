@@ -1,13 +1,11 @@
 import { Link, useParams } from "react-router-dom";
 import FaceContainer from "../emotion-select/FaceContainer";
-import ConfirmationContainer from "./ConfirmationContainer";
 import EmotionContainer from "../../components/emotion-container/EmotionContainer";
 import { Emotions } from "../../components/face/constants";
 import DialogBox from "../../components/dialog-box/DialogBox";
 import Face from "../../components/face/Face";
 import AnimatedButton from "../../components/buttons/AnimatedButton";
 import { emotionBackgroundMap } from "../../components/constants";
-import ButtonContainer from "../emotion-select/ButtonContainer";
 
 function getConfirmationText({ emotion }: { emotion: Emotions }) {
   switch (emotion) {
@@ -54,15 +52,14 @@ export default function EmotionConfirmPage() {
             ◀
           </AnimatedButton>
         </Link>
-        <Link to={`/activity/${emotion}`}>
+        <Link to={`/journal/${emotion}`}>
           <AnimatedButton
             background={emotionBackgroundMap[emotion as Emotions]}
           >
-            Activity
+            Journal
           </AnimatedButton>
         </Link>
       </div>
-      <ConfirmationContainer />
     </EmotionContainer>
   );
 }
