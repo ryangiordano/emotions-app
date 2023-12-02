@@ -5,3 +5,39 @@
   align-items: center;
   flex-direction: column;
 }
+
+.emotion-journal {
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+  &::placeholder {
+    color: white;
+    opacity: 0.8;
+  }
+  border-radius: 0.5rem;
+  padding: 16px;
+  box-sizing: border-box;
+  margin-bottom: 16px;
+  font-size: 2rem;
+  box-shadow: 0 0 0 4px #fff inset, 0px 6px 0px rgba(0, 0, 0, 0.25);
+}
+
+.counter {
+  font-size: 1.5rem;
+  color: white;
+  margin-bottom: 16px;
+  display: flex;
+  width: 100%;
+  font-weight: bold;
+
+  &.over {
+    p {
+      color: #ff4d4d;
+    }
+  }
+  p {
+    margin: 0;
+    margin-left: auto;
+  }
+}
