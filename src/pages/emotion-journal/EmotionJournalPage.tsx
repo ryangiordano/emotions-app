@@ -5,17 +5,34 @@ import AnimatedButton from "../../components/buttons/AnimatedButton";
 import { emotionBackgroundMap } from "../../components/constants";
 import "./emotion-journal.scss";
 import DialogBox from "../../components/dialog-box/DialogBox";
+import { useRef, useEffect } from "react";
 
 export default function EmotionJournalPage() {
   const { emotion } = useParams();
+  const ref = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    console.log("keyboardDidShow")
+    function keyboardDidShow(event: any) {
+      console.log(event.target?.height);
+      if (ref.current) {
+        ref.current.style.height = `-${event.target?.height ?? 0}px)`;
+      }
+    }
 
+    visualViewport?.addEventListener("resize", keyboardDidShow);
+
+    visualViewport?.removeEventListener("resize", keyboardDidShow);
+    if (ref.current) {
+      ref.current.focus();
+    }
+  }, []);
   return (
     <EmotionContainer emotion={emotion as Emotions}>
       <DialogBox
         emotion={emotion as Emotions}
         text={"Write your thoughts and feelings here..."}
       />
-      <div className="journal-container">
+      <div className="journal-container" ref={ref}>
         <textarea
           style={{
             width: "100%",
