@@ -11,7 +11,7 @@ export default function EmotionJournalPage() {
   const { emotion } = useParams();
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    console.log("keyboardDidShow")
+    console.log("keyboardDidShow");
     function keyboardDidShow(event: any) {
       console.log(event.target?.height);
       if (ref.current) {
@@ -28,10 +28,7 @@ export default function EmotionJournalPage() {
   }, []);
   return (
     <EmotionContainer emotion={emotion as Emotions}>
-      <DialogBox
-        emotion={emotion as Emotions}
-        text={"Write your thoughts and feelings here..."}
-      />
+      <DialogBox emotion={emotion as Emotions} text={"Tell me about it..."} />
       <div className="journal-container" ref={ref}>
         <textarea
           style={{
