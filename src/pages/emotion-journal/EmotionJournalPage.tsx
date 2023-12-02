@@ -45,9 +45,16 @@ export default function EmotionJournalPage() {
             ◀
           </AnimatedButton>
         </Link>
-        <AnimatedButton background={emotionBackgroundMap[emotion as Emotions]}>
-          Submit
-        </AnimatedButton>
+        {/* TODO: Submit through a service...
+          We can use A context to keep track of journals at a top level. The context would use a service, and that service can either be set to local storage and/or a server
+        */}
+        <Link to={`/`}>
+          <AnimatedButton
+            background={emotionBackgroundMap[emotion as Emotions]}
+          >
+            Submit
+          </AnimatedButton>
+        </Link>
       </div>
     </EmotionContainer>
   );
