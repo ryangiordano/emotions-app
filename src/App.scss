@@ -59,3 +59,8 @@ h6 {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: white;
 }
+
+:root {
+  touch-action: pan-x pan-y;
+  height: 100%;
+}
