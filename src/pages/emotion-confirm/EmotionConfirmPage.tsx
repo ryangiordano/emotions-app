@@ -59,6 +59,15 @@ export default function EmotionConfirmPage() {
             Journal
           </AnimatedButton>
         </Link>
+        {emotion === Emotions.angry && (
+          <Link to={`/journal/${emotion}`}>
+            <AnimatedButton
+              background={emotionBackgroundMap[emotion as Emotions]}
+            >
+              Activity
+            </AnimatedButton>
+          </Link>
+        )}
       </div>
     </EmotionContainer>
   );

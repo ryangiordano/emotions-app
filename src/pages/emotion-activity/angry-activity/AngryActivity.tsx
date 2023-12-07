@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AnimatedButton from "../../../components/buttons/AnimatedButton";
 import { emotionBackgroundMap } from "../../../components/constants";
 import DialogBox from "../../../components/dialog-box/DialogBox";
