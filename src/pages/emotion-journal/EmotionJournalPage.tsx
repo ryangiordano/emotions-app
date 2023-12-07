@@ -38,7 +38,7 @@ export default function EmotionJournalPage() {
         ></textarea>
       </div>
       <div className="nav-button-container">
-        <Link to={`/`}>
+        <Link to={`/confirm/${emotion}`}>
           <AnimatedButton
             background={emotionBackgroundMap[emotion as Emotions]}
           >

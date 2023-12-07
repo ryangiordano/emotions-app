@@ -60,7 +60,7 @@ export default function EmotionConfirmPage() {
           </AnimatedButton>
         </Link>
         {emotion === Emotions.angry && (
-          <Link to={`/journal/${emotion}`}>
+          <Link to={`/activity/${emotion}`}>
             <AnimatedButton
               background={emotionBackgroundMap[emotion as Emotions]}
             >
