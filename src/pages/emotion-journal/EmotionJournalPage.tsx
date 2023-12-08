@@ -5,7 +5,7 @@ import AnimatedButton from "../../components/buttons/AnimatedButton";
 import { emotionBackgroundMap } from "../../components/constants";
 import "./emotion-journal.scss";
 import DialogBox from "../../components/dialog-box/DialogBox";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import TextCounter from "./TextCounter";
 
 export default function EmotionJournalPage() {

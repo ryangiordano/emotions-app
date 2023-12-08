@@ -1,3 +1,4 @@
+import UIButton from "../../components/buttons/Button";
 import { InputType } from "../../components/constants";
 
 export default function InputSwitchButton({
@@ -8,17 +9,12 @@ export default function InputSwitchButton({
   setInputType: React.Dispatch<React.SetStateAction<InputType>>;
 }) {
   return (
-    <button
+    <UIButton
       style={{
         position: "absolute",
         bottom: 10,
         right: 10,
         zIndex: 100,
-        background: "transparent",
-        border: "2px solid white",
-        borderRadius: "10px",
-        color: "white",
-        padding: ".5rem",
       }}
       onClick={() => {
         setInputType(
@@ -27,6 +23,6 @@ export default function InputSwitchButton({
       }}
     >
       Switch
-    </button>
+    </UIButton>
   );
 }
