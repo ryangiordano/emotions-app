@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { HTMLMotionProps, motion } from "framer-motion";
 import "./animated-button.scss";
 
 export default function AnimatedButton({
@@ -6,29 +6,34 @@ export default function AnimatedButton({
   className,
   background,
   onClick,
+  ...rest
 }: {
   children: React.ReactNode;
   className?: string;
   background?: string;
   onClick?: () => void;
-}) {
+} & HTMLMotionProps<"button">) {
   return (
     <motion.button
       initial={{ opacity: 0, scaleY: 0 }}
-      animate={{ opacity: 1, scaleY: children ? 1 : 0, background }}
+      animate={{
+        opacity: 1,
+        scaleY: children ? 1 : 0,
+        background,
+        x: 0,
+      }}
       exit={{
         opacity: 0,
         scaleY: 0,
+        x: -200,
         transition: { type: "tween", duration: 0.5 },
       }}
       transition={{
-        duration: 0.1,
-        type: "spring",
-        stiffness: 1000,
-        damping: 25,
+        duration: 0.25,
       }}
       className={["button", "animated-button", className].join(" ")}
       onClick={onClick}
+      {...rest}
     >
       {children}
     </motion.button>

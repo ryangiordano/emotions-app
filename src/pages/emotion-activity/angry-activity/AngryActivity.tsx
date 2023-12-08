@@ -119,7 +119,7 @@ export default function AngryActivity() {
           gap: "10px",
         }}
       >
-        <Link to={`/`}>
+        <Link to={`/confirm/${emotion}`}>
           <AnimatedButton background={emotionBackgroundMap[emotion]}>
             ◀
           </AnimatedButton>

@@ -50,6 +50,7 @@ export default function EmotionJournalPage() {
         */}
         <Link to={`/`}>
           <AnimatedButton
+            disabled={text.length === 0}
             background={emotionBackgroundMap[emotion as Emotions]}
           >
             Submit
