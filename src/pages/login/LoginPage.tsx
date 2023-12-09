@@ -1,13 +1,16 @@
 import {
   getAuth,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
   deleteUser as deleteFirebaseUser,
   signOut,
   User,
+  setPersistence,
+  browserSessionPersistence,
+  browserLocalPersistence,
+  inMemoryPersistence,
 } from "firebase/auth";
 import { useIdToken } from "react-firebase-hooks/auth";
-import firebaseApp from "../../services/firebase";
+import firebaseApp, { auth } from "../../services/firebase";
 import { Emotions } from "../../components/face/constants";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { useEffect, useState } from "react";
@@ -17,8 +20,6 @@ import TextInput from "../../components/forms/inputs/TextInput";
 import InputLabel from "../../components/forms/label/InputLabel";
 import FormContainer from "../../components/forms/container/FormContainer";
 import FormSection from "../../components/forms/container/FormSection";
-
-const auth = getAuth(firebaseApp);
 
 const login = (username: string, password: string) => {
   return signInWithEmailAndPassword(auth, username, password);
@@ -33,35 +34,42 @@ const login = (username: string, password: string) => {
 // };
 
 function LoginPage() {
-  const [user, loading, error] = useIdToken(auth);
+  const [loggedInUser, loading, error] = useIdToken(auth);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [loginFailed, setLoginFailed] = useState(false);
 
   useEffect(() => {
-    if (user) {
+    if (loggedInUser) {
       navigate("/");
     }
-  }, [user]);
-
+  }, [loggedInUser]);
   return (
     <EmotionBackground emotion={Emotions.happy}>
-      <FormContainer>
+      <FormContainer
+        onSubmit={(e) => {
+          e.preventDefault();
+          login(username, password)
+            .then(({ user }) => {
+              if (user.uid) {
+                navigate("/");
+              }
+            })
+            .catch(() => {
+              setUsername("");
+              setPassword("");
+              setLoginFailed(true);
+            });
+        }}
+      >
         <h1>Login</h1>
-
         <FormSection>
           <InputLabel htmlFor="username">Email</InputLabel>
 
           <TextInput
             id="username"
             className="ui-input"
-            style={{
-              fontSize: 20,
-              height: "3.5rem",
-              width: "100%",
-              marginBottom: 20,
-              borderRadius: "10px",
-            }}
             onChange={(e) => setUsername(e.target.value)}
           />
         </FormSection>
@@ -77,23 +85,17 @@ function LoginPage() {
 
         <div className="form-button-container">
           <UIButton
-            disabled={!username.length || !password.length}
-            style={{ fontSize: 20 }}
-            onClick={() => {
-              login(username, password).then((user) => {
-                // Set global store with user
-
-                console.log(user);
-              });
-            }}
+            type="submit"
+            // disabled={!username.length || !password.length}
           >
             Log in
           </UIButton>
           {/* Nav to new user */}
           <Link to={"/create-user"}>
-            <UIButton style={{ fontSize: 20 }}>Create Account</UIButton>
+            <UIButton>Create Account</UIButton>
           </Link>
         </div>
+        {loginFailed && <p>Incorrect username or password</p>}
       </FormContainer>
     </EmotionBackground>
   );

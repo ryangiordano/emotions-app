@@ -11,6 +11,11 @@ import EmotionSlider from "./emotion-slider/EmotionSlider";
 import EmotionSelectButton from "./EmotionSelectButton";
 import { InputType } from "../../components/constants";
 import InputSwitchButton from "./InputSwitchButton";
+import { signOut } from "firebase/auth";
+import { auth } from "../../services/firebase";
+const logout = () => {
+  signOut(auth);
+};
 
 export default function EmotionSelectPage() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotions>();
@@ -97,6 +102,8 @@ export default function EmotionSelectPage() {
         </div>
       )}
       <InputSwitchButton inputType={inputType} setInputType={setInputType} />
+      {/* TODO: Relocate this */}
+      <button onClick={logout}>Logout</button>
     </EmotionContainer>
   );
 }
