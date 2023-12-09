@@ -9,7 +9,7 @@ import EmotionJournalPage from "./pages/emotion-journal/EmotionJournalPage";
 import LoginPage from "./pages/login/LoginPage";
 import UserInfoPage from "./pages/user-info/UserInfoPage";
 import CreateUserPage from "./pages/create-user/CreateUserPage";
-import AuthenticatedRoute from "./utils/GuardedRoute";
+import AuthenticatedRoute from "./utils/AuthenticatedRoute";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
