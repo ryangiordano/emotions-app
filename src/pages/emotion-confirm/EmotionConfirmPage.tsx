@@ -31,18 +31,9 @@ export default function EmotionConfirmPage() {
         text={getConfirmationText({ emotion: emotion as Emotions })}
         emotion={emotion as Emotions}
       />
-      <div
-        style={{
-          height: "100%",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <FaceContainer>
-          <Face emotion={emotion as Emotions} />
-        </FaceContainer>
-      </div>
+      <FaceContainer>
+        <Face emotion={emotion as Emotions} />
+      </FaceContainer>
 
       <div className="nav-button-container">
         <Link to={`/`}>

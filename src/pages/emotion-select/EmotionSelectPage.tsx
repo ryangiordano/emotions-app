@@ -13,6 +13,7 @@ import { InputType } from "../../components/constants";
 import InputSwitchButton from "./InputSwitchButton";
 import { signOut } from "firebase/auth";
 import { auth } from "../../services/firebase";
+import NavBar from "../../components/nav/NavBar";
 const logout = () => {
   signOut(auth);
 };
@@ -32,6 +33,7 @@ export default function EmotionSelectPage() {
 
   return (
     <EmotionContainer emotion={selectedEmotion ?? Emotions.happy}>
+      <NavBar />
       <DialogBox
         text={emotionText}
         emotion={selectedEmotion ?? Emotions.happy}

@@ -5,5 +5,9 @@ export default function FaceContainer({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="face-container">{children}</div>;
+  return (
+    <div className="face-container-wrapper">
+      <div className="face-container">{children}</div>
+    </div>
+  );
 }
