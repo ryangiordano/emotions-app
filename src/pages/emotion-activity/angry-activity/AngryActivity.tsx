@@ -11,6 +11,7 @@ import { memo, useMemo, useRef, useState } from "react";
 import "./angry-activity.scss";
 import { getRandomBetween } from "../../../utils/random";
 import disperse from "../../../components/face/animations/disperse";
+import NavBar from "../../../components/nav/NavBar";
 
 const FloatingFire = memo(
   ({ onClick }: { key: number; onClick?: () => void }) => {
@@ -97,6 +98,8 @@ export default function AngryActivity() {
 
   return (
     <EmotionContainer emotion={emotion}>
+      <NavBar />
+
       {renderFires}
       <DialogBox text={text} emotion={emotion} />
       <div

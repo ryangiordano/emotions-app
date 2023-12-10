@@ -8,6 +8,7 @@ import { Emotions } from "../../../components/face/constants";
 import FaceContainer from "../../emotion-select/FaceContainer";
 import { useMemo, useRef } from "react";
 import HappyCardGrid from "./HappyCardGrid";
+import NavBar from "../../../components/nav/NavBar";
 
 /** Score goes up to 4 */
 function getTextByScore(score: number) {
@@ -50,6 +51,8 @@ export default function HappyActivity() {
   const navigate = useNavigate();
   return (
     <EmotionContainer emotion={Emotions.happy}>
+      <NavBar />
+
       <DialogBox
         text={getTextByScore(score.current)}
         emotion={Emotions.happy}

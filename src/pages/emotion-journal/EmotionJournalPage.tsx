@@ -7,6 +7,7 @@ import "./emotion-journal.scss";
 import DialogBox from "../../components/dialog-box/DialogBox";
 import { useRef, useState } from "react";
 import TextCounter from "./TextCounter";
+import NavBar from "../../components/nav/NavBar";
 
 export default function EmotionJournalPage() {
   const { emotion } = useParams();
@@ -17,6 +18,8 @@ export default function EmotionJournalPage() {
 
   return (
     <EmotionContainer emotion={emotion as Emotions}>
+      <NavBar />
+
       <DialogBox emotion={emotion as Emotions} text={"Tell me about it..."} />
       <div className="journal-container">
         <TextCounter text={text} limit={textLimit} />

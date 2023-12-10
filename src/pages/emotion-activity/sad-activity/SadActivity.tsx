@@ -13,6 +13,7 @@ import { getRandomBetween } from "../../../utils/random";
 import Teardrop from "../../../components/face/assets/Teardrop";
 import wave from "../../../components/face/animations/wave";
 import disperse from "../../../components/face/animations/disperse";
+import NavBar from "../../../components/nav/NavBar";
 
 const SadTears = memo(({ onClick }: { key: number; onClick?: () => void }) => {
   const id = useRef(Math.random() * 1000);
@@ -127,6 +128,8 @@ export default function SadActivity() {
   return (
     <EmotionContainer emotion={emotion}>
       {renderTears}
+      <NavBar />
+
       <DialogBox text={text} emotion={emotion} />
       <div
         style={{

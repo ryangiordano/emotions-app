@@ -6,6 +6,7 @@ import DialogBox from "../../components/dialog-box/DialogBox";
 import Face from "../../components/face/Face";
 import AnimatedButton from "../../components/buttons/AnimatedButton";
 import { emotionBackgroundMap } from "../../components/constants";
+import NavBar from "../../components/nav/NavBar";
 
 function getConfirmationText({ emotion }: { emotion: Emotions }) {
   switch (emotion) {
@@ -27,6 +28,8 @@ export default function EmotionConfirmPage() {
   }
   return (
     <EmotionContainer emotion={emotion as Emotions}>
+      <NavBar />
+
       <DialogBox
         text={getConfirmationText({ emotion: emotion as Emotions })}
         emotion={emotion as Emotions}

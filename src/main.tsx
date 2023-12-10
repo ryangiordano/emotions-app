@@ -9,6 +9,7 @@ import EmotionJournalPage from "./pages/emotion-journal/EmotionJournalPage";
 import LoginPage from "./pages/login/LoginPage";
 import UserInfoPage from "./pages/user-info/UserInfoPage";
 import CreateUserPage from "./pages/create-user/CreateUserPage";
+import AuthGuardRoute from "./utils/loading-page/AuthGuardRoute";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -22,7 +23,12 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Route path="*" element={<EmotionSelectPage />} />
         <Route path="/login" element={<LoginPage />} />
 
-        <Route path="/create-user" element={<CreateUserPage />} />
+        <Route
+          path="/create-user"
+          element={<AuthGuardRoute unAuthenticatedOnly />}
+        >
+          <Route path="/create-user" element={<CreateUserPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
