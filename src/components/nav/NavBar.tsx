@@ -13,7 +13,7 @@ export default function NavBar() {
           <UIButton>Account</UIButton>
         </Link>
       )}
-      {!loading && loggedInUser ? (
+      {!loading && loggedInUser && (
         <UIButton
           onClick={() => {
             auth.signOut();
@@ -21,7 +21,8 @@ export default function NavBar() {
         >
           Logout
         </UIButton>
-      ) : (
+      )}
+      {!loading && !loggedInUser && (
         <Link to={"/login"}>
           <UIButton>Login</UIButton>
         </Link>
