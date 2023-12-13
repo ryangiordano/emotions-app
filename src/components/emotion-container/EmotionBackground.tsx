@@ -12,7 +12,6 @@ export default function EmotionBackground({
   emotion: Emotions;
   className?: string;
 } & MotionProps) {
-  console.log(className);
   return (
     <motion.div
       animate={{ background: emotionBackgroundMap[emotion] }}

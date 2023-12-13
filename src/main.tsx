@@ -10,26 +10,31 @@ import LoginPage from "./pages/login/LoginPage";
 import UserInfoPage from "./pages/user-info/UserInfoPage";
 import CreateUserPage from "./pages/create-user/CreateUserPage";
 import AuthGuardRoute from "./utils/loading-page/AuthGuardRoute";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<EmotionSelectPage />} />
-        <Route path="/user-info" element={<UserInfoPage />} />
-        <Route path="/confirm/:emotion" element={<EmotionConfirmPage />} />
-        <Route path="/activity/:emotion" element={<EmotionActivityPage />} />
-        <Route path="/journal/:emotion" element={<EmotionJournalPage />} />
-        <Route path="*" element={<EmotionSelectPage />} />
-        <Route path="/login" element={<LoginPage />} />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<EmotionSelectPage />} />
+          <Route path="/user-info" element={<UserInfoPage />} />
+          <Route path="/confirm/:emotion" element={<EmotionConfirmPage />} />
+          <Route path="/activity/:emotion" element={<EmotionActivityPage />} />
+          <Route path="/journal/:emotion" element={<EmotionJournalPage />} />
+          <Route path="*" element={<EmotionSelectPage />} />
+          <Route path="/login" element={<LoginPage />} />
 
-        <Route
-          path="/create-user"
-          element={<AuthGuardRoute unAuthenticatedOnly />}
-        >
-          <Route path="/create-user" element={<CreateUserPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+          <Route
+            path="/create-user"
+            element={<AuthGuardRoute unAuthenticatedOnly />}
+          >
+            <Route path="/create-user" element={<CreateUserPage />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   </React.StrictMode>
 );

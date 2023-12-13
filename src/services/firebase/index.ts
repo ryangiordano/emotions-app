@@ -7,6 +7,8 @@ import {
   browserLocalPersistence,
 } from "firebase/auth";
 
+import { getFirestore } from "firebase/firestore";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,5 +32,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 export const auth = getAuth(firebaseApp);
 // setPersistence(auth, inMemoryPersistence);
 setPersistence(auth, browserLocalPersistence);
+
+export const db = getFirestore(firebaseApp);
 
 export default firebaseApp;

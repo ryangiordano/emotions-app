@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import EmotionContainer from "../../components/emotion-container/EmotionContainer";
 import { Emotions } from "../../components/face/constants";
 import AnimatedButton from "../../components/buttons/AnimatedButton";
@@ -8,6 +8,8 @@ import DialogBox from "../../components/dialog-box/DialogBox";
 import { useRef, useState } from "react";
 import TextCounter from "./TextCounter";
 import NavBar from "../../components/nav/NavBar";
+import { db } from "../../services/firebase";
+import { createJournal } from "../../services/firebase/journal-service";
 
 export default function EmotionJournalPage() {
   const { emotion } = useParams();
@@ -15,7 +17,7 @@ export default function EmotionJournalPage() {
   const ref = useRef<HTMLTextAreaElement>(null);
   const textLimit = 250;
   const [text, setText] = useState(ref.current?.value ?? "");
-
+  const navigate = useNavigate();
   return (
     <EmotionContainer emotion={emotion as Emotions}>
       <NavBar />
@@ -48,17 +50,22 @@ export default function EmotionJournalPage() {
             ◀
           </AnimatedButton>
         </Link>
-        {/* TODO: Submit through a service...
-          We can use A context to keep track of journals at a top level. The context would use a service, and that service can either be set to local storage and/or a server
-        */}
-        <Link to={`/`}>
-          <AnimatedButton
-            disabled={text.length === 0}
-            background={emotionBackgroundMap[emotion as Emotions]}
-          >
-            Submit
-          </AnimatedButton>
-        </Link>
+        <AnimatedButton
+          disabled={text.length === 0}
+          background={emotionBackgroundMap[emotion as Emotions]}
+          onClick={() => {
+            if (emotion) {
+              createJournal(db, { text, emotion }).then((journal) => {
+                console.log(journal);
+                if (journal) {
+                  navigate("/");
+                }
+              });
+            }
+          }}
+        >
+          Submit
+        </AnimatedButton>
       </div>
     </EmotionContainer>
   );

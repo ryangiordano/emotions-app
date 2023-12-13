@@ -5,20 +5,16 @@ import { Emotions } from "../../components/face/constants";
 import TextInput from "../../components/forms/inputs/TextInput";
 import InputLabel from "../../components/forms/label/InputLabel";
 import FormContainer from "../../components/forms/container/FormContainer";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import firebaseApp from "../../services/firebase";
-import { useIdToken } from "react-firebase-hooks/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../services/firebase";
 import { useState } from "react";
 import FormSection from "../../components/forms/container/FormSection";
-
-const auth = getAuth(firebaseApp);
 
 const createUser = (username: string, password: string) => {
   return createUserWithEmailAndPassword(auth, username, password);
 };
 
 export default function CreateUserPage() {
-  const [user, loading, error] = useIdToken(auth);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
