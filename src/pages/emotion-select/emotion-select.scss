@@ -11,18 +11,14 @@
 
 .emotion-confirm-container {
   width: 100%;
-  padding: 3rem 1rem;
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
 
   &.slider {
-    bottom: 10%;
-    position: absolute;
-  }
-  &.buttons {
-    bottom: 0%;
-    position: absolute;
+    display: grid;
+    margin-bottom: 100px;
+    padding: 0 1rem;
   }
   > div {
     width: 80%;

@@ -85,17 +85,15 @@ export default function EmotionSelectPage() {
       )}
       {inputType === InputType.slider && (
         <div className="emotion-confirm-container slider">
-          <div>
-            <Link to={`confirm/${selectedEmotion}`}>
-              <EmotionConfirmButton emotion={selectedEmotion} />
-            </Link>
-            <EmotionSlider
-              sliderValue={emotionSlider}
-              setEmotionSliderValue={setEmotionSlider}
-              selectedEmotion={selectedEmotion}
-              updateEmotion={updateEmotion}
-            />
-          </div>
+          <Link to={`confirm/${selectedEmotion}`}>
+            <EmotionConfirmButton emotion={selectedEmotion} />
+          </Link>
+          <EmotionSlider
+            sliderValue={emotionSlider}
+            setEmotionSliderValue={setEmotionSlider}
+            selectedEmotion={selectedEmotion}
+            updateEmotion={updateEmotion}
+          />
         </div>
       )}
       <InputSwitchButton inputType={inputType} setInputType={setInputType} />

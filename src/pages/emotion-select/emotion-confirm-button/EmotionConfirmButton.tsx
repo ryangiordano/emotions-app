@@ -14,7 +14,10 @@ export default function EmotionConfirmButton({
   return (
     <>
       {emotion !== undefined ? (
-        <AnimatedButton background={emotionBackgroundMap[emotion]}>
+        <AnimatedButton
+          background={emotionBackgroundMap[emotion]}
+          style={{ height: "unset" }}
+        >
           {emotion !== undefined
             ? `I'm feeling ${emotionToTextMap[emotion].toUpperCase()}`
             : " "}
