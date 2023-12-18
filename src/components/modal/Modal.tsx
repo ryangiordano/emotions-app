@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
-import "./modal.scss";
+import "./Modal.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import { emotionBackgroundMap } from "../constants";
 import UIButton from "../buttons/Button";
