@@ -10,12 +10,6 @@ export default function InputSwitchButton({
 }) {
   return (
     <UIButton
-      style={{
-        position: "absolute",
-        bottom: 10,
-        right: 10,
-        zIndex: 100,
-      }}
       onClick={() => {
         setInputType(
           inputType === InputType.buttons ? InputType.slider : InputType.buttons

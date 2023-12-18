@@ -14,7 +14,9 @@ import InputSwitchButton from "./InputSwitchButton";
 import NavBar from "../../components/nav/NavBar";
 
 export default function EmotionSelectPage() {
-  const [selectedEmotion, setSelectedEmotion] = useState<Emotions>();
+  const [selectedEmotion, setSelectedEmotion] = useState<Emotions>(
+    Emotions.happy
+  );
   const emotionText = getEmotionSelectText({ emotion: selectedEmotion });
   const [emotionSlider, setEmotionSlider] = useState<number>(0);
 
@@ -28,7 +30,14 @@ export default function EmotionSelectPage() {
 
   return (
     <EmotionContainer emotion={selectedEmotion ?? Emotions.happy}>
-      <NavBar />
+      <NavBar
+        extraActions={
+          <InputSwitchButton
+            inputType={inputType}
+            setInputType={setInputType}
+          />
+        }
+      />
       <DialogBox
         text={emotionText}
         emotion={selectedEmotion ?? Emotions.happy}
@@ -96,8 +105,6 @@ export default function EmotionSelectPage() {
           />
         </div>
       )}
-      <InputSwitchButton inputType={inputType} setInputType={setInputType} />
-      {/* TODO: Relocate this */}
     </EmotionContainer>
   );
 }

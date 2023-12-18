@@ -1,17 +1,30 @@
 import { useIdToken } from "react-firebase-hooks/auth";
 import { auth } from "../../services/firebase";
 import UIButton from "../buttons/Button";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-export default function NavBar() {
+export default function NavBar({
+  extraActions,
+}: {
+  extraActions?: JSX.Element;
+}) {
   const [loggedInUser, loading] = useIdToken(auth);
-
+  const getNavClassName = (navData: any) => {
+    return navData.isActive ? "active ui-button" : "ui-button";
+  };
   return (
     <nav style={{ marginBottom: "10px", display: "flex", gap: "5px" }}>
+      <NavLink
+        to={"/"}
+        className={getNavClassName}
+        // refactor the above class name
+      >
+        Home
+      </NavLink>
       {!loading && loggedInUser && (
-        <Link to={"/user-info"}>
-          <UIButton>Account</UIButton>
-        </Link>
+        <NavLink to={"/account-info"} className={getNavClassName}>
+          Account
+        </NavLink>
       )}
       {!loading && loggedInUser && (
         <UIButton
@@ -23,10 +36,11 @@ export default function NavBar() {
         </UIButton>
       )}
       {!loading && !loggedInUser && (
-        <Link to={"/login"}>
-          <UIButton>Login</UIButton>
-        </Link>
+        <NavLink to={"/login"} className={getNavClassName}>
+          Login
+        </NavLink>
       )}
+      {extraActions}
     </nav>
   );
 }

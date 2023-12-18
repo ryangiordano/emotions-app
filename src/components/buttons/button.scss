@@ -5,4 +5,12 @@
   color: white;
   padding: 0.5rem;
   font-size: 20px;
+  text-decoration: none;
+  &:focus {
+    outline: 2px solid white;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }

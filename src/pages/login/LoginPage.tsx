@@ -1,16 +1,9 @@
 import {
-  getAuth,
   signInWithEmailAndPassword,
   deleteUser as deleteFirebaseUser,
-  signOut,
-  User,
-  setPersistence,
-  browserSessionPersistence,
-  browserLocalPersistence,
-  inMemoryPersistence,
 } from "firebase/auth";
 import { useIdToken } from "react-firebase-hooks/auth";
-import firebaseApp, { auth } from "../../services/firebase";
+import { auth } from "../../services/firebase";
 import { Emotions } from "../../components/face/constants";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { useEffect, useState } from "react";
@@ -34,7 +27,7 @@ const login = (username: string, password: string) => {
 // };
 
 function LoginPage() {
-  const [loggedInUser, loading, error] = useIdToken(auth);
+  const [loggedInUser] = useIdToken(auth);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -86,7 +79,7 @@ function LoginPage() {
         <div className="form-button-container">
           <UIButton
             type="submit"
-            // disabled={!username.length || !password.length}
+            disabled={!username.length || !password.length}
           >
             Log in
           </UIButton>

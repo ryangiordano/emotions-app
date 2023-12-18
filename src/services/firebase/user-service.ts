@@ -5,7 +5,7 @@ import { assertAuthedUser } from "./authentication-service";
 
 export async function createUser(
   db: Firestore,
-  { userName }: { userName: string }
+  { username }: { username: string }
 ) {
   /** probably a cleaner way to assert logged in user.
    * Could maybe emit an event when the logged in status changes
@@ -13,7 +13,7 @@ export async function createUser(
   assertAuthedUser(auth.currentUser);
 
   return addDoc(collection(db, "users"), {
-    name: userName,
+    name: username,
     accountId: auth.currentUser.uid,
   })
     .then((docRef) => {
@@ -24,11 +24,14 @@ export async function createUser(
     });
 }
 
-export function getUser(db: Firestore, accountId: string) {
+export function getUser(db: Firestore) {
   const usersRef = collection(db, "users");
+  assertAuthedUser(auth.currentUser);
 
   return (
-    getDocs(query(usersRef, where("accountId", "==", accountId), limit(1)))
+    getDocs(
+      query(usersRef, where("accountId", "==", auth.currentUser.uid), limit(1))
+    )
       // TODO: return the currently selected user
       .then((user) => {
         return user.docs[0];
@@ -37,6 +40,21 @@ export function getUser(db: Firestore, accountId: string) {
         return e;
       })
   );
+}
+
+export function getUsers(db: Firestore) {
+  const usersRef = collection(db, "users");
+  assertAuthedUser(auth.currentUser);
+
+  return getDocs(
+    query(usersRef, where("accountId", "==", auth.currentUser.uid))
+  )
+    .then((user) => {
+      return user.docs;
+    })
+    .catch((e) => {
+      return e;
+    });
 }
 
 export function updateUser(db: Firestore) {}

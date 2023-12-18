@@ -1,0 +1,14 @@
+.modal {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+
+  width: 100%;
+  max-width: 500px;
+  border: 5px solid white;
+  border-radius: 5px;
+  box-sizing: border-box;
+  padding: 20px;
+  margin: 0 auto;
+  height: 100%;
+}

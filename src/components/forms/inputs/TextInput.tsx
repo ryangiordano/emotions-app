@@ -1,4 +1,4 @@
-import "./text-input.scss"
+import "./text-input.scss";
 
 export default function TextInput({
   className,
@@ -16,6 +16,7 @@ export default function TextInput({
         width: "100%",
         marginBottom: 20,
         borderRadius: "10px",
+        border: "none",
       }}
       {...rest}
     />
