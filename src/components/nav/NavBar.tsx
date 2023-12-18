@@ -1,7 +1,7 @@
 import { useIdToken } from "react-firebase-hooks/auth";
 import { auth } from "../../services/firebase";
 import UIButton from "../buttons/Button";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function NavBar({
   extraActions,
@@ -9,6 +9,7 @@ export default function NavBar({
   extraActions?: JSX.Element;
 }) {
   const [loggedInUser, loading] = useIdToken(auth);
+  const navigate = useNavigate();
   const getNavClassName = (navData: any) => {
     return navData.isActive ? "active ui-button" : "ui-button";
   };
@@ -29,7 +30,9 @@ export default function NavBar({
       {!loading && loggedInUser && (
         <UIButton
           onClick={() => {
-            auth.signOut();
+            auth.signOut().then(() => {
+              navigate("/");
+            });
           }}
         >
           Logout

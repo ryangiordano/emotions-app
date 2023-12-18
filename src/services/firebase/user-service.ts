@@ -28,18 +28,15 @@ export function getUser(db: Firestore) {
   const usersRef = collection(db, "users");
   assertAuthedUser(auth.currentUser);
 
-  return (
-    getDocs(
-      query(usersRef, where("accountId", "==", auth.currentUser.uid), limit(1))
-    )
-      // TODO: return the currently selected user
-      .then((user) => {
-        return user.docs[0];
-      })
-      .catch((e) => {
-        return e;
-      })
-  );
+  return getDocs(
+    query(usersRef, where("accountId", "==", auth.currentUser.uid), limit(1))
+  )
+    .then((user) => {
+      return user.docs[0];
+    })
+    .catch((e) => {
+      return e;
+    });
 }
 
 export function getUsers(db: Firestore) {
@@ -51,6 +48,46 @@ export function getUsers(db: Firestore) {
   )
     .then((user) => {
       return user.docs;
+    })
+    .catch((e) => {
+      return e;
+    });
+}
+
+export function getCurrentUser(db: Firestore) {
+  const usersRef = collection(db, "users");
+  assertAuthedUser(auth.currentUser);
+
+  return getDocs(
+    query(
+      usersRef,
+      where("accountId", "==", auth.currentUser.uid),
+      where("defaultUser", "==", true),
+      limit(1)
+    )
+  )
+    .then((user) => {
+      return user.docs[0];
+    })
+    .catch((e) => {
+      return e;
+    });
+}
+
+export function setDefaultUser(db: Firestore) {
+  const usersRef = collection(db, "users");
+  assertAuthedUser(auth.currentUser);
+
+  return getDocs(
+    query(
+      usersRef,
+      where("accountId", "==", auth.currentUser.uid),
+      where("defaultUser", "==", true),
+      limit(1)
+    )
+  )
+    .then((user) => {
+      return user.docs[0];
     })
     .catch((e) => {
       return e;
