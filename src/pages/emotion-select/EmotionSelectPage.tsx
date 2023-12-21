@@ -12,6 +12,7 @@ import EmotionSelectButton from "./EmotionSelectButton";
 import { InputType } from "../../components/constants";
 import InputSwitchButton from "./InputSwitchButton";
 import NavBar from "../../components/nav/NavBar";
+import CurrentUserSelect from "./CurrentUserSelect";
 
 export default function EmotionSelectPage() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotions>(
@@ -32,10 +33,13 @@ export default function EmotionSelectPage() {
     <EmotionContainer emotion={selectedEmotion ?? Emotions.happy}>
       <NavBar
         extraActions={
-          <InputSwitchButton
-            inputType={inputType}
-            setInputType={setInputType}
-          />
+          <>
+            <CurrentUserSelect />
+            <InputSwitchButton
+              inputType={inputType}
+              setInputType={setInputType}
+            />
+          </>
         }
       />
       <DialogBox

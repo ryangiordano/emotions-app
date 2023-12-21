@@ -1,11 +1,11 @@
-import { useQueries, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { Emotions } from "../../components/face/constants";
 import { getUsers } from "../../services/firebase/user-service";
 import { db } from "../../services/firebase";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
 import { useState } from "react";
-import UserCreateModal from "./UserCreateModal";
+import UserCreateModal from "../modals/UserCreateModal";
 import NavBar from "../../components/nav/NavBar";
 
 function UserSquare({
@@ -41,7 +41,7 @@ export default function AccountInfoPage() {
       return getUsers(db);
     },
   });
-
+  console.log(data);
   const loading = isLoading || isFetching;
   const users = data?.map((doc: any) => doc.data());
   return (

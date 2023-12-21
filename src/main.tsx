@@ -13,7 +13,15 @@ import AuthGuardRoute from "./utils/loading-page/AuthGuardRoute";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AccountInfoPage from "./pages/account-info/AccountInfoPage";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5,
+      refetchOnWindowFocus: false,
+      refetchOnMount: false,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>

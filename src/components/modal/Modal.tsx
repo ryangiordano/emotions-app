@@ -4,19 +4,24 @@ import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import "./Modal.scss";
 import { AnimatePresence, motion } from "framer-motion";
-import { emotionBackgroundMap } from "../constants";
 import UIButton from "../buttons/Button";
+import { ModalAnimatePresence } from "../animation/types";
+import { getAnimatePresenceConfig } from "../animation/AnimationPresence";
 
 export default function Modal({
   children,
   header,
   open,
   onClose,
+  animatePresence = "flip-in-x",
+  backgroundColor,
 }: {
   header?: string;
   children: React.ReactNode;
   open: boolean;
   onClose?: () => void;
+  animatePresence?: ModalAnimatePresence;
+  backgroundColor?: string;
 }) {
   const [show, setShow] = useState(false);
   const ref = useRef<HTMLDialogElement>(null);
@@ -34,17 +39,14 @@ export default function Modal({
               ref={ref}
               className="modal"
               open={open}
-              initial={{ opacity: 0, scaleY: 0 }}
+              initial={{ ...getAnimatePresenceConfig(animatePresence).initial }}
               animate={{
-                opacity: 1,
-                scaleY: children ? 1 : 0,
-                background: emotionBackgroundMap["anxious"],
-                x: 0,
+                background: backgroundColor ?? "white",
+                ...getAnimatePresenceConfig(animatePresence).animate,
               }}
               exit={{
-                opacity: 0,
-                scaleY: 0,
                 transition: { type: "tween", duration: 0.2 },
+                ...getAnimatePresenceConfig(animatePresence).exit,
               }}
               transition={{
                 duration: 0.2,
@@ -60,7 +62,6 @@ export default function Modal({
                 {header ? <h1>{header}</h1> : null}
                 <UIButton
                   style={{ height: "fit-content", width: "fit-content" }}
-                  // className="button ui-button close-button"
                   onClick={() => {
                     if (onClose) {
                       onClose?.();

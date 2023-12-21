@@ -10,6 +10,7 @@ import TextCounter from "./TextCounter";
 import NavBar from "../../components/nav/NavBar";
 import { db } from "../../services/firebase";
 import { createJournal } from "../../services/firebase/journal-service";
+import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 
 export default function EmotionJournalPage() {
   const { emotion } = useParams();
@@ -20,7 +21,7 @@ export default function EmotionJournalPage() {
   const navigate = useNavigate();
   return (
     <EmotionContainer emotion={emotion as Emotions}>
-      <NavBar />
+      <NavBar extraActions={<CurrentUserSelect />} />
 
       <DialogBox emotion={emotion as Emotions} text={"Tell me about it..."} />
       <div className="journal-container">

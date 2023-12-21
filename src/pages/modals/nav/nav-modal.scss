@@ -1,0 +1,13 @@
+.nav-modal {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  right: auto;
+  width: 75%;
+  box-sizing: border-box;
+  padding: 20px;
+  height: 100%;
+  border: none;
+  border-right: 5px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}

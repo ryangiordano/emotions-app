@@ -1,49 +1,34 @@
-import { useIdToken } from "react-firebase-hooks/auth";
-import { auth } from "../../services/firebase";
 import UIButton from "../buttons/Button";
-import { NavLink, useNavigate } from "react-router-dom";
+import NavModal from "../../pages/modals/nav/NavModal";
+import { useState } from "react";
 
 export default function NavBar({
   extraActions,
 }: {
   extraActions?: JSX.Element;
 }) {
-  const [loggedInUser, loading] = useIdToken(auth);
-  const navigate = useNavigate();
-  const getNavClassName = (navData: any) => {
-    return navData.isActive ? "active ui-button" : "ui-button";
-  };
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   return (
-    <nav style={{ marginBottom: "10px", display: "flex", gap: "5px" }}>
-      <NavLink
-        to={"/"}
-        className={getNavClassName}
-        // refactor the above class name
-      >
-        Home
-      </NavLink>
-      {!loading && loggedInUser && (
-        <NavLink to={"/account-info"} className={getNavClassName}>
-          Account
-        </NavLink>
-      )}
-      {!loading && loggedInUser && (
+    <>
+      <nav style={{ display: "flex", gap: "10px", marginBottom: "10px" }}>
         <UIButton
           onClick={() => {
-            auth.signOut().then(() => {
-              navigate("/");
-            });
+            setModalIsOpen(true);
           }}
         >
-          Logout
+          <img
+            style={{ height: "30px" }}
+            src="/src/components/face/SmallFace.svg"
+          />
         </UIButton>
-      )}
-      {!loading && !loggedInUser && (
-        <NavLink to={"/login"} className={getNavClassName}>
-          Login
-        </NavLink>
-      )}
-      {extraActions}
-    </nav>
+        {extraActions}
+      </nav>
+      <NavModal
+        isOpen={modalIsOpen}
+        onClose={() => {
+          setModalIsOpen(false);
+        }}
+      />
+    </>
   );
 }

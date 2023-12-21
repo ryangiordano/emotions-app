@@ -1,6 +1,7 @@
 import {
   Firestore,
   doc,
+  getDoc,
   getDocs,
   limit,
   query,
@@ -10,9 +11,12 @@ import {
 import { collection, addDoc } from "firebase/firestore";
 import { auth } from ".";
 import { assertAuthedUser } from "./authentication-service";
-import { getCurrentUser, setCurrentUser } from "../local-storage/current-user";
 import { UserError, UserErrorCodes, UserErrorCodeText } from "./user-errors";
 import { User } from "./types";
+import {
+  getCurrentUserId,
+  setCurrentUserId,
+} from "../local-storage/current-user";
 
 export async function createUser(
   db: Firestore,
@@ -35,15 +39,13 @@ export async function createUser(
     });
 }
 
-export function getUser(db: Firestore) {
+export function getUser(db: Firestore, uid: string) {
   const usersRef = collection(db, "users");
-  assertAuthedUser(auth.currentUser);
+  const userDocRef = doc(usersRef, uid);
 
-  return getDocs(
-    query(usersRef, where("accountId", "==", auth.currentUser.uid), limit(1))
-  )
+  return getDoc(userDocRef)
     .then((user) => {
-      return user.docs[0];
+      return user.data();
     })
     .catch((e) => {
       return e;
@@ -53,7 +55,6 @@ export function getUser(db: Firestore) {
 export function getUsers(db: Firestore) {
   const usersRef = collection(db, "users");
   assertAuthedUser(auth.currentUser);
-
   return getDocs(
     query(usersRef, where("accountId", "==", auth.currentUser.uid))
   )
@@ -66,16 +67,17 @@ export function getUsers(db: Firestore) {
 }
 
 export async function getCurrentlySelectedUser(db: Firestore) {
-  const currentUser = getCurrentUser();
-  if (currentUser) {
-    return currentUser;
+  const currentUserId = getCurrentUserId();
+  if (currentUserId) {
+    const user = await getUser(db, currentUserId);
+    return user;
   }
   const users = await getUsers(db);
   /** If there are no users, we need to handle that at a higher level (redirect to user-create page) */
   if (!users.length) {
     throw new UserError(UserErrorCodes.noUsers);
   }
-  setCurrentUser(users[0]);
+  setCurrentUserId(users[0].id);
 
   return users[0];
 }
