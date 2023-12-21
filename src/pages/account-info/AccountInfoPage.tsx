@@ -1,7 +1,7 @@
 import { useQueries, useQuery } from "react-query";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { Emotions } from "../../components/face/constants";
-import { getCurrentUser, getUsers } from "../../services/firebase/user-service";
+import { getUsers } from "../../services/firebase/user-service";
 import { db } from "../../services/firebase";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
 import { useState } from "react";

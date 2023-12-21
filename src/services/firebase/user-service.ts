@@ -1,7 +1,18 @@
-import { Firestore, getDocs, limit, query, where } from "firebase/firestore";
+import {
+  Firestore,
+  doc,
+  getDocs,
+  limit,
+  query,
+  where,
+  writeBatch,
+} from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { auth } from ".";
 import { assertAuthedUser } from "./authentication-service";
+import { getCurrentUser, setCurrentUser } from "../local-storage/current-user";
+import { UserError, UserErrorCodes, UserErrorCodeText } from "./user-errors";
+import { User } from "./types";
 
 export async function createUser(
   db: Firestore,
@@ -54,44 +65,19 @@ export function getUsers(db: Firestore) {
     });
 }
 
-export function getCurrentUser(db: Firestore) {
-  const usersRef = collection(db, "users");
-  assertAuthedUser(auth.currentUser);
+export async function getCurrentlySelectedUser(db: Firestore) {
+  const currentUser = getCurrentUser();
+  if (currentUser) {
+    return currentUser;
+  }
+  const users = await getUsers(db);
+  /** If there are no users, we need to handle that at a higher level (redirect to user-create page) */
+  if (!users.length) {
+    throw new UserError(UserErrorCodes.noUsers);
+  }
+  setCurrentUser(users[0]);
 
-  return getDocs(
-    query(
-      usersRef,
-      where("accountId", "==", auth.currentUser.uid),
-      where("defaultUser", "==", true),
-      limit(1)
-    )
-  )
-    .then((user) => {
-      return user.docs[0];
-    })
-    .catch((e) => {
-      return e;
-    });
-}
-
-export function setDefaultUser(db: Firestore) {
-  const usersRef = collection(db, "users");
-  assertAuthedUser(auth.currentUser);
-
-  return getDocs(
-    query(
-      usersRef,
-      where("accountId", "==", auth.currentUser.uid),
-      where("defaultUser", "==", true),
-      limit(1)
-    )
-  )
-    .then((user) => {
-      return user.docs[0];
-    })
-    .catch((e) => {
-      return e;
-    });
+  return users[0];
 }
 
 export function updateUser(db: Firestore) {}

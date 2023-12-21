@@ -54,6 +54,7 @@ export default function EmotionJournalPage() {
           disabled={text.length === 0}
           background={emotionBackgroundMap[emotion as Emotions]}
           onClick={() => {
+            console.log(emotion);
             if (emotion) {
               createJournal(db, { text, emotion }).then((journal) => {
                 console.log(journal);
