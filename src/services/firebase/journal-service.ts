@@ -29,7 +29,7 @@ export async function createJournal(
     emotion,
     timestamp: serverTimestamp(),
     accountId: auth.currentUser.uid,
-    user: userDoc.ref,
+    user: userDoc,
   })
     .then((journal) => {
       return journal;
