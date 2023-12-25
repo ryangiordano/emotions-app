@@ -45,7 +45,7 @@ export function getUser(db: Firestore, uid: string) {
 
   return getDoc(userDocRef)
     .then((user) => {
-      return user.data();
+      return user;
     })
     .catch((e) => {
       return e;
@@ -59,7 +59,7 @@ export function getUsers(db: Firestore) {
     query(usersRef, where("accountId", "==", auth.currentUser.uid))
   )
     .then((user) => {
-      return user.docs;
+      return user;
     })
     .catch((e) => {
       return e;

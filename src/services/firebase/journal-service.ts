@@ -9,7 +9,7 @@ import {
 import { collection, addDoc } from "firebase/firestore";
 import { assertAuthedUser } from "./authentication-service";
 import { auth } from ".";
-import { getCurrentlySelectedUser } from "./user-service";
+import { getCurrentlySelectedUser, getUser } from "./user-service";
 
 export async function createJournal(
   db: Firestore,
@@ -29,7 +29,7 @@ export async function createJournal(
     emotion,
     timestamp: serverTimestamp(),
     accountId: auth.currentUser.uid,
-    user: userDoc,
+    user: userDoc.ref,
   })
     .then((journal) => {
       return journal;
@@ -50,13 +50,24 @@ export async function getJournalsByAccount(db: Firestore, accountId: string) {
     });
 }
 
-export async function getJournalsByUser(db: Firestore) {
+export async function getJournalsByUser(
+  db: Firestore,
+  userId: string,
+  startDate: Date,
+  endDate: Date
+) {
   assertAuthedUser(auth.currentUser);
-
-  const userDoc = await getCurrentlySelectedUser(db);
+  const currentUser = await getUser(db, userId);
 
   const journalsCollection = collection(db, "journals");
-  return getDocs(query(journalsCollection, where("user", "==", userDoc.ref)))
+  return getDocs(
+    query(
+      journalsCollection,
+      where("user", "==", currentUser.ref),
+      where("timestamp", ">", startDate),
+      where("timestamp", "<", endDate)
+    )
+  )
     .then(({ docs }) => {
       return docs;
     })
