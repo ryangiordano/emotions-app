@@ -29,15 +29,19 @@ html {
 
 .green {
   background: #00e67b;
+  fill: #00e67b;
 }
 .red {
   background: #ff4d4d;
+  fill: #ff4d4d;
 }
 .blue {
   background: #00b3e6;
+  fill: #00b3e6;
 }
 .yellow {
-  background: #ffff4d;
+  background: #e3dc62;
+  fill: #e3dc62;
 }
 
 .nav-button-container {
@@ -89,4 +93,16 @@ input[type="week"],
 select:focus,
 textarea {
   font-size: 16px;
+}
+
+/* Custom arrow */
+select {
+  padding-left: 15px;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("src/assets/icons/chevron-down.svg");
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: calc(100% - 8px) center;
+  stroke: white;
 }

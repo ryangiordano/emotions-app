@@ -10,12 +10,20 @@ import { getJournalsByUser } from "../../services/firebase/journal-service";
 import { db } from "../../services/firebase";
 import { useParams } from "react-router-dom";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
+import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
+import { getUser } from "../../services/firebase/user-service";
+import JournalList from "./JournalList";
 
 export default function UserInfoPage() {
   const [date, setDate] = useState(new Date());
   const { id } = useParams();
 
-  const { data, isError, isFetching, isLoading } = useQuery({
+  const {
+    data: journalData,
+    isError,
+    isFetching,
+    isLoading,
+  } = useQuery({
     queryKey: `journals-${date}`,
     queryFn: () => {
       if (!id) return Promise.resolve({} as any);
@@ -23,10 +31,18 @@ export default function UserInfoPage() {
       return getJournalsByUser(db, id, startOfMonth(date), endOfMonth(date));
     },
   });
+
+  const { data: userData } = useQuery({
+    queryKey: `user-${id}`,
+    queryFn: () => {
+      if (!id) return Promise.resolve({} as any);
+      return getUser(db, id);
+    },
+  });
   const max = new Date();
   const min = sub(new Date(), { years: 5 });
 
-  const emotionDataHash = data?.reduce((acc: any, doc: any) => {
+  const emotionDataHash = journalData?.reduce((acc: any, doc: any) => {
     if (acc[doc.data().emotion]) {
       acc[doc.data().emotion] += 1;
     } else {
@@ -41,27 +57,29 @@ export default function UserInfoPage() {
       value: emotionDataHash[key],
     };
   });
+
   return (
     <EmotionBackground emotion={Emotions.happy}>
-      <NavBar
-        extraActions={
-          <input
-            className="ui-input date"
-            max={format(max, "yyyy-MM")}
-            min={format(min, "yyyy-MM")}
-            type="month"
-            value={format(date, "yyyy-MM")}
-            onChange={(e) => {
-              const date = parse(e.target.value, "yyyy-MM", new Date());
-              setDate(date);
-            }}
-          />
-        }
+      <NavBar extraActions={<h1>{userData?.data().name}</h1>} />
+      <input
+        className="ui-input date"
+        max={format(max, "yyyy-MM")}
+        min={format(min, "yyyy-MM")}
+        type="month"
+        value={format(date, "yyyy-MM")}
+        onChange={(e) => {
+          const date = parse(e.target.value, "yyyy-MM", new Date());
+          setDate(date);
+        }}
       />
+
       {isLoading || isFetching || isError ? (
         <LoadingPage />
       ) : (
-        <EmotionPieGraph emotionData={emotionData ?? []} />
+        <>
+          <EmotionPieGraph emotionData={emotionData ?? []} />
+          <JournalList journals={journalData} />
+        </>
       )}
     </EmotionBackground>
   );

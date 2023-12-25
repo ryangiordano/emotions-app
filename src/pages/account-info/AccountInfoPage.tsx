@@ -22,9 +22,10 @@ function UserSquare({
       style={{
         width: "100%",
         borderRadius: "5px",
-        border: "5px solid white",
+        border: "2px solid white",
         background: active ? "white" : "transparent",
         fontSize: "20px",
+        padding: "15px",
         color: active ? "rgba( 0, 0, 0, 0.3 )" : "white",
       }}
       {...rest}

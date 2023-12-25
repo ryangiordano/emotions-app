@@ -1,0 +1,35 @@
+.journal-list {
+  overflow-y: scroll;
+}
+
+.journal-gem {
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  margin-right: 25px;
+}
+
+.journal-list-item {
+  display: block;
+  border-bottom: 1px solid #eee;
+  text-decoration: none;
+  border: 3px solid white;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1.2rem;
+  font-weight: bold;
+  // color: rgba(0, 0, 0, 0.6);
+
+  .journal-list-item-title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+  .journal-list-item-date {
+    font-size: 14px;
+    color: #999;
+  }
+}
