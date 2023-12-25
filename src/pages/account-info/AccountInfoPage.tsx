@@ -7,6 +7,7 @@ import LoadingPage from "../../utils/loading-page/LoadingPage";
 import { useState } from "react";
 import UserCreateModal from "../modals/UserCreateModal";
 import NavBar from "../../components/nav/NavBar";
+import { Link } from "react-router-dom";
 
 function UserSquare({
   children,
@@ -41,9 +42,7 @@ export default function AccountInfoPage() {
       return getUsers(db);
     },
   });
-  console.log(data);
   const loading = isLoading || isFetching;
-  const users = data?.map((doc: any) => doc.data());
   return (
     <EmotionBackground emotion={loading ? Emotions.sad : Emotions.happy}>
       <NavBar />
@@ -72,9 +71,12 @@ export default function AccountInfoPage() {
             gap: "10px",
           }}
         >
-          {users?.map((user: any) => {
+          {data?.docs.map((doc: any) => {
+            const user = doc.data();
             return (
-              <UserSquare active={user.defaultUser}>{user.name}</UserSquare>
+              <Link to={`/user-info/${doc.id}`} key={doc.id}>
+                <UserSquare>{user.name}</UserSquare>
+              </Link>
             );
           })}
           <UserSquare

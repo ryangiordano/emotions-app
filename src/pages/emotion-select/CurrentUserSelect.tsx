@@ -23,9 +23,13 @@ export default function CurrentUserSelect() {
         setUserId(e.target.value);
       }}
     >
-      {data.map((doc: any) => {
+      {data?.docs.map((doc: any) => {
         const data = doc.data();
-        return <option value={doc.id}>{data.name}</option>;
+        return (
+          <option value={doc.id} key={doc.id}>
+            {data.name}
+          </option>
+        );
       })}
     </Select>
   );
