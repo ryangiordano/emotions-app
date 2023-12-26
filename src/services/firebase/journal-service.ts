@@ -85,7 +85,7 @@ export async function getJournal(db: Firestore, journalId: string) {
 
   const userDoc = await getCurrentlySelectedUser(db);
 
-  const journalsCollection = collection(userDoc, "journals");
+  const journalsCollection = collection(userDoc.ref, "journals");
   return getDocs(
     query(journalsCollection, where("id", "==", journalId), limit(1))
   )
