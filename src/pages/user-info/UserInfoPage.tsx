@@ -10,9 +10,10 @@ import { getJournalsByUser } from "../../services/firebase/journal-service";
 import { db } from "../../services/firebase";
 import { useParams } from "react-router-dom";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
-import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
+import CurrentUserSelect from "../emotion-select/UserSelect";
 import { getUser } from "../../services/firebase/user-service";
 import JournalList from "./JournalList";
+import UserInfoSelect from "./UserInfoSelect";
 
 export default function UserInfoPage() {
   const [date, setDate] = useState(new Date());
@@ -24,7 +25,7 @@ export default function UserInfoPage() {
     isFetching,
     isLoading,
   } = useQuery({
-    queryKey: `journals-${date}`,
+    queryKey: `journals-${id}-${date}`,
     queryFn: () => {
       if (!id) return Promise.resolve({} as any);
 
@@ -32,13 +33,6 @@ export default function UserInfoPage() {
     },
   });
 
-  const { data: userData } = useQuery({
-    queryKey: `user-${id}`,
-    queryFn: () => {
-      if (!id) return Promise.resolve({} as any);
-      return getUser(db, id);
-    },
-  });
   const max = new Date();
   const min = sub(new Date(), { years: 5 });
 
@@ -60,7 +54,7 @@ export default function UserInfoPage() {
 
   return (
     <EmotionBackground emotion={Emotions.happy}>
-      <NavBar extraActions={<h1>{userData?.data().name}</h1>} />
+      <NavBar extraActions={<UserInfoSelect userId={id ?? ""} />} />
       <input
         className="ui-input date"
         max={format(max, "yyyy-MM")}

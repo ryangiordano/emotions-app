@@ -24,6 +24,7 @@ export default function EmotionPieGraph({
           outerRadius={100}
           fill="#82ca9d"
           label
+          animationDuration={500}
         >
           {emotionData.map(({ emotion }) => (
             <Cell

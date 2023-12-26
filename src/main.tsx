@@ -30,7 +30,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Routes>
           <Route path="/" element={<EmotionSelectPage />} />
           <Route path="/account-info" element={<AccountInfoPage />} />
-          <Route path="/user-info/:id" element={<UserInfoPage />} />
+          <Route path="/user-info/:id"  element={<UserInfoPage />} />
           <Route path="/confirm/:emotion" element={<EmotionConfirmPage />} />
           <Route path="/activity/:emotion" element={<EmotionActivityPage />} />
           <Route path="/journal/:emotion" element={<EmotionJournalPage />} />

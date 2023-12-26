@@ -12,6 +12,12 @@ import EmotionSelectButton from "./EmotionSelectButton";
 import { InputType } from "../../components/constants";
 import InputSwitchButton from "./InputSwitchButton";
 import NavBar from "../../components/nav/NavBar";
+import UserSelect from "./UserSelect";
+import { useQuery } from "react-query";
+import { getUsers } from "../../services/firebase/user-service";
+import { db } from "../../services/firebase";
+import { useCurrentUser } from "../../services/local-storage/current-user";
+import { User } from "../../services/firebase/types";
 import CurrentUserSelect from "./CurrentUserSelect";
 
 export default function EmotionSelectPage() {
@@ -28,6 +34,17 @@ export default function EmotionSelectPage() {
     },
     [selectedEmotion]
   );
+  const { data, isLoading, isFetching, isError } = useQuery({
+    queryKey: "users",
+    queryFn: () => {
+      return getUsers(db);
+    },
+  });
+  const { userId, setUserId } = useCurrentUser();
+
+  if (isLoading || isFetching || isError) {
+    return null;
+  }
 
   return (
     <EmotionContainer emotion={selectedEmotion ?? Emotions.happy}>

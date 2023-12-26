@@ -1,19 +1,15 @@
 import { getUsers } from "../../services/firebase/user-service";
 import { db } from "../../services/firebase";
-import Select from "../../components/forms/inputs/Select";
 import { useQuery } from "react-query";
-import { useCurrentUser } from "../../services/local-storage/current-user";
-import UserSelect from "./UserSelect";
+import UserSelect from "../emotion-select/UserSelect";
+import { useNavigate } from "react-router-dom";
 
-export default function CurrentUserSelect() {
+export default function UserInfoSelect({ userId }: { userId: string }) {
   const { data, isLoading, isFetching, isError } = useQuery({
     queryKey: "users",
-    queryFn: () => {
-      return getUsers(db);
-    },
+    queryFn: () => getUsers(db),
   });
-  const { userId, setUserId } = useCurrentUser();
-
+  const navigate = useNavigate();
   if (isLoading || isFetching || isError) {
     return null;
   }
@@ -22,7 +18,11 @@ export default function CurrentUserSelect() {
     <UserSelect
       selectedUserId={userId ?? ""}
       users={data}
-      onChangeUser={setUserId}
+      onChangeUser={(id) =>
+        navigate(`/user-info/${id}`, {
+          replace: true,
+        })
+      }
     />
   );
 }

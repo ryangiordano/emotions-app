@@ -10,6 +10,7 @@ import TextCounter from "./TextCounter";
 import NavBar from "../../components/nav/NavBar";
 import { db } from "../../services/firebase";
 import { createJournal } from "../../services/firebase/journal-service";
+import UserSelect from "../emotion-select/UserSelect";
 import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 
 export default function EmotionJournalPage() {

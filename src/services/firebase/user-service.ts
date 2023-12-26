@@ -1,12 +1,14 @@
 import {
+  DocumentData,
+  DocumentSnapshot,
   Firestore,
+  QuerySnapshot,
   doc,
   getDoc,
   getDocs,
   limit,
   query,
   where,
-  writeBatch,
 } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { auth } from ".";
@@ -39,31 +41,24 @@ export async function createUser(
     });
 }
 
-export function getUser(db: Firestore, uid: string) {
+export function getUser(
+  db: Firestore,
+  uid: string
+): Promise<DocumentSnapshot<User, DocumentData>> {
   const usersRef = collection(db, "users");
   const userDocRef = doc(usersRef, uid);
 
-  return getDoc(userDocRef)
-    .then((user) => {
-      return user;
-    })
-    .catch((e) => {
-      return e;
-    });
+  return getDoc(userDocRef) as Promise<DocumentSnapshot<User, DocumentData>>;
 }
 
-export function getUsers(db: Firestore) {
+export function getUsers(
+  db: Firestore
+): Promise<QuerySnapshot<User, DocumentData>> {
   const usersRef = collection(db, "users");
   assertAuthedUser(auth.currentUser);
   return getDocs(
     query(usersRef, where("accountId", "==", auth.currentUser.uid))
-  )
-    .then((user) => {
-      return user;
-    })
-    .catch((e) => {
-      return e;
-    });
+  ) as Promise<QuerySnapshot<User, DocumentData>>;
 }
 
 export async function getCurrentlySelectedUser(db: Firestore) {
@@ -73,13 +68,12 @@ export async function getCurrentlySelectedUser(db: Firestore) {
     return user;
   }
   const users = await getUsers(db);
-  /** If there are no users, we need to handle that at a higher level (redirect to user-create page) */
-  if (!users.length) {
+  if (!users.docs.length) {
     throw new UserError(UserErrorCodes.noUsers);
   }
-  setCurrentUserId(users[0].id);
+  setCurrentUserId(users.docs[0].id);
 
-  return users[0];
+  return users.docs[0];
 }
 
 export function updateUser(db: Firestore) {}
