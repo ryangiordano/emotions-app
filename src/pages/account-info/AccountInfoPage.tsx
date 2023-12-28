@@ -6,8 +6,10 @@ import { db } from "../../services/firebase";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
 import { useState } from "react";
 import UserCreateModal from "../modals/UserCreateModal";
-import NavBar from "../../components/nav/NavBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import BottomNav from "../../components/nav/BottomNav";
+import UIButton from "../../components/buttons/Button";
+import { auth } from "../../services/firebase";
 
 function UserSquare({
   children,
@@ -44,51 +46,58 @@ export default function AccountInfoPage() {
     },
   });
   const loading = isLoading || isFetching;
+  const navigate = useNavigate();
   return (
     <EmotionBackground emotion={loading ? Emotions.sad : Emotions.happy}>
-      <NavBar />
-
-      <UserCreateModal
-        onSuccess={() => {
-          setModalOpen(false);
-        }}
-        onClose={() => {
-          setModalOpen(false);
-        }}
-        isOpen={modalOpen}
-      />
-
-      {loading ? (
-        <LoadingPage />
-      ) : (
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            maxWidth: "500px",
-            width: "100%",
-            marginLeft: "auto",
-            marginRight: "auto",
-            gap: "10px",
-          }}
-        >
-          {data?.docs.map((doc: any) => {
-            const user = doc.data();
-            return (
-              <Link to={`/user-info/${doc.id}`} key={doc.id}>
-                <UserSquare>{user.name}</UserSquare>
-              </Link>
-            );
-          })}
-          <UserSquare
-            onClick={() => {
-              setModalOpen(true);
+      <div>
+        <UserCreateModal
+          onSuccess={() => setModalOpen(false)}
+          onClose={() => setModalOpen(false)}
+          isOpen={modalOpen}
+        />
+        {loading ? (
+          <LoadingPage />
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              maxWidth: "500px",
+              width: "100%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              gap: "10px",
             }}
           >
-            +
-          </UserSquare>
-        </div>
-      )}
+            {data?.docs.map((doc: any) => {
+              const user = doc.data();
+              return (
+                <Link to={`/user-info/${doc.id}`} key={doc.id}>
+                  <UserSquare>{user.name}</UserSquare>
+                </Link>
+              );
+            })}
+            <UserSquare onClick={() => setModalOpen(true)}>+</UserSquare>
+          </div>
+        )}
+      </div>
+      <UIButton
+        className="red"
+        style={{
+          width: "100%",
+          marginTop: "auto",
+          marginBottom: "16px",
+          color: "white",
+        }}
+        onClick={() => {
+          auth.signOut().then(() => {
+            navigate("/");
+          });
+        }}
+      >
+        Logout
+      </UIButton>
+      <BottomNav />
     </EmotionBackground>
   );
 }

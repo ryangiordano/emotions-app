@@ -6,19 +6,17 @@ import FaceContainer from "./FaceContainer";
 import { Emotions } from "../../components/face/constants";
 import { getEmotionSelectText } from "./use-emotion-select-text";
 import EmotionConfirmButton from "./emotion-confirm-button/EmotionConfirmButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmotionSlider from "./emotion-slider/EmotionSlider";
 import EmotionSelectButton from "./EmotionSelectButton";
 import { InputType } from "../../components/constants";
 import InputSwitchButton from "./InputSwitchButton";
-import NavBar from "../../components/nav/NavBar";
-import UserSelect from "./UserSelect";
-import { useQuery } from "react-query";
-import { getUsers } from "../../services/firebase/user-service";
-import { db } from "../../services/firebase";
-import { useCurrentUser } from "../../services/local-storage/current-user";
-import { User } from "../../services/firebase/types";
 import CurrentUserSelect from "./CurrentUserSelect";
+import BottomNav from "../../components/nav/BottomNav";
+import TopNav from "../../components/nav/TopNav";
+import JournalButton from "../../components/nav/buttons/JournalButton";
+import { useIdToken } from "react-firebase-hooks/auth";
+import { auth } from "../../services/firebase";
 
 export default function EmotionSelectPage() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotions>(
@@ -34,31 +32,20 @@ export default function EmotionSelectPage() {
     },
     [selectedEmotion]
   );
-  const { data, isLoading, isFetching, isError } = useQuery({
-    queryKey: "users",
-    queryFn: () => {
-      return getUsers(db);
-    },
-  });
-  const { userId, setUserId } = useCurrentUser();
-
-  if (isLoading || isFetching || isError) {
-    return null;
-  }
+  const navigate = useNavigate();
+  const [loggedInUser, loading] = useIdToken(auth);
 
   return (
     <EmotionContainer emotion={selectedEmotion ?? Emotions.happy}>
-      <NavBar
-        extraActions={
-          <>
-            <CurrentUserSelect />
-            <InputSwitchButton
-              inputType={inputType}
-              setInputType={setInputType}
-            />
-          </>
-        }
-      />
+      {loggedInUser && (
+        <TopNav>
+          <CurrentUserSelect />
+          <JournalButton
+            onClick={() => navigate(`/journal/${selectedEmotion}`)}
+          />
+        </TopNav>
+      )}
+
       <DialogBox
         text={emotionText}
         emotion={selectedEmotion ?? Emotions.happy}
@@ -126,6 +113,16 @@ export default function EmotionSelectPage() {
           />
         </div>
       )}
+      <BottomNav
+        extraActions={
+          <>
+            <InputSwitchButton
+              inputType={inputType}
+              setInputType={setInputType}
+            />
+          </>
+        }
+      />
     </EmotionContainer>
   );
 }

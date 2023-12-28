@@ -8,6 +8,7 @@ import AnimatedButton from "../../components/buttons/AnimatedButton";
 import { emotionBackgroundMap } from "../../components/constants";
 import NavBar from "../../components/nav/NavBar";
 import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
+import TopNav from "../../components/nav/TopNav";
 
 function getConfirmationText({ emotion }: { emotion: Emotions }) {
   switch (emotion) {
@@ -29,7 +30,9 @@ export default function EmotionConfirmPage() {
   }
   return (
     <EmotionContainer emotion={emotion as Emotions}>
-      <NavBar extraActions={<CurrentUserSelect />} />
+      <TopNav>
+        <CurrentUserSelect />
+      </TopNav>
 
       <DialogBox
         text={getConfirmationText({ emotion: emotion as Emotions })}

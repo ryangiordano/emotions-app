@@ -1,8 +1,11 @@
 import "./LoadingPage.scss";
 
-export default function LoadingPage() {
+export default function LoadingPage({ full = true }: { full?: boolean }) {
   return (
-    <div style={{ height: "100vh" }} className="loading-page-container">
+    <div
+      style={{ height: full ? "100vh" : undefined }}
+      className="loading-page-container"
+    >
       <span className="loader"></span>
     </div>
   );

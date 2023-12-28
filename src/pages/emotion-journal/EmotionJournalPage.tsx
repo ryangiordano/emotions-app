@@ -10,8 +10,8 @@ import TextCounter from "./TextCounter";
 import NavBar from "../../components/nav/NavBar";
 import { db } from "../../services/firebase";
 import { createJournal } from "../../services/firebase/journal-service";
-import UserSelect from "../emotion-select/UserSelect";
 import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
+import TopNav from "../../components/nav/TopNav";
 
 export default function EmotionJournalPage() {
   const { emotion } = useParams();
@@ -22,7 +22,9 @@ export default function EmotionJournalPage() {
   const navigate = useNavigate();
   return (
     <EmotionContainer emotion={emotion as Emotions}>
-      <NavBar extraActions={<CurrentUserSelect />} />
+      <TopNav>
+        <CurrentUserSelect />
+      </TopNav>
 
       <DialogBox emotion={emotion as Emotions} text={"Tell me about it..."} />
       <div className="journal-container">
@@ -56,10 +58,9 @@ export default function EmotionJournalPage() {
           disabled={text.length === 0}
           background={emotionBackgroundMap[emotion as Emotions]}
           onClick={() => {
-            console.log(emotion);
             if (emotion) {
+              //TODO: Navigate to a 'now how do you feel' page;
               createJournal(db, { text, emotion }).then((journal) => {
-                console.log(journal);
                 if (journal) {
                   navigate("/");
                 }

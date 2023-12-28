@@ -10,10 +10,10 @@ import { getJournalsByUser } from "../../services/firebase/journal-service";
 import { db } from "../../services/firebase";
 import { useParams } from "react-router-dom";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
-import CurrentUserSelect from "../emotion-select/UserSelect";
-import { getUser } from "../../services/firebase/user-service";
 import JournalList from "./JournalList";
 import UserInfoSelect from "./UserInfoSelect";
+import BottomNav from "../../components/nav/BottomNav";
+import TopNav from "../../components/nav/TopNav";
 
 export default function UserInfoPage() {
   const [date, setDate] = useState(new Date());
@@ -54,27 +54,32 @@ export default function UserInfoPage() {
 
   return (
     <EmotionBackground emotion={Emotions.happy}>
-      <NavBar extraActions={<UserInfoSelect userId={id ?? ""} />} />
-      <input
-        className="ui-input date"
-        max={format(max, "yyyy-MM")}
-        min={format(min, "yyyy-MM")}
-        type="month"
-        value={format(date, "yyyy-MM")}
-        onChange={(e) => {
-          const date = parse(e.target.value, "yyyy-MM", new Date());
-          setDate(date);
-        }}
-      />
+      <div>
+        <TopNav>
+          <UserInfoSelect userId={id ?? ""} />
+        </TopNav>
+        <input
+          className="ui-input date"
+          max={format(max, "yyyy-MM")}
+          min={format(min, "yyyy-MM")}
+          type="month"
+          value={format(date, "yyyy-MM")}
+          onChange={(e) => {
+            const date = parse(e.target.value, "yyyy-MM", new Date());
+            setDate(date);
+          }}
+        />
 
-      {isLoading || isFetching || isError ? (
-        <LoadingPage />
-      ) : (
-        <>
-          <EmotionPieGraph emotionData={emotionData ?? []} />
-          <JournalList journals={journalData} />
-        </>
-      )}
+        {isLoading || isFetching || isError ? (
+          <LoadingPage full={false} />
+        ) : (
+          <>
+            <EmotionPieGraph emotionData={emotionData ?? []} />
+            <JournalList journals={journalData} />
+          </>
+        )}
+      </div>
+      <BottomNav />
     </EmotionBackground>
   );
 }

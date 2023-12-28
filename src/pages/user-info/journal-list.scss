@@ -1,4 +1,6 @@
 .journal-list {
+  height: 350px;
+  display: block;
   overflow-y: scroll;
 }
 
@@ -22,7 +24,6 @@
   text-overflow: ellipsis;
   font-size: 1.2rem;
   font-weight: bold;
-  // color: rgba(0, 0, 0, 0.6);
 
   .journal-list-item-title {
     font-size: 16px;

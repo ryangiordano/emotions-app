@@ -9,6 +9,7 @@ export const emotionSelectText = {
   [Emotions.angry]:
     "You seem like you're feeling REALLY angry. Are you having some big emotions?",
   [Emotions.anxious]: "Oh, are we feeling a little weird and silly? That's ok!",
+  [Emotions.neutral]: "",
 };
 
 export function getEmotionSelectText({ emotion }: { emotion?: Emotions }) {

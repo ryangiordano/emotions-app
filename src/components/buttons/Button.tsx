@@ -3,6 +3,7 @@ import "./button.scss";
 export default function UIButton({
   children,
   style,
+  className,
   ...rest
 }: {
   children: React.ReactNode;
@@ -11,7 +12,7 @@ export default function UIButton({
   HTMLButtonElement
 >) {
   return (
-    <button style={style} className="ui-button" {...rest}>
+    <button style={style} className={`ui-button ${className}`} {...rest}>
       {children}
     </button>
   );

@@ -5,14 +5,11 @@ import UserSelect from "../emotion-select/UserSelect";
 import { useNavigate } from "react-router-dom";
 
 export default function UserInfoSelect({ userId }: { userId: string }) {
-  const { data, isLoading, isFetching, isError } = useQuery({
+  const { data } = useQuery({
     queryKey: "users",
     queryFn: () => getUsers(db),
   });
   const navigate = useNavigate();
-  if (isLoading || isFetching || isError) {
-    return null;
-  }
 
   return (
     <UserSelect

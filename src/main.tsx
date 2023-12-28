@@ -12,6 +12,7 @@ import CreateUserPage from "./pages/create-user/CreateUserPage";
 import AuthGuardRoute from "./utils/loading-page/AuthGuardRoute";
 import { QueryClient, QueryClientProvider } from "react-query";
 import AccountInfoPage from "./pages/account-info/AccountInfoPage";
+import EmotionCheckinPage from "./pages/emotion-checkin/EmotionCheckinPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,10 +31,11 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         <Routes>
           <Route path="/" element={<EmotionSelectPage />} />
           <Route path="/account-info" element={<AccountInfoPage />} />
-          <Route path="/user-info/:id"  element={<UserInfoPage />} />
+          <Route path="/user-info/:id" element={<UserInfoPage />} />
           <Route path="/confirm/:emotion" element={<EmotionConfirmPage />} />
           <Route path="/activity/:emotion" element={<EmotionActivityPage />} />
           <Route path="/journal/:emotion" element={<EmotionJournalPage />} />
+          <Route path="/checkin" element={<EmotionCheckinPage />} />
           <Route path="*" element={<EmotionSelectPage />} />
           <Route path="/login" element={<LoginPage />} />
 

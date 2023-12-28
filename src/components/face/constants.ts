@@ -3,4 +3,5 @@ export enum Emotions {
   sad = "sad",
   anxious = "anxious",
   angry = "angry",
+  neutral = "neutral",
 }

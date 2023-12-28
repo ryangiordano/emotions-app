@@ -5,6 +5,8 @@ export const emotionBackgroundMap = {
   [Emotions.angry]: "linear-gradient(to bottom, #EB3E3E, #F4D18D)",
   [Emotions.sad]: "linear-gradient(to bottom, #5161E9, #E8CBFF)",
   [Emotions.anxious]: "linear-gradient(to bottom, #2dfdcd, #fdbb2d)",
+  [Emotions.neutral]:
+    "linear-gradient(0deg, rgba(201,201,201,1) 0%,  rgba(111,111,111,1) 100%)",
 };
 
 export const emotionToTextMap = {
@@ -12,6 +14,7 @@ export const emotionToTextMap = {
   [Emotions.angry]: "Angry",
   [Emotions.sad]: "Sad",
   [Emotions.anxious]: "Anxious",
+  [Emotions.neutral]: "Neutral",
 };
 
 export const emotionColorMap = {
@@ -19,6 +22,7 @@ export const emotionColorMap = {
   [Emotions.angry]: "red",
   [Emotions.sad]: "blue",
   [Emotions.anxious]: "yellow",
+  [Emotions.neutral]: "white",
 };
 
 export const emotionIconMap = {
