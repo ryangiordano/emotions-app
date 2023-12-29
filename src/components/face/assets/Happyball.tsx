@@ -17,8 +17,8 @@ export default function Happyball() {
           gradientUnits="userSpaceOnUse"
           gradientTransform="translate(80 80) rotate(90) scale(80)"
         >
-          <stop stop-color="#55D540" />
-          <stop offset="1" stop-color="#C5EAFF" stop-opacity="0" />
+          <stop stopColor="#55D540" />
+          <stop offset="1" stopColor="#C5EAFF" stopOpacity="0" />
         </radialGradient>
       </defs>
     </svg>

@@ -19,7 +19,7 @@ export default function Home({ fill }: React.SVGProps<SVGSVGElement>) {
         d="M38.6029 44.7794C38.6029 52.4546 44.8248 58.6765 52.5 58.6765C60.1752 58.6765 66.397 52.4546 66.397 44.7794"
         stroke={fill}
         strokeWidth="5"
-        stroke-linejoin="round"
+        strokeLinejoin="round"
       />
       <defs>
         <linearGradient
@@ -30,8 +30,8 @@ export default function Home({ fill }: React.SVGProps<SVGSVGElement>) {
           y2="105"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stop-color="#D9D9D9" stop-opacity="0" />
-          <stop offset="1" stop-color={fill} stop-opacity="0.5" />
+          <stop stopColor="#D9D9D9" stopOpacity="0" />
+          <stop offset="1" stopColor={fill} stopOpacity="0.5" />
         </linearGradient>
       </defs>
     </svg>

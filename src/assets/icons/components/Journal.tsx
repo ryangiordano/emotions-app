@@ -11,17 +11,17 @@ export default function Journal({
         height="101"
         rx="4.5"
         stroke={stroke}
-        stroke-width="5"
+        strokeWidth="5"
       />
       <path
         d="M3 102V116C3 119.866 6.13401 123 10 123H51"
         stroke={stroke}
-        stroke-width="5"
+        strokeWidth="5"
       />
       <path
         d="M50.5 113V135.5L61 125L71.5 135.5V113H13.5"
         stroke={stroke}
-        stroke-width="5"
+        strokeWidth="5"
       />
       <path
         d="M92 125.5C93.3807 125.5 94.5 124.381 94.5 123C94.5 121.619 93.3807 120.5 92 120.5V125.5ZM74 125.5H92V120.5H74V125.5Z"
@@ -38,7 +38,7 @@ export default function Journal({
         height="42"
         rx="4.5"
         stroke={stroke}
-        stroke-width="5"
+        strokeWidth="5"
       />
     </svg>
   );
