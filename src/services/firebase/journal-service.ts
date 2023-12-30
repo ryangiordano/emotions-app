@@ -1,5 +1,9 @@
 import {
+  DocumentData,
+  DocumentSnapshot,
   Firestore,
+  doc,
+  getDoc,
   getDocs,
   limit,
   query,
@@ -10,6 +14,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { assertAuthedUser } from "./authentication-service";
 import { auth } from ".";
 import { getCurrentlySelectedUser, getUser } from "./user-service";
+import { Journal, User } from "./types";
 
 export async function createJournal(
   db: Firestore,
@@ -81,18 +86,10 @@ export function updateJournal(db: Firestore) {}
 export function deleteJournal(db: Firestore) {}
 
 export async function getJournal(db: Firestore, journalId: string) {
-  assertAuthedUser(auth.currentUser);
+  const journalsRef = collection(db, "journals");
+  const journalDocRef = doc(journalsRef, journalId);
 
-  const userDoc = await getCurrentlySelectedUser(db);
-
-  const journalsCollection = collection(userDoc.ref, "journals");
-  return getDocs(
-    query(journalsCollection, where("id", "==", journalId), limit(1))
-  )
-    .then((journal) => {
-      return journal.docs[0].data();
-    })
-    .catch((e) => {
-      return e;
-    });
+  return getDoc(journalDocRef) as Promise<
+    DocumentSnapshot<Journal, DocumentData>
+  >;
 }

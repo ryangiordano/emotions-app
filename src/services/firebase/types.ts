@@ -10,6 +10,6 @@ export type Journal = {
   accountId: string;
   emotion: Emotions;
   text: string;
-  timestamp: number;
+  timestamp: { seconds: number; nanoseconds: number };
   user: User;
 };

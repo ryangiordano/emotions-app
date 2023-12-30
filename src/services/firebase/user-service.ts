@@ -6,14 +6,13 @@ import {
   doc,
   getDoc,
   getDocs,
-  limit,
   query,
   where,
 } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore";
 import { auth } from ".";
 import { assertAuthedUser } from "./authentication-service";
-import { UserError, UserErrorCodes, UserErrorCodeText } from "./user-errors";
+import { UserError, UserErrorCodes } from "./user-errors";
 import { User } from "./types";
 import {
   getCurrentUserId,

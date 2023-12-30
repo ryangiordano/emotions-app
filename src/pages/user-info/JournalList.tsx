@@ -36,7 +36,7 @@ export default function JournalList({ journals }: { journals: any[] }) {
               transition={{ duration: 0.08, delay: i * 0.08 }}
             >
               <Link
-                to={`/journal/${doc.id}`}
+                to={`/journal/detail/${doc.id}`}
                 className={`journal-list-item ${
                   emotionColorMap[data.emotion as Emotions]
                 }`}
