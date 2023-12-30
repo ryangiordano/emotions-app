@@ -59,7 +59,6 @@ export default function AccountInfoPage() {
         style={{
           display: "flex",
           flexDirection: "column",
-          height: "85vh",
           justifyContent: "space-between",
         }}
       >

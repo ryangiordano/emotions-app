@@ -47,32 +47,29 @@ export default function EmotionJournalPage() {
           placeholder="Today I'm feeling..."
         ></textarea>
       </div>
-      <div className="nav-button-container">
-        <Link to={`/confirm/${emotion}`}>
-          <AnimatedButton
-            background={emotionBackgroundMap[emotion as Emotions]}
-          >
-            ◀
-          </AnimatedButton>
-        </Link>
-        <AnimatedButton
-          disabled={text.length === 0}
-          background={emotionBackgroundMap[emotion as Emotions]}
-          onClick={() => {
-            if (emotion) {
-              //TODO: Navigate to a 'now how do you feel' page;
-              createJournal(db, { text, emotion }).then((journal) => {
-                if (journal) {
-                  navigate("/");
+
+      <BottomNav
+        topAccessories={
+          <div className="nav-button-container">
+            <AnimatedButton
+              disabled={text.length === 0}
+              background={emotionBackgroundMap[emotion as Emotions]}
+              onClick={() => {
+                if (emotion) {
+                  //TODO: Navigate to a 'now how do you feel' page;
+                  createJournal(db, { text, emotion }).then((journal) => {
+                    if (journal) {
+                      navigate("/");
+                    }
+                  });
                 }
-              });
-            }
-          }}
-        >
-          Submit
-        </AnimatedButton>
-      </div>
-      <BottomNav />
+              }}
+            >
+              Submit
+            </AnimatedButton>
+          </div>
+        }
+      />
     </EmotionContainer>
   );
 }

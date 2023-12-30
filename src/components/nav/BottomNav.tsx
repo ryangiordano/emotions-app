@@ -7,9 +7,9 @@ import Home from "../../assets/icons/components/Home";
 import { useCurrentUser } from "../../services/local-storage/current-user";
 
 export default function BottomNav({
-  extraActions,
+  topAccessories,
 }: {
-  extraActions?: JSX.Element;
+  topAccessories?: JSX.Element;
 }) {
   const [loggedInUser, loading] = useIdToken(auth);
   const { userId } = useCurrentUser();
@@ -21,15 +21,20 @@ export default function BottomNav({
     <nav
       style={{
         position: "fixed",
+        left: 0,
         bottom: 0,
+        width: "100%",
+        boxSizing: "border-box",
+        padding: "16px",
       }}
     >
+      <div>{topAccessories}</div>
       <div
         style={{
           display: "flex",
           gap: "10px",
           marginTop: "10px",
-          marginBottom: "50px",
+          marginBottom: "15px",
           marginLeft: "15px",
           marginRight: "15px",
         }}
@@ -74,7 +79,6 @@ export default function BottomNav({
             Login
           </NavLink>
         )}
-        {/* {extraActions} */}
       </div>
     </nav>
   );
