@@ -49,12 +49,20 @@ export default function AccountInfoPage() {
   const navigate = useNavigate();
   return (
     <EmotionBackground emotion={loading ? Emotions.sad : Emotions.happy}>
-      <div>
-        <UserCreateModal
-          onSuccess={() => setModalOpen(false)}
-          onClose={() => setModalOpen(false)}
-          isOpen={modalOpen}
-        />
+      <UserCreateModal
+        onSuccess={() => setModalOpen(false)}
+        onClose={() => setModalOpen(false)}
+        isOpen={modalOpen}
+      />
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          height: "85vh",
+          justifyContent: "space-between",
+        }}
+      >
         {loading ? (
           <LoadingPage />
         ) : (
@@ -80,23 +88,24 @@ export default function AccountInfoPage() {
             <UserSquare onClick={() => setModalOpen(true)}>+</UserSquare>
           </div>
         )}
+        <UIButton
+          className="red"
+          style={{
+            width: "100%",
+            marginTop: "auto",
+            marginBottom: "16px",
+            color: "white",
+          }}
+          onClick={() => {
+            auth.signOut().then(() => {
+              navigate("/");
+            });
+          }}
+        >
+          Logout
+        </UIButton>
       </div>
-      <UIButton
-        className="red"
-        style={{
-          width: "100%",
-          marginTop: "auto",
-          marginBottom: "16px",
-          color: "white",
-        }}
-        onClick={() => {
-          auth.signOut().then(() => {
-            navigate("/");
-          });
-        }}
-      >
-        Logout
-      </UIButton>
+
       <BottomNav />
     </EmotionBackground>
   );

@@ -18,7 +18,12 @@ export default function BottomNav({
   };
 
   return (
-    <nav>
+    <nav
+      style={{
+        position: "fixed",
+        bottom: 0,
+      }}
+    >
       <div
         style={{
           display: "flex",

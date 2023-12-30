@@ -12,6 +12,7 @@ import { db } from "../../services/firebase";
 import { createJournal } from "../../services/firebase/journal-service";
 import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 import TopNav from "../../components/nav/TopNav";
+import BottomNav from "../../components/nav/BottomNav";
 
 export default function EmotionJournalPage() {
   const { emotion } = useParams();
@@ -71,6 +72,7 @@ export default function EmotionJournalPage() {
           Submit
         </AnimatedButton>
       </div>
+      <BottomNav />
     </EmotionContainer>
   );
 }

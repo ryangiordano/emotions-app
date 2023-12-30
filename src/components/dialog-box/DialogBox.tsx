@@ -24,7 +24,7 @@ export default function DialogBox({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{
-              duration: 0.2,
+              duration: 0.01,
               delay: i / 50,
             }}
             key={`${i} ${el} ${reversedText?.[i]}`}

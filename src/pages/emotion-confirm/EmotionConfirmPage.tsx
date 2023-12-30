@@ -9,6 +9,7 @@ import { emotionBackgroundMap } from "../../components/constants";
 import NavBar from "../../components/nav/NavBar";
 import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 import TopNav from "../../components/nav/TopNav";
+import BottomNav from "../../components/nav/BottomNav";
 
 function getConfirmationText({ emotion }: { emotion: Emotions }) {
   switch (emotion) {
@@ -67,6 +68,7 @@ export default function EmotionConfirmPage() {
           </Link>
         )}
       </div>
+      <BottomNav />
     </EmotionContainer>
   );
 }
