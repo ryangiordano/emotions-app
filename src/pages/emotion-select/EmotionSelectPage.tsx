@@ -10,7 +10,6 @@ import { Link, useNavigate } from "react-router-dom";
 import EmotionSlider from "./emotion-slider/EmotionSlider";
 import EmotionSelectButton from "./EmotionSelectButton";
 import { InputType } from "../../components/constants";
-import InputSwitchButton from "./InputSwitchButton";
 import CurrentUserSelect from "./CurrentUserSelect";
 import BottomNav from "../../components/nav/BottomNav";
 import TopNav from "../../components/nav/TopNav";
@@ -33,7 +32,7 @@ export default function EmotionSelectPage() {
     [selectedEmotion]
   );
   const navigate = useNavigate();
-  const [loggedInUser, loading] = useIdToken(auth);
+  const [loggedInUser] = useIdToken(auth);
 
   return (
     <EmotionContainer emotion={selectedEmotion ?? Emotions.happy}>
@@ -100,26 +99,21 @@ export default function EmotionSelectPage() {
           </div>
         </div>
       )}
-      {inputType === InputType.slider && (
-        <div className="emotion-confirm-container slider">
-          <Link to={`confirm/${selectedEmotion}`}>
-            <EmotionConfirmButton emotion={selectedEmotion} />
-          </Link>
-          <EmotionSlider
-            sliderValue={emotionSlider}
-            setEmotionSliderValue={setEmotionSlider}
-            selectedEmotion={selectedEmotion}
-            updateEmotion={updateEmotion}
-          />
-        </div>
-      )}
+
       <BottomNav
-        extraActions={
+        topAccessories={
           <>
-            <InputSwitchButton
-              inputType={inputType}
-              setInputType={setInputType}
-            />
+            <div className="emotion-confirm-container slider">
+              <Link to={`confirm/${selectedEmotion}`}>
+                <EmotionConfirmButton emotion={selectedEmotion} />
+              </Link>
+              <EmotionSlider
+                sliderValue={emotionSlider}
+                setEmotionSliderValue={setEmotionSlider}
+                selectedEmotion={selectedEmotion}
+                updateEmotion={updateEmotion}
+              />
+            </div>
           </>
         }
       />

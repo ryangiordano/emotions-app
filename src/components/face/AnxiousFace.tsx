@@ -17,8 +17,8 @@ export default function AnxiousFace() {
   return (
     <svg
       className="face"
-      width="400"
-      height="400"
+      width="200"
+      height="200"
       viewBox="0 0 400 400"
       fill="none"
       id="anxious-face"

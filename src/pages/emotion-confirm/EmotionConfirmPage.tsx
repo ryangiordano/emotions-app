@@ -43,32 +43,19 @@ export default function EmotionConfirmPage() {
         <Face emotion={emotion as Emotions} />
       </FaceContainer>
 
-      <div className="nav-button-container">
-        <Link to={`/`}>
-          <AnimatedButton
-            background={emotionBackgroundMap[emotion as Emotions]}
-          >
-            ◀
-          </AnimatedButton>
-        </Link>
-        <Link to={`/journal/${emotion}`}>
-          <AnimatedButton
-            background={emotionBackgroundMap[emotion as Emotions]}
-          >
-            Journal
-          </AnimatedButton>
-        </Link>
-        {emotion === Emotions.angry && (
-          <Link to={`/activity/${emotion}`}>
-            <AnimatedButton
-              background={emotionBackgroundMap[emotion as Emotions]}
-            >
-              Activity
-            </AnimatedButton>
-          </Link>
-        )}
-      </div>
-      <BottomNav />
+      <BottomNav
+        topAccessories={
+          <div className="nav-button-container">
+            <Link to={`/journal/${emotion}`}>
+              <AnimatedButton
+                background={emotionBackgroundMap[emotion as Emotions]}
+              >
+                Journal
+              </AnimatedButton>
+            </Link>
+          </div>
+        }
+      />
     </EmotionContainer>
   );
 }
