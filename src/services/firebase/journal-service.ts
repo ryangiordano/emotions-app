@@ -2,6 +2,7 @@ import {
   DocumentData,
   DocumentSnapshot,
   Firestore,
+  QuerySnapshot,
   doc,
   getDoc,
   getDocs,
@@ -72,13 +73,7 @@ export async function getJournalsByUser(
       where("timestamp", ">", startDate),
       where("timestamp", "<", endDate)
     )
-  )
-    .then(({ docs }) => {
-      return docs;
-    })
-    .catch((e) => {
-      return e;
-    });
+  ) as Promise<QuerySnapshot<Journal, DocumentData>>;
 }
 
 export function updateJournal(db: Firestore) {}

@@ -8,7 +8,7 @@ export default function EmotionPieGraph({
 }: {
   emotionData: {
     emotion: Emotions;
-    value: number;
+    value: number | null;
   }[];
 }) {
   return (

@@ -107,12 +107,50 @@ export default function EmotionSelectPage() {
               <Link to={`confirm/${selectedEmotion}`}>
                 <EmotionConfirmButton emotion={selectedEmotion} />
               </Link>
-              <EmotionSlider
+              {/* <EmotionSlider
                 sliderValue={emotionSlider}
                 setEmotionSliderValue={setEmotionSlider}
                 selectedEmotion={selectedEmotion}
                 updateEmotion={updateEmotion}
-              />
+              /> */}
+              <div className="inner-emotion-confirm-container">
+                <EmotionSelectButton
+                  onClick={() => {
+                    updateEmotion(Emotions.happy);
+                  }}
+                  className="green"
+                  selected={selectedEmotion === Emotions.happy}
+                >
+                  😀
+                </EmotionSelectButton>
+                <EmotionSelectButton
+                  onClick={() => {
+                    updateEmotion(Emotions.angry);
+                  }}
+                  className="red"
+                  selected={selectedEmotion === Emotions.angry}
+                >
+                  😡
+                </EmotionSelectButton>
+                <EmotionSelectButton
+                  onClick={() => {
+                    updateEmotion(Emotions.sad);
+                  }}
+                  className="blue"
+                  selected={selectedEmotion === Emotions.sad}
+                >
+                  😢
+                </EmotionSelectButton>
+                <EmotionSelectButton
+                  onClick={() => {
+                    updateEmotion(Emotions.anxious);
+                  }}
+                  className="yellow"
+                  selected={selectedEmotion === Emotions.anxious}
+                >
+                  🤪
+                </EmotionSelectButton>
+              </div>
             </div>
           </>
         }
