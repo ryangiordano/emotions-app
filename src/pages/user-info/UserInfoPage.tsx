@@ -3,7 +3,15 @@ import { useQuery } from "react-query";
 import EmotionPieGraph from "../../components/datavis/EmotionPieGraph";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { Emotions } from "../../components/face/constants";
-import { endOfMonth, format, parse, startOfMonth, sub } from "date-fns";
+import {
+  endOfDay,
+  endOfMonth,
+  format,
+  parse,
+  startOfDay,
+  startOfMonth,
+  sub,
+} from "date-fns";
 import "../../components/forms/inputs/text-input.scss";
 import { getJournalsByUser } from "../../services/firebase/journal-service";
 import { db } from "../../services/firebase";
@@ -14,6 +22,7 @@ import BottomNav from "../../components/nav/BottomNav";
 import TopNav from "../../components/nav/TopNav";
 import BackButton from "../../components/nav/buttons/BackButton";
 import EmotionCalendar from "./emotion-calendar/EmotionCalendar";
+import JournalModal from "./JournalModal";
 
 export default function UserInfoPage() {
   const [date, setDate] = useState(
@@ -34,7 +43,7 @@ export default function UserInfoPage() {
     isFetching,
     isLoading,
   } = useQuery({
-    queryKey: `journals-${id}-${date}`,
+    queryKey: `journals-${id}-${startOfMonth(date)}-${endOfMonth(date)}`,
     queryFn: () => {
       return getJournalsByUser(
         db,
@@ -67,8 +76,17 @@ export default function UserInfoPage() {
     };
   });
 
+  const [journalModalOpen, setJournalModalOpen] = useState(false);
+  const [journalStartDate, setJournalStartDate] = useState(startOfMonth(date));
+  const [journalEndDate, setJournalEndDate] = useState(endOfMonth(date));
   return (
     <EmotionBackground emotion={Emotions.happy}>
+      <JournalModal
+        isOpen={journalModalOpen}
+        startDate={journalStartDate}
+        endDate={journalEndDate}
+        onClose={() => setJournalModalOpen(false)}
+      />
       <div>
         <TopNav>
           <BackButton
@@ -100,8 +118,17 @@ export default function UserInfoPage() {
               journals={
                 journalData?.docs.map((journalDoc) => journalDoc.data()) ?? []
               }
+              onClickMonth={() => {
+                setJournalStartDate(startOfMonth(date));
+                setJournalEndDate(endOfMonth(date));
+                setJournalModalOpen(true);
+              }}
+              onClickDate={(date: Date) => {
+                setJournalModalOpen(true);
+                setJournalStartDate(startOfDay(date));
+                setJournalEndDate(endOfDay(date));
+              }}
             />
-            {/* <JournalList journals={journalData} /> */}
           </>
         )}
       </div>

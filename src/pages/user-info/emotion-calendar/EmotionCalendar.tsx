@@ -1,28 +1,36 @@
-import {
-  eachDayOfInterval,
-  endOfMonth,
-  getDaysInMonth,
-  getWeeksInMonth,
-  isSameDay,
-  startOfMonth,
-} from "date-fns";
+import { format, getDaysInMonth } from "date-fns";
 import { Journal } from "../../../services/firebase/types";
 import "./emotion-calendar.scss";
 
-function CalendarCel({ date, entries }: { date: Date; entries: Journal[] }) {
+function CalendarCel({
+  date,
+  entries,
+  onClick,
+}: {
+  date: Date;
+  entries: Journal[];
+  onClick: (date: Date) => void;
+}) {
   return (
-    <div className={`calendar-cell ${entries.length ? "active" : ""}`}>
+    <button
+      onClick={() => onClick(date)}
+      className={`calendar-cell ${entries.length ? "active" : ""}`}
+    >
       {date.getDate()}
-    </div>
+    </button>
   );
 }
 
 export default function EmotionCalendar({
   date,
   journals,
+  onClickDate,
+  onClickMonth,
 }: {
   date: Date;
   journals: Journal[];
+  onClickDate: (date: Date) => void;
+  onClickMonth: () => void;
 }) {
   const aggregatedJournals = journals.reduce<Record<string, Journal[]>>(
     (acc, journal) => {
@@ -49,10 +57,22 @@ export default function EmotionCalendar({
   }
 
   return (
-    <div className="calendar-container">
-      {arr.map(({ date, entries }) => {
-        return <CalendarCel date={date} entries={entries ?? []} />;
-      })}
-    </div>
+    <>
+      <button onClick={() => onClickMonth()}>
+        <h2> {format(date, "MMMM yyyy")}</h2>
+      </button>
+      <div className="calendar-container">
+        {arr.map(({ date, entries }) => {
+          return (
+            <CalendarCel
+              date={date}
+              entries={entries ?? []}
+              key={date.toISOString()}
+              onClick={onClickDate}
+            />
+          );
+        })}
+      </div>
+    </>
   );
 }
