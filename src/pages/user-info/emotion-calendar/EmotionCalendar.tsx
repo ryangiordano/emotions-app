@@ -27,50 +27,31 @@ export default function EmotionCalendar({
   const aggregatedJournals = journals.reduce<Record<string, Journal[]>>(
     (acc, journal) => {
       const date = journal.timestamp.seconds * 1000;
-      if (acc[date]) {
-        acc[date].push(journal);
+      const day = new Date(date).getDate();
+      if (acc[day]) {
+        acc[day].push(journal);
       } else {
-        acc[date] = [journal];
+        acc[day] = [journal];
       }
       return acc;
     },
     {}
   );
+  const daysInMonth = getDaysInMonth(date);
+  const arr: { date: Date; entries: Journal[] }[] = [];
 
-  const arr = new Array(getWeeksInMonth(date)).fill(0).map((_, weekIndex) => {
-    return [
-      ...new Array(7).fill(null).map((_, weekDayIndex) => {
-        return {
-          date: new Date(),
-          entries: [],
-        };
-      }),
-    ];
-  });
-
-  // create an array of arrays of 7, where each element is {date: Date, entries: any[]}
-
-  Object.keys(aggregatedJournals).forEach((timestamp) => {
-    const date = new Date(Number(timestamp));
-    const dayOfMonth = date.getDate();
-    const weekOfMonth = Math.floor(dayOfMonth / 7);
-    const dayOfWeek = date.getDay();
-    arr[weekOfMonth][dayOfWeek] = {
-      date,
-      entries: aggregatedJournals[timestamp] as any,
-    };
-  });
+  for (let i = 0; i < daysInMonth; i++) {
+    const day = new Date(date.getFullYear(), date.getMonth(), i + 1);
+    arr.push({
+      date: day,
+      entries: aggregatedJournals[i + 1] ?? [],
+    });
+  }
 
   return (
     <div className="calendar-container">
-      {arr.map((week) => {
-        return (
-          <div className="calendar-row">
-            {week.map(({ date, entries }) => {
-              return <CalendarCel date={date} entries={entries ?? []} />;
-            })}
-          </div>
-        );
+      {arr.map(({ date, entries }) => {
+        return <CalendarCel date={date} entries={entries ?? []} />;
       })}
     </div>
   );
