@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useQuery } from "react-query";
 import EmotionPieGraph from "../../components/datavis/EmotionPieGraph";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
@@ -16,9 +16,18 @@ import BackButton from "../../components/nav/buttons/BackButton";
 import EmotionCalendar from "./emotion-calendar/EmotionCalendar";
 
 export default function UserInfoPage() {
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(
+    new Date(localStorage?.getItem("date") ?? new Date())
+  );
   const { id } = useParams();
 
+  const setAndSaveDate = useCallback(
+    (date: Date) => {
+      setDate(date);
+      localStorage?.setItem("date", date.toISOString());
+    },
+    [date]
+  );
   const {
     data: journalData,
     isError,
@@ -77,7 +86,7 @@ export default function UserInfoPage() {
           value={format(date, "yyyy-MM")}
           onChange={(e) => {
             const date = parse(e.target.value, "yyyy-MM", new Date());
-            setDate(date);
+            setAndSaveDate(date);
           }}
         />
 
