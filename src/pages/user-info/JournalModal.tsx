@@ -13,22 +13,22 @@ export default function JournalModal({
   onClose,
   startDate,
   endDate,
+  userId,
 }: {
   isOpen: boolean;
   onClose: () => void;
   startDate: Date;
   endDate: Date;
+  userId: string;
 }) {
-  const { id } = useParams();
-
   const {
     data: journalData,
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: `journals-${id}-${startDate}-${endDate}`,
+    queryKey: `journals-${userId}-${startDate}-${endDate}`,
     queryFn: () => {
-      return getJournalsByUser(db, id ?? "0", startDate, endDate);
+      return getJournalsByUser(db, userId ?? "0", startDate, endDate);
     },
   });
   const loading = isLoading || isFetching;

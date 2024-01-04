@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import AccountInfoPage from "./pages/account-info/AccountInfoPage";
 import EmotionCheckinPage from "./pages/emotion-checkin/EmotionCheckinPage";
 import JournalDetailPage from "./pages/journal-detail/JournalDetailPage";
+import JournalListPage from "./pages/journal-list/JournalListPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -37,6 +38,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
           <Route path="/activity/:emotion" element={<EmotionActivityPage />} />
           <Route path="/journal/detail/:id" element={<JournalDetailPage />} />
           <Route path="/journal/:emotion" element={<EmotionJournalPage />} />
+          <Route path="/journal/list/:id" element={<JournalListPage />} />
           <Route path="/checkin" element={<EmotionCheckinPage />} />
           <Route path="*" element={<EmotionSelectPage />} />
           <Route path="/login" element={<LoginPage />} />

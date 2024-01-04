@@ -87,36 +87,24 @@ export default function EmotionCalendar({
         ] ?? [],
     });
   });
-  const calendarCelVariants = {
-    hidden: { opacity: 0, y: -20 },
-    show: { opacity: 1, y: 0 },
-  };
+
   return (
     <div className="calendar-container">
       <button onClick={() => onClickMonth()}>
         <h2> {format(date, "MMMM yyyy")}</h2>
       </button>
       <div className="calendar-grid">
-        <AnimatePresence>
-          {arr.map(({ date: calendarDate, entries }, i) => {
-            const inactive = calendarDate.getMonth() !== date.getMonth();
-            return (
-              <motion.div
-                variants={calendarCelVariants}
-                exit={{ y: 20, opacity: 0 }}
-                transition={{ duration: 0.08, delay: i * 0.08 }}
-                key={calendarDate.toISOString()}
-              >
-                <CalendarCel
-                  date={calendarDate}
-                  entries={entries ?? []}
-                  onClick={inactive ? () => {} : onClickDate}
-                  inactive={inactive}
-                />
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
+        {arr.map(({ date: calendarDate, entries }, i) => {
+          const inactive = calendarDate.getMonth() !== date.getMonth();
+          return (
+            <CalendarCel
+              date={calendarDate}
+              entries={entries ?? []}
+              onClick={inactive ? () => {} : onClickDate}
+              inactive={inactive}
+            />
+          );
+        })}
       </div>
     </div>
   );

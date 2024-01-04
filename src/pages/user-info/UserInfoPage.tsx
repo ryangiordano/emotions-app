@@ -15,14 +15,13 @@ import {
 import "../../components/forms/inputs/text-input.scss";
 import { getJournalsByUser } from "../../services/firebase/journal-service";
 import { db } from "../../services/firebase";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
 import UserInfoSelect from "./UserInfoSelect";
 import BottomNav from "../../components/nav/BottomNav";
 import TopNav from "../../components/nav/TopNav";
 import BackButton from "../../components/nav/buttons/BackButton";
 import EmotionCalendar from "./emotion-calendar/EmotionCalendar";
-import JournalModal from "./JournalModal";
 
 export default function UserInfoPage() {
   const [date, setDate] = useState(
@@ -76,17 +75,9 @@ export default function UserInfoPage() {
     };
   });
 
-  const [journalModalOpen, setJournalModalOpen] = useState(false);
-  const [journalStartDate, setJournalStartDate] = useState(startOfMonth(date));
-  const [journalEndDate, setJournalEndDate] = useState(endOfMonth(date));
+  const navigate = useNavigate();
   return (
     <EmotionBackground emotion={Emotions.happy}>
-      <JournalModal
-        isOpen={journalModalOpen}
-        startDate={journalStartDate}
-        endDate={journalEndDate}
-        onClose={() => setJournalModalOpen(false)}
-      />
       <div>
         <TopNav>
           <BackButton
@@ -119,14 +110,18 @@ export default function UserInfoPage() {
                 journalData?.docs.map((journalDoc) => journalDoc.data()) ?? []
               }
               onClickMonth={() => {
-                setJournalStartDate(startOfMonth(date));
-                setJournalEndDate(endOfMonth(date));
-                setJournalModalOpen(true);
+                navigate(
+                  `/journal/list/${id}?startDate=${startOfMonth(
+                    date
+                  ).toISOString()}&endDate=${endOfMonth(date).toISOString()}`
+                );
               }}
               onClickDate={(date: Date) => {
-                setJournalModalOpen(true);
-                setJournalStartDate(startOfDay(date));
-                setJournalEndDate(endOfDay(date));
+                navigate(
+                  `/journal/list/${id}?startDate=${startOfDay(
+                    date
+                  ).toISOString()}&endDate=${endOfDay(date).toISOString()}`
+                );
               }}
             />
           </>

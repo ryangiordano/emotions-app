@@ -9,6 +9,8 @@ import { Emotions } from "../../components/face/constants";
 import "./journal-detail.scss";
 import useAnimatedText from "../../components/animation/animated-text/use-animated-text";
 import { format } from "date-fns";
+import TopNav from "../../components/nav/TopNav";
+import BackButton from "../../components/nav/buttons/BackButton";
 
 export default function JournalDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -22,7 +24,7 @@ export default function JournalDetailPage() {
       return getJournal(db, id!);
     },
   });
-  const unavailable = isLoading || isFetching;
+  const loading = isLoading || isFetching;
   const journalData = data?.data();
   const animatedText = useAnimatedText({
     text: journalData?.text ?? "",
@@ -31,17 +33,22 @@ export default function JournalDetailPage() {
   const seconds = (journalData?.timestamp?.seconds ?? 1) * 1000;
   return (
     <EmotionBackground
-      emotion={
-        unavailable ? Emotions.sad : journalData?.emotion ?? Emotions.sad
-      }
+      emotion={loading ? Emotions.sad : journalData?.emotion ?? Emotions.sad}
     >
-      {unavailable ? (
+      <TopNav>
+        <BackButton
+          onClick={() => {
+            window.history.back();
+          }}
+        />
+        <h1 style={{ marginRight: "auto" }}>
+          {loading ? "" : format(seconds, "MMM dd, yyyy")}
+        </h1>
+      </TopNav>
+      {loading ? (
         <LoadingPage />
       ) : (
-        <div>
-          <h1 className="journal-title-text">
-            {format(seconds, "MMM dd, yyyy")}
-          </h1>
+        <div style={{ marginBottom: "auto" }}>
           <p className="journal-meta-text">{format(seconds, "h:mm a")}</p>
           <p className="journal-detail-text">{animatedText}</p>
         </div>
