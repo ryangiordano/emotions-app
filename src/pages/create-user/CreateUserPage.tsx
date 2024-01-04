@@ -57,7 +57,7 @@ export default function CreateUserPage() {
             disabled={!username.length || !password.length}
             onClick={() => {
               createUser(username, password).then((user) => {
-                console.log(user);
+                // TODO: handle notication
               });
             }}
           >

@@ -31,6 +31,7 @@ export default function JournalModal({
       return getJournalsByUser(db, id ?? "0", startDate, endDate);
     },
   });
+  const loading = isLoading || isFetching;
   return (
     <Modal
       header={
@@ -41,7 +42,9 @@ export default function JournalModal({
       open={isOpen}
       onClose={onClose}
       animatePresence="flip-in-x"
-      backgroundColor={emotionBackgroundMap["anxious"]}
+      backgroundColor={
+        loading ? emotionBackgroundMap["sad"] : emotionBackgroundMap["anxious"]
+      }
     >
       {isLoading || isFetching ? (
         <LoadingPage />

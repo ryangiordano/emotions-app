@@ -14,7 +14,6 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import AccountInfoPage from "./pages/account-info/AccountInfoPage";
 import EmotionCheckinPage from "./pages/emotion-checkin/EmotionCheckinPage";
 import JournalDetailPage from "./pages/journal-detail/JournalDetailPage";
-import { AnimatePresence } from "framer-motion";
 
 const queryClient = new QueryClient({
   defaultOptions: {
