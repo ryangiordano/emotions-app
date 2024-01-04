@@ -1,17 +1,19 @@
 import { HTMLMotionProps, motion } from "framer-motion";
 import "./animated-button.scss";
+import LoadingPage from "../../utils/loading-page/LoadingPage";
 
 export default function AnimatedButton({
   children,
   className,
   background,
   onClick,
+  isLoading,
   ...rest
 }: {
   children: React.ReactNode;
   className?: string;
   background?: string;
-  onClick?: () => void;
+  isLoading?: boolean;
 } & HTMLMotionProps<"button">) {
   return (
     <motion.button
@@ -35,7 +37,7 @@ export default function AnimatedButton({
       onClick={onClick}
       {...rest}
     >
-      {children}
+      {isLoading ? <LoadingPage full={false} /> : children}
     </motion.button>
   );
 }
