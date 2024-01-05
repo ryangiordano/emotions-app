@@ -9,8 +9,7 @@ import { Emotions } from "../../components/face/constants";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
 import TopNav from "../../components/nav/TopNav";
 import BackButton from "../../components/nav/buttons/BackButton";
-import UserInfoSelect from "../user-info/UserInfoSelect";
-import { getUsers, getUser } from "../../services/firebase/user-service";
+import { getUser } from "../../services/firebase/user-service";
 
 export default function JournalListPage() {
   const { id } = useParams();
