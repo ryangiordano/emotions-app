@@ -1,5 +1,4 @@
-import { useCallback, useState } from "react";
-import type { User } from "../firebase/types";
+import { createContext, useCallback, useContext, useState } from "react";
 import { getFromLocalStorage, setLocalStorage } from "./shared";
 
 export function getCurrentUserId(): string | null {
@@ -10,7 +9,23 @@ export function setCurrentUserId(user: string) {
   setLocalStorage("current-user", JSON.stringify(user));
 }
 
+export const CurrentUserContext = createContext<{
+  userId: string | null;
+  setUserId: (userId: string) => void;
+}>({
+  userId: null,
+  setUserId: () => {},
+});
+
 export function useCurrentUser() {
+  return useContext(CurrentUserContext);
+}
+
+export default function CurrentUserContextProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [userId, _setUserId] = useState<string | null>(
     getFromLocalStorage<string>("current-user")
   );
@@ -19,5 +34,9 @@ export function useCurrentUser() {
     _setUserId(userId);
     setCurrentUserId(userId);
   }, []);
-  return { userId, setUserId };
+  return (
+    <CurrentUserContext.Provider value={{ userId, setUserId }}>
+      {children}
+    </CurrentUserContext.Provider>
+  );
 }

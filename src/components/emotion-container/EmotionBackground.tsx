@@ -17,9 +17,21 @@ export default function EmotionBackground({
       animate={{ background: emotionBackgroundMap[emotion] }}
       transition={{ duration: 1 }}
       className={`emotion-container ${className}`}
-      {...rest}
     >
-      {children}
+      <motion.div
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5, ease: "easeIn" }}
+        initial={{ opacity: 0 }}
+        exit={{
+          opacity: 0,
+        }}
+        style={{
+          height: "100%",
+        }}
+        {...rest}
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 }

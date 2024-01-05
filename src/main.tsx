@@ -15,6 +15,8 @@ import AccountInfoPage from "./pages/account-info/AccountInfoPage";
 import EmotionCheckinPage from "./pages/emotion-checkin/EmotionCheckinPage";
 import JournalDetailPage from "./pages/journal-detail/JournalDetailPage";
 import JournalListPage from "./pages/journal-list/JournalListPage";
+import { AnimatePresence } from "framer-motion";
+import CurrentUserContextProvider from "./services/local-storage/current-user";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,29 +30,45 @@ const queryClient = new QueryClient({
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<EmotionSelectPage />} />
-          <Route path="/account-info" element={<AccountInfoPage />} />
-          <Route path="/user-info/:id" element={<UserInfoPage />} />
-          <Route path="/confirm/:emotion" element={<EmotionConfirmPage />} />
-          <Route path="/activity/:emotion" element={<EmotionActivityPage />} />
-          <Route path="/journal/detail/:id" element={<JournalDetailPage />} />
-          <Route path="/journal/:emotion" element={<EmotionJournalPage />} />
-          <Route path="/journal/list/:id" element={<JournalListPage />} />
-          <Route path="/checkin" element={<EmotionCheckinPage />} />
-          <Route path="*" element={<EmotionSelectPage />} />
-          <Route path="/login" element={<LoginPage />} />
+    <CurrentUserContextProvider>
+      <QueryClientProvider client={queryClient}>
+        <AnimatePresence mode="wait">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<EmotionSelectPage />} />
+              <Route path="/account-info" element={<AccountInfoPage />} />
+              <Route path="/user-info/:id" element={<UserInfoPage />} />
+              <Route
+                path="/confirm/:emotion"
+                element={<EmotionConfirmPage />}
+              />
+              <Route
+                path="/activity/:emotion"
+                element={<EmotionActivityPage />}
+              />
+              <Route
+                path="/journal/detail/:id"
+                element={<JournalDetailPage />}
+              />
+              <Route
+                path="/journal/:emotion"
+                element={<EmotionJournalPage />}
+              />
+              <Route path="/journal/list/:id" element={<JournalListPage />} />
+              <Route path="/checkin" element={<EmotionCheckinPage />} />
+              <Route path="*" element={<EmotionSelectPage />} />
+              <Route path="/login" element={<LoginPage />} />
 
-          <Route
-            path="/create-user"
-            element={<AuthGuardRoute unAuthenticatedOnly />}
-          >
-            <Route path="/create-user" element={<CreateUserPage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+              <Route
+                path="/create-user"
+                element={<AuthGuardRoute unAuthenticatedOnly />}
+              >
+                <Route path="/create-user" element={<CreateUserPage />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </AnimatePresence>
+      </QueryClientProvider>
+    </CurrentUserContextProvider>
   </React.StrictMode>
 );

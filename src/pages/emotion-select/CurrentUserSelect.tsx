@@ -4,7 +4,11 @@ import { useQuery } from "react-query";
 import { useCurrentUser } from "../../services/local-storage/current-user";
 import UserSelect from "./UserSelect";
 
-export default function CurrentUserSelect() {
+export default function CurrentUserSelect({
+  onChangeUser,
+}: {
+  onChangeUser?: (userId: string) => void;
+}) {
   const { data } = useQuery({
     queryKey: "users",
     queryFn: () => {
@@ -17,7 +21,10 @@ export default function CurrentUserSelect() {
     <UserSelect
       selectedUserId={userId ?? ""}
       users={data}
-      onChangeUser={setUserId}
+      onChangeUser={(userId) => {
+        setUserId(userId);
+        onChangeUser?.(userId);
+      }}
     />
   );
 }

@@ -17,11 +17,11 @@ import { getJournalsByUser } from "../../services/firebase/journal-service";
 import { db } from "../../services/firebase";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
-import UserInfoSelect from "./UserInfoSelect";
 import BottomNav from "../../components/nav/BottomNav";
 import TopNav from "../../components/nav/TopNav";
 import BackButton from "../../components/nav/buttons/BackButton";
 import EmotionCalendar from "./emotion-calendar/EmotionCalendar";
+import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 
 export default function UserInfoPage() {
   const [date, setDate] = useState(
@@ -85,7 +85,13 @@ export default function UserInfoPage() {
               window.history.back();
             }}
           />
-          <UserInfoSelect userId={id ?? ""} />
+          <CurrentUserSelect
+            onChangeUser={(userId) => {
+              navigate(`/user-info/${userId}`, {
+                replace: true,
+              });
+            }}
+          />
         </TopNav>
         <input
           className="ui-input date"

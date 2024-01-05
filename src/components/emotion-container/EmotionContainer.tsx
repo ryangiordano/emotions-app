@@ -12,14 +12,8 @@ export default function EmotionContainer({
   className?: string;
 }) {
   return (
-    <EmotionBackground
-      emotion={emotion}
-      className={className}
-    >
-      <div >
+    <EmotionBackground emotion={emotion} className={className}>
       {children}
-
-      </div>
     </EmotionBackground>
   );
 }
