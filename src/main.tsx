@@ -17,6 +17,9 @@ import JournalDetailPage from "./pages/journal-detail/JournalDetailPage";
 import JournalListPage from "./pages/journal-list/JournalListPage";
 import { AnimatePresence } from "framer-motion";
 import CurrentUserContextProvider from "./services/local-storage/current-user";
+import { Slide, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./components/toasts/toasts.scss";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -70,5 +73,19 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
         </AnimatePresence>
       </QueryClientProvider>
     </CurrentUserContextProvider>
+    <ToastContainer
+      position="bottom-center"
+      autoClose={5000}
+      hideProgressBar
+      newestOnTop
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      transition={Slide}
+      limit={2}
+      closeButton={false}
+    />
   </React.StrictMode>
 );

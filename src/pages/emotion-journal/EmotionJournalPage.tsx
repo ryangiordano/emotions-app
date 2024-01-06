@@ -15,6 +15,7 @@ import { createJournal } from "../../services/firebase/journal-service";
 import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 import TopNav from "../../components/nav/TopNav";
 import BottomNav from "../../components/nav/BottomNav";
+import { toast } from "react-toastify";
 
 export default function EmotionJournalPage() {
   const { emotion } = useParams();
@@ -24,6 +25,23 @@ export default function EmotionJournalPage() {
   const [text, setText] = useState(ref.current?.value ?? "");
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const successToast = () =>
+    toast(
+      "Submitted successfully!",
+
+      {
+        className: "green",
+      }
+    );
+  const errorToast = () =>
+    toast(
+      "Something went wrong...",
+
+      {
+        className: "red",
+      }
+    );
   return (
     <EmotionContainer emotion={emotion as Emotions}>
       <TopNav>
@@ -70,11 +88,13 @@ export default function EmotionJournalPage() {
                   createJournal(db, { text, emotion })
                     .then((journal) => {
                       if (journal) {
+                        successToast();
                         navigate("/");
                       }
                     })
                     .catch(() => {
                       setIsLoading(false);
+                      errorToast();
                       // Error toast...when we have toasts.
                     });
                 }

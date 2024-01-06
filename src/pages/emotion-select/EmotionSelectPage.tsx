@@ -21,6 +21,7 @@ export default function EmotionSelectPage() {
   const emotionText = getEmotionSelectText({ emotion: selectedEmotion });
 
   const [inputType, setInputType] = useState<InputType>(InputType.slider);
+
   const updateEmotion = useCallback(
     (emotion: Emotions) => {
       return setSelectedEmotion(emotion);
