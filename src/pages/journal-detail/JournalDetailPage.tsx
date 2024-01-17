@@ -11,6 +11,7 @@ import useAnimatedText from "../../components/animation/animated-text/use-animat
 import { format } from "date-fns";
 import TopNav from "../../components/nav/TopNav";
 import BackButton from "../../components/nav/buttons/BackButton";
+import { useCallback, useEffect, useMemo } from "react";
 
 export default function JournalDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -31,6 +32,26 @@ export default function JournalDetailPage() {
     speed: 70,
   });
   const seconds = (journalData?.timestamp?.seconds ?? 1) * 1000;
+  console.log(window.speechSynthesis.getVoices());
+
+  const utterance = useMemo(() => {
+    const utterance = new SpeechSynthesisUtterance();
+    utterance.voice =
+      window.speechSynthesis.getVoices().find((voice) => {
+        return voice.name === "Google UK English Female";
+      }) ?? null;
+    utterance.pitch = 1.3;
+    utterance.rate = 1.1;
+    return utterance;
+  }, []);
+
+  const playAudio = useCallback(() => {
+    if (journalData?.text) {
+      utterance.text = journalData.text;
+      window.speechSynthesis.speak(utterance);
+    }
+  }, [journalData?.text, utterance]);
+
   return (
     <EmotionBackground
       emotion={loading ? Emotions.sad : journalData?.emotion ?? Emotions.sad}
@@ -51,6 +72,7 @@ export default function JournalDetailPage() {
         <div style={{ marginBottom: "auto" }}>
           <p className="journal-meta-text">{format(seconds, "h:mm a")}</p>
           <p className="journal-detail-text">{animatedText}</p>
+          <button onClick={playAudio}>Read</button>
         </div>
       )}
     </EmotionBackground>
