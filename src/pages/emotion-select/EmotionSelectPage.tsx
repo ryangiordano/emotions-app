@@ -8,7 +8,6 @@ import { getEmotionSelectText } from "./use-emotion-select-text";
 import EmotionConfirmButton from "./emotion-confirm-button/EmotionConfirmButton";
 import { Link, useNavigate } from "react-router-dom";
 import EmotionSelectButton from "./EmotionSelectButton";
-import { InputType } from "../../components/constants";
 import CurrentUserSelect from "./CurrentUserSelect";
 import BottomNav from "../../components/nav/BottomNav";
 import TopNav from "../../components/nav/TopNav";
@@ -21,8 +20,6 @@ export default function EmotionSelectPage() {
   const emotionText = getEmotionSelectText({
     emotion: selectedEmotion,
   });
-
-  const [inputType, setInputType] = useState<InputType>(InputType.slider);
 
   const updateEmotion = useCallback(
     (emotion: Emotions) => {
