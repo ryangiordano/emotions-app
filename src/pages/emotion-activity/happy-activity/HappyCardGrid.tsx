@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { emotionBackgroundMap } from "../../../components/constants";
-import { Emotions } from "../../../components/face/constants";
+import { type Emotions } from "../../../components/face/constants";
 import "./happy-activity.scss";
 import anime from "animejs";
 

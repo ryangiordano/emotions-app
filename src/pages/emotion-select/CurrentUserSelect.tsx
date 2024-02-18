@@ -11,8 +11,8 @@ export default function CurrentUserSelect({
 }) {
   const { data } = useQuery({
     queryKey: "users",
-    queryFn: () => {
-      return getUsers(db);
+    queryFn: async () => {
+      return await getUsers(db);
     },
   });
   const { userId, setUserId } = useCurrentUser();

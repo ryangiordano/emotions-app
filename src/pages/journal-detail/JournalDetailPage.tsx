@@ -11,7 +11,7 @@ import useAnimatedText from "../../components/animation/animated-text/use-animat
 import { format } from "date-fns";
 import TopNav from "../../components/nav/TopNav";
 import BackButton from "../../components/nav/buttons/BackButton";
-import { useCallback, useEffect, useMemo } from "react";
+import { useCallback, useMemo } from "react";
 
 export default function JournalDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -21,8 +21,8 @@ export default function JournalDetailPage() {
   }
   const { data, isFetching, isLoading } = useQuery({
     queryKey: `journals-${id}`,
-    queryFn: () => {
-      return getJournal(db, id!);
+    queryFn: async () => {
+      return await getJournal(db, id);
     },
   });
   const loading = isLoading || isFetching;

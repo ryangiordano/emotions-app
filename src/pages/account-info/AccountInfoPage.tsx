@@ -2,14 +2,14 @@ import { useQuery } from "react-query";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { Emotions } from "../../components/face/constants";
 import { getUsers } from "../../services/firebase/user-service";
-import { db } from "../../services/firebase";
+import { db, auth } from "../../services/firebase";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
 import { useState } from "react";
 import UserCreateModal from "../modals/UserCreateModal";
 import { Link, useNavigate } from "react-router-dom";
 import BottomNav from "../../components/nav/BottomNav";
 import UIButton from "../../components/buttons/Button";
-import { auth } from "../../services/firebase";
+import { errorToast } from "../../components/toasts";
 
 function UserSquare({
   children,
@@ -41,8 +41,8 @@ export default function AccountInfoPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const { data, isLoading, isFetching } = useQuery({
     queryKey: "users",
-    queryFn: () => {
-      return getUsers(db);
+    queryFn: async () => {
+      return await getUsers(db);
     },
   });
   const loading = isLoading || isFetching;
@@ -50,8 +50,12 @@ export default function AccountInfoPage() {
   return (
     <EmotionBackground emotion={loading ? Emotions.sad : Emotions.happy}>
       <UserCreateModal
-        onSuccess={() => setModalOpen(false)}
-        onClose={() => setModalOpen(false)}
+        onSuccess={() => {
+          setModalOpen(false);
+        }}
+        onClose={() => {
+          setModalOpen(false);
+        }}
         isOpen={modalOpen}
       />
 
@@ -84,7 +88,13 @@ export default function AccountInfoPage() {
                 </Link>
               );
             })}
-            <UserSquare onClick={() => setModalOpen(true)}>+</UserSquare>
+            <UserSquare
+              onClick={() => {
+                setModalOpen(true);
+              }}
+            >
+              +
+            </UserSquare>
           </div>
         )}
         <UIButton
@@ -96,9 +106,14 @@ export default function AccountInfoPage() {
             color: "white",
           }}
           onClick={() => {
-            auth.signOut().then(() => {
-              navigate("/");
-            });
+            auth
+              .signOut()
+              .then(() => {
+                navigate("/");
+              })
+              .catch(() => {
+                errorToast("Failed to logout");
+              });
           }}
         >
           Logout

@@ -5,7 +5,7 @@ import { createPortal } from "react-dom";
 import "./Modal.scss";
 import { AnimatePresence, motion } from "framer-motion";
 import UIButton from "../buttons/Button";
-import { ModalAnimatePresence } from "../animation/types";
+import { type ModalAnimatePresence } from "../animation/types";
 import { getAnimatePresenceConfig } from "../animation/AnimationPresence";
 
 export default function Modal({
@@ -77,7 +77,7 @@ export default function Modal({
           )}
         </AnimatePresence>,
 
-        document.body
+        document.body,
       )}
     </>
   );

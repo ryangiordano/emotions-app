@@ -2,7 +2,7 @@ import {
   emotionBackgroundMap,
   emotionToTextMap,
 } from "../../../components/constants";
-import { Emotions } from "../../../components/face/constants";
+import { type Emotions } from "../../../components/face/constants";
 import "./emotion-confirm-button.scss";
 import AnimatedButton from "../../../components/buttons/AnimatedButton";
 

@@ -30,62 +30,65 @@ const queryClient = new QueryClient({
     },
   },
 });
+const rootElement = document.getElementById("root");
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <CurrentUserContextProvider>
-      <QueryClientProvider client={queryClient}>
-        <AnimatePresence mode="wait">
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<EmotionSelectPage />} />
-              <Route path="/account-info" element={<AccountInfoPage />} />
-              <Route path="/user-info/:id" element={<UserInfoPage />} />
-              <Route
-                path="/confirm/:emotion"
-                element={<EmotionConfirmPage />}
-              />
-              <Route
-                path="/activity/:emotion"
-                element={<EmotionActivityPage />}
-              />
-              <Route
-                path="/journal/detail/:id"
-                element={<JournalDetailPage />}
-              />
-              <Route
-                path="/journal/:emotion"
-                element={<EmotionJournalPage />}
-              />
-              <Route path="/journal/list/:id" element={<JournalListPage />} />
-              <Route path="/checkin" element={<EmotionCheckinPage />} />
-              <Route path="*" element={<EmotionSelectPage />} />
-              <Route path="/login" element={<LoginPage />} />
+if (rootElement) {
+  ReactDOM.createRoot(rootElement).render(
+    <React.StrictMode>
+      <CurrentUserContextProvider>
+        <QueryClientProvider client={queryClient}>
+          <AnimatePresence mode="wait">
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<EmotionSelectPage />} />
+                <Route path="/account-info" element={<AccountInfoPage />} />
+                <Route path="/user-info/:id" element={<UserInfoPage />} />
+                <Route
+                  path="/confirm/:emotion"
+                  element={<EmotionConfirmPage />}
+                />
+                <Route
+                  path="/activity/:emotion"
+                  element={<EmotionActivityPage />}
+                />
+                <Route
+                  path="/journal/detail/:id"
+                  element={<JournalDetailPage />}
+                />
+                <Route
+                  path="/journal/:emotion"
+                  element={<EmotionJournalPage />}
+                />
+                <Route path="/journal/list/:id" element={<JournalListPage />} />
+                <Route path="/checkin" element={<EmotionCheckinPage />} />
+                <Route path="*" element={<EmotionSelectPage />} />
+                <Route path="/login" element={<LoginPage />} />
 
-              <Route
-                path="/create-user"
-                element={<AuthGuardRoute unAuthenticatedOnly />}
-              >
-                <Route path="/create-user" element={<CreateUserPage />} />
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </AnimatePresence>
-      </QueryClientProvider>
-    </CurrentUserContextProvider>
-    <ToastContainer
-      position="bottom-center"
-      autoClose={5000}
-      hideProgressBar
-      newestOnTop
-      closeOnClick
-      rtl={false}
-      pauseOnFocusLoss
-      draggable
-      pauseOnHover
-      transition={Slide}
-      limit={2}
-      closeButton={false}
-    />
-  </React.StrictMode>
-);
+                <Route
+                  path="/create-user"
+                  element={<AuthGuardRoute unAuthenticatedOnly />}
+                >
+                  <Route path="/create-user" element={<CreateUserPage />} />
+                </Route>
+              </Routes>
+            </BrowserRouter>
+          </AnimatePresence>
+        </QueryClientProvider>
+      </CurrentUserContextProvider>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Slide}
+        limit={2}
+        closeButton={false}
+      />
+    </React.StrictMode>,
+  );
+}

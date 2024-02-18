@@ -22,6 +22,4 @@ export default function EmotionActivityPage() {
     default:
       throw new Error("Emotion is not supported");
   }
-
-  return <>{emotion}</>;
 }

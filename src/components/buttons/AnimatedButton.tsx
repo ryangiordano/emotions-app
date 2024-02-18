@@ -1,4 +1,4 @@
-import { HTMLMotionProps, motion } from "framer-motion";
+import { type HTMLMotionProps, motion } from "framer-motion";
 import "./animated-button.scss";
 import LoadingPage from "../../utils/loading-page/LoadingPage";
 

@@ -12,7 +12,9 @@ export default function InputSwitchButton({
     <UIButton
       onClick={() => {
         setInputType(
-          inputType === InputType.buttons ? InputType.slider : InputType.buttons
+          inputType === InputType.buttons
+            ? InputType.slider
+            : InputType.buttons,
         );
       }}
     >

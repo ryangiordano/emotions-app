@@ -1,7 +1,7 @@
 import anime from "animejs";
 import { getRandomBetween } from "../../../utils/random";
 
-export default function disperse(element?: SVGSVGElement) {
+export default function disperse(element?: HTMLElement) {
   for (let i = 0; i < 15; i++) {
     const fire = document.createElement("div");
     fire.classList.add("small-fire");
@@ -11,7 +11,7 @@ export default function disperse(element?: SVGSVGElement) {
       bottom: ${element?.style.bottom};
       left: ${element?.style.left};
       pointer-events: none;
-      `
+      `,
     );
     document.body.appendChild(fire);
     anime({

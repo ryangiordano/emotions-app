@@ -1,6 +1,6 @@
 import Select from "../../components/forms/inputs/Select";
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
-import { User } from "../../services/firebase/types";
+import { type DocumentData, type QuerySnapshot } from "firebase/firestore";
+import { type User } from "../../services/firebase/types";
 
 export default function UserSelect({
   selectedUserId,

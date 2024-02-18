@@ -24,8 +24,8 @@ export default function JournalListPage() {
     isFetching,
   } = useQuery({
     queryKey: `journals-${id}-${start.toISOString()}-${end.toISOString()}`,
-    queryFn: () => {
-      return getJournalsByUser(db, id ?? "0", start, end);
+    queryFn: async () => {
+      return await getJournalsByUser(db, id ?? "0", start, end);
     },
   });
   const loading = isLoading || isFetching;
@@ -35,7 +35,7 @@ export default function JournalListPage() {
 
   const { data } = useQuery({
     queryKey: `user-${id}`,
-    queryFn: () => getUser(db, id ?? "0"),
+    queryFn: async () => await getUser(db, id ?? "0"),
   });
   return (
     <EmotionBackground emotion={loading ? Emotions.anxious : Emotions.happy}>

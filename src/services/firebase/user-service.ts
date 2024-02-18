@@ -1,19 +1,22 @@
 import {
-  DocumentData,
-  DocumentSnapshot,
-  Firestore,
-  QuerySnapshot,
   doc,
   getDoc,
   getDocs,
   query,
   where,
+  collection,
+  addDoc,
 } from "firebase/firestore";
-import { collection, addDoc } from "firebase/firestore";
+import type {
+  DocumentData,
+  DocumentSnapshot,
+  Firestore,
+  QuerySnapshot,
+} from "firebase/firestore";
 import { auth } from ".";
 import { assertAuthedUser } from "./authentication-service";
 import { UserError, UserErrorCodes } from "./user-errors";
-import { User } from "./types";
+import { type User } from "./types";
 import {
   getCurrentUserId,
   setCurrentUserId,
@@ -21,14 +24,14 @@ import {
 
 export async function createUser(
   db: Firestore,
-  { username }: { username: string }
+  { username }: { username: string },
 ) {
   /** probably a cleaner way to assert logged in user.
    * Could maybe emit an event when the logged in status changes
    */
   assertAuthedUser(auth.currentUser);
 
-  return addDoc(collection(db, "users"), {
+  return await addDoc(collection(db, "users"), {
     name: username,
     accountId: auth.currentUser.uid,
   })
@@ -40,24 +43,26 @@ export async function createUser(
     });
 }
 
-export function getUser(
+export async function getUser(
   db: Firestore,
-  uid: string
+  uid: string,
 ): Promise<DocumentSnapshot<User, DocumentData>> {
   const usersRef = collection(db, "users");
   const userDocRef = doc(usersRef, uid);
 
-  return getDoc(userDocRef) as Promise<DocumentSnapshot<User, DocumentData>>;
+  return await (getDoc(userDocRef) as Promise<
+    DocumentSnapshot<User, DocumentData>
+  >);
 }
 
-export function getUsers(
-  db: Firestore
+export async function getUsers(
+  db: Firestore,
 ): Promise<QuerySnapshot<User, DocumentData>> {
   const usersRef = collection(db, "users");
   assertAuthedUser(auth.currentUser);
-  return getDocs(
-    query(usersRef, where("accountId", "==", auth.currentUser.uid))
-  ) as Promise<QuerySnapshot<User, DocumentData>>;
+  return await (getDocs(
+    query(usersRef, where("accountId", "==", auth.currentUser.uid)),
+  ) as Promise<QuerySnapshot<User, DocumentData>>);
 }
 
 export async function getCurrentlySelectedUser(db: Firestore) {

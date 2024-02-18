@@ -8,12 +8,13 @@ import { emotionBackgroundMap } from "../../../components/constants";
 import { NavLink, useNavigate } from "react-router-dom";
 import { auth } from "../../../services/firebase";
 import { useIdToken } from "react-firebase-hooks/auth";
+import { errorToast } from "../../../components/toasts";
 
 const backgrounds = [
-  emotionBackgroundMap["happy"],
-  emotionBackgroundMap["sad"],
-  emotionBackgroundMap["anxious"],
-  emotionBackgroundMap["angry"],
+  emotionBackgroundMap.happy,
+  emotionBackgroundMap.sad,
+  emotionBackgroundMap.anxious,
+  emotionBackgroundMap.angry,
 ];
 
 export default function NavModal({
@@ -32,7 +33,7 @@ export default function NavModal({
   }, [isOpen]);
   const randomBackground = useMemo(
     () => backgrounds[Math.floor(Math.random() * backgrounds.length)],
-    []
+    [],
   );
 
   const [loggedInUser, loading] = useIdToken(auth);
@@ -101,9 +102,14 @@ export default function NavModal({
                 {!loading && loggedInUser && (
                   <UIButton
                     onClick={() => {
-                      auth.signOut().then(() => {
-                        navigate("/");
-                      });
+                      auth
+                        .signOut()
+                        .then(() => {
+                          navigate("/");
+                        })
+                        .catch(() => {
+                          errorToast("Failed to logout");
+                        });
                     }}
                     style={{ textAlign: "left" }}
                   >
@@ -120,7 +126,7 @@ export default function NavModal({
           )}
         </AnimatePresence>,
 
-        document.body
+        document.body,
       )}
     </>
   );

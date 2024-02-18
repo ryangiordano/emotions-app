@@ -17,19 +17,19 @@ const FloatingFire = memo(
   ({ onClick }: { key: number; onClick?: () => void }) => {
     const id = useRef(Math.random() * 1000);
     const [visible, setVisible] = useState(true);
-    const ref = useRef<any>(null);
+    const ref = useRef<SVGSVGElement>(null);
 
     const bottom = useMemo(() => {
       return getRandomBetween(
         0,
-        document.body.clientHeight - document.body.clientHeight * 0.1
+        document.body.clientHeight - document.body.clientHeight * 0.1,
       );
     }, []);
 
     const left = useMemo(() => {
       return getRandomBetween(
         -document.body.clientWidth * 0.15,
-        document.body.clientWidth - document.body.clientWidth * 0.25
+        document.body.clientWidth - document.body.clientWidth * 0.25,
       );
     }, []);
     const animationDuration = useMemo(() => {
@@ -44,7 +44,9 @@ const FloatingFire = memo(
         id={id.current}
         ref={ref}
         onClick={() => {
-          disperse(ref.current ?? undefined);
+          if (ref.current) {
+            disperse(ref.current as unknown as HTMLElement);
+          }
           onClick?.();
           setVisible(false);
         }}
@@ -56,7 +58,7 @@ const FloatingFire = memo(
         }}
       />
     );
-  }
+  },
 );
 
 function getTextByScore(score: number) {

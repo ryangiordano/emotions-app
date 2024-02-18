@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Emotions } from "../face/constants";
+import { type Emotions } from "../face/constants";
 import "./dialog-box.scss";
 import { emotionBackgroundMap } from "../constants";
 import useAnimatedText from "../animation/animated-text/use-animated-text";

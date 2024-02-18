@@ -7,9 +7,8 @@ import {
   startOfMonth,
   startOfWeek,
 } from "date-fns";
-import { Journal } from "../../../services/firebase/types";
+import { type Journal } from "../../../services/firebase/types";
 import "./emotion-calendar.scss";
-import { AnimatePresence, motion } from "framer-motion";
 
 function CalendarCel({
   date,
@@ -24,7 +23,11 @@ function CalendarCel({
 }) {
   return (
     <button
-      onClick={() => (entries.length ? onClick(date) : undefined)}
+      onClick={() => {
+        if (entries.length) {
+          onClick(date);
+        }
+      }}
       className={`calendar-cell ${entries.length ? "active" : ""} ${
         inactive ? "inactive" : ""
       }`}
@@ -73,9 +76,9 @@ export default function EmotionCalendar({
       }
       return acc;
     },
-    {}
+    {},
   );
-  const arr: { date: Date; entries: Journal[] }[] = [];
+  const arr: Array<{ date: Date; entries: Journal[] }> = [];
 
   weeksOfMonth.forEach((date) => {
     const day = new Date(date.getFullYear(), date.getMonth(), date.getDate());
@@ -90,7 +93,11 @@ export default function EmotionCalendar({
 
   return (
     <div className="calendar-container">
-      <button onClick={() => onClickMonth()}>
+      <button
+        onClick={() => {
+          onClickMonth();
+        }}
+      >
         <h2> {format(date, "MMMM yyyy")}</h2>
       </button>
       <div className="calendar-grid">

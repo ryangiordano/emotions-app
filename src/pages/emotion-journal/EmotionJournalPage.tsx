@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import EmotionContainer from "../../components/emotion-container/EmotionContainer";
-import { Emotions } from "../../components/face/constants";
+import { type Emotions } from "../../components/face/constants";
 import AnimatedButton from "../../components/buttons/AnimatedButton";
 import {
   emotionBackgroundMap,
@@ -16,6 +16,7 @@ import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 import TopNav from "../../components/nav/TopNav";
 import BottomNav from "../../components/nav/BottomNav";
 import { toast } from "react-toastify";
+import { errorToast } from "../../components/toasts";
 
 export default function EmotionJournalPage() {
   const { emotion } = useParams();
@@ -32,16 +33,9 @@ export default function EmotionJournalPage() {
 
       {
         className: "green",
-      }
+      },
     );
-  const errorToast = () =>
-    toast(
-      "Something went wrong...",
 
-      {
-        className: "red",
-      }
-    );
   return (
     <EmotionContainer emotion={emotion as Emotions}>
       <TopNav>
@@ -50,7 +44,7 @@ export default function EmotionJournalPage() {
 
       <DialogBox
         emotion={emotion as Emotions}
-        text={`Tell me about what you're feeling...`}
+        text={"Tell me about what you're feeling..."}
       />
       <div className="journal-container">
         <TextCounter text={text} limit={textLimit} />
@@ -84,7 +78,7 @@ export default function EmotionJournalPage() {
               onClick={() => {
                 if (emotion && !isLoading) {
                   setIsLoading(true);
-                  //TODO: Navigate to a 'now how do you feel' page;
+                  // TODO: Navigate to a 'now how do you feel' page;
                   createJournal(db, { text, emotion })
                     .then((journal) => {
                       if (journal) {
@@ -95,7 +89,6 @@ export default function EmotionJournalPage() {
                     .catch(() => {
                       setIsLoading(false);
                       errorToast();
-                      // Error toast...when we have toasts.
                     });
                 }
               }}

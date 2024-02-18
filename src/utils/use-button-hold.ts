@@ -4,7 +4,9 @@ function useButtonHold() {
   const [isHolding, setIsHolding] = useState<boolean>(false);
   const elementRef = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    const startHold = () => setIsHolding(true);
+    const startHold = () => {
+      setIsHolding(true);
+    };
 
     const endHold = () => {
       setIsHolding(false);

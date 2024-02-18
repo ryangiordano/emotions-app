@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import FaceContainer from "../emotion-select/FaceContainer";
 import EmotionContainer from "../../components/emotion-container/EmotionContainer";
 import { Emotions } from "../../components/face/constants";
@@ -16,7 +16,7 @@ export default function EmotionCheckinPage() {
       </FaceContainer>
 
       <div className="nav-button-container">
-        <Link to={`/`}>
+        <Link to={"/"}>
           <AnimatedButton background={emotionBackgroundMap[Emotions.neutral]}>
             ◀
           </AnimatedButton>

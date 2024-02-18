@@ -9,9 +9,10 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../services/firebase";
 import { useState } from "react";
 import FormSection from "../../components/forms/container/FormSection";
+import { errorToast, successToast } from "../../components/toasts";
 
-const createUser = (username: string, password: string) => {
-  return createUserWithEmailAndPassword(auth, username, password);
+const createUser = async (username: string, password: string) => {
+  return await createUserWithEmailAndPassword(auth, username, password);
 };
 
 export default function CreateUserPage() {
@@ -27,7 +28,9 @@ export default function CreateUserPage() {
           <TextInput
             id="username"
             className="ui-input"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
             value={username}
           />
         </FormSection>
@@ -38,7 +41,9 @@ export default function CreateUserPage() {
             id="password"
             className="ui-input"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
             value={password}
           />
         </FormSection>
@@ -48,7 +53,9 @@ export default function CreateUserPage() {
             id="confirm-password"
             className="ui-input"
             type="password"
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            onChange={(e) => {
+              setConfirmPassword(e.target.value);
+            }}
             value={confirmPassword}
           />
         </FormSection>
@@ -56,9 +63,13 @@ export default function CreateUserPage() {
           <UIButton
             disabled={!username.length || !password.length}
             onClick={() => {
-              createUser(username, password).then((user) => {
-                // TODO: handle notication
-              });
+              createUser(username, password)
+                .then(() => {
+                  successToast("User Created");
+                })
+                .catch(() => {
+                  errorToast("Failed to create user");
+                });
             }}
           >
             Create Account

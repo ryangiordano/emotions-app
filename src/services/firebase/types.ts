@@ -1,15 +1,15 @@
-import { Emotions } from "../../components/face/constants";
+import { type Emotions } from "../../components/face/constants";
 
-export type User = {
+export interface User {
   accountId: string;
   name: string;
   id: string;
-};
+}
 
-export type Journal = {
+export interface Journal {
   accountId: string;
   emotion: Emotions;
   text: string;
   timestamp: { seconds: number; nanoseconds: number };
   user: User;
-};
+}

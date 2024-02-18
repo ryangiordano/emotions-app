@@ -3,7 +3,7 @@ import anime from "animejs";
 function blinkClose(
   eyes: NodeListOf<Element> | Element,
   timeline: anime.AnimeTimelineInstance,
-  endDelay?: number
+  endDelay?: number,
 ) {
   timeline.add({
     targets: eyes,
@@ -17,7 +17,7 @@ function blinkClose(
 function blinkOpen(
   eyes: NodeListOf<Element> | Element,
   timeline: anime.AnimeTimelineInstance,
-  endDelay?: number
+  endDelay?: number,
 ) {
   return timeline.add({
     targets: eyes,

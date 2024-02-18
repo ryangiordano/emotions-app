@@ -20,19 +20,19 @@ const SadTears = memo(({ onClick }: { key: number; onClick?: () => void }) => {
   const hp = useRef(3);
   const [visible, setVisible] = useState(true);
   const ref = useRef<any>(null);
-  const wrapperRef = useRef<any>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   const bottom = useMemo(() => {
     return getRandomBetween(
       0,
-      document.body.clientHeight - document.body.clientHeight * 0.1
+      document.body.clientHeight - document.body.clientHeight * 0.1,
     );
   }, []);
 
   const left = useMemo(() => {
     return getRandomBetween(
       -document.body.clientWidth * 0.15,
-      document.body.clientWidth - document.body.clientWidth * 0.25
+      document.body.clientWidth - document.body.clientWidth * 0.25,
     );
   }, []);
   const animationDuration = useMemo(() => {
@@ -56,7 +56,11 @@ const SadTears = memo(({ onClick }: { key: number; onClick?: () => void }) => {
         id={id.current}
         ref={ref}
         onClick={async () => {
-          wave(wrapperRef.current ?? undefined);
+          if (wrapperRef.current) {
+            wave(wrapperRef.current)
+              .then(() => {})
+              .catch(() => {});
+          }
           hp.current -= 1;
           if (hp.current <= 0) {
             anime({
@@ -65,7 +69,9 @@ const SadTears = memo(({ onClick }: { key: number; onClick?: () => void }) => {
               duration: 250,
               easing: "easeInOutSine",
               complete: () => {
-                disperse(wrapperRef.current ?? undefined);
+                if (wrapperRef.current) {
+                  disperse(wrapperRef.current);
+                }
                 onClick?.();
                 setVisible(false);
               },
@@ -151,7 +157,7 @@ export default function SadActivity() {
           gap: "10px",
         }}
       >
-        <Link to={`/`}>
+        <Link to={"/"}>
           <AnimatedButton background={emotionBackgroundMap[emotion]}>
             ◀
           </AnimatedButton>

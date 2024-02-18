@@ -6,7 +6,6 @@ import DialogBox from "../../components/dialog-box/DialogBox";
 import Face from "../../components/face/Face";
 import AnimatedButton from "../../components/buttons/AnimatedButton";
 import { emotionBackgroundMap } from "../../components/constants";
-import NavBar from "../../components/nav/NavBar";
 import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 import TopNav from "../../components/nav/TopNav";
 import BottomNav from "../../components/nav/BottomNav";

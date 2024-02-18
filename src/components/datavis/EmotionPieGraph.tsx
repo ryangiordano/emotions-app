@@ -1,15 +1,15 @@
 import { PieChart, Pie, ResponsiveContainer, Cell } from "recharts";
-import { Emotions } from "../face/constants";
+import { type Emotions } from "../face/constants";
 import { emotionColorMap } from "../constants";
 import "./emotion-pie-graph.scss";
 
 export default function EmotionPieGraph({
   emotionData,
 }: {
-  emotionData: {
+  emotionData: Array<{
     emotion: Emotions;
     value: number | null;
-  }[];
+  }>;
 }) {
   return (
     <ResponsiveContainer width="100%" height={250}>

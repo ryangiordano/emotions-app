@@ -1,9 +1,8 @@
 import anime from "animejs";
-import { getRandomBetween } from "../../../utils/random";
 
 export function transitionInUp(
-  elements: NodeListOf<Element> | Element | NodeListOf<Element>[],
-  onComplete?: () => void
+  elements: NodeListOf<Element> | Element | Array<NodeListOf<Element>>,
+  onComplete?: () => void,
 ) {
   anime({
     targets: elements,
