@@ -1,8 +1,8 @@
 import anime from "animejs";
 import { getRandomBetween } from "../../../utils/random";
 
-export default function wave(element?: SVGSVGElement) {
-  return new Promise<void>((resolve) => {
+export default async function wave(element?: HTMLDivElement) {
+  await new Promise<void>((resolve) => {
     const wave = document.createElement("div");
     wave.classList.add("small-tear");
     wave.setAttribute(
@@ -17,7 +17,7 @@ export default function wave(element?: SVGSVGElement) {
       0 + (element?.getBoundingClientRect?.()?.width ?? 0)
     };
     pointer-events: none;
-    `
+    `,
     );
     document.body.appendChild(wave);
     anime({

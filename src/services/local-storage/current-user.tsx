@@ -27,7 +27,7 @@ export default function CurrentUserContextProvider({
   children: React.ReactNode;
 }) {
   const [userId, _setUserId] = useState<string | null>(
-    getFromLocalStorage<string>("current-user")
+    getFromLocalStorage<string>("current-user"),
   );
 
   const setUserId = useCallback((userId: string) => {

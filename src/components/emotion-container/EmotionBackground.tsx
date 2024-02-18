@@ -1,6 +1,6 @@
-import { MotionProps, motion } from "framer-motion";
+import { type MotionProps, motion } from "framer-motion";
 import { emotionBackgroundMap } from "../constants";
-import { Emotions } from "../face/constants";
+import { type Emotions } from "../face/constants";
 
 export default function EmotionBackground({
   emotion,

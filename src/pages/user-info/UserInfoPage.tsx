@@ -25,7 +25,7 @@ import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
 
 export default function UserInfoPage() {
   const [date, setDate] = useState(
-    new Date(localStorage?.getItem("date") ?? new Date())
+    new Date(localStorage?.getItem("date") ?? new Date()),
   );
   const { id } = useParams();
 
@@ -34,7 +34,7 @@ export default function UserInfoPage() {
       setDate(date);
       localStorage?.setItem("date", date.toISOString());
     },
-    [date]
+    [date],
   );
   const {
     data: journalData,
@@ -42,13 +42,13 @@ export default function UserInfoPage() {
     isFetching,
     isLoading,
   } = useQuery({
-    queryKey: `journals-${id}-${startOfMonth(date)}-${endOfMonth(date)}`,
-    queryFn: () => {
-      return getJournalsByUser(
+    queryKey: `journals-${id}-${startOfMonth(date).toISOString()}-${endOfMonth(date).toISOString()}`,
+    queryFn: async () => {
+      return await getJournalsByUser(
         db,
         id ?? "0",
         startOfMonth(date),
-        endOfMonth(date)
+        endOfMonth(date),
       );
     },
   });
@@ -65,7 +65,13 @@ export default function UserInfoPage() {
       }
       return acc;
     },
-    {} as any
+    {
+      happy: 0,
+      sad: 0,
+      angry: 0,
+      anxious: 0,
+      neutral: 0,
+    },
   );
 
   const emotionData = Object.keys(emotionDataHash ?? {}).map((key) => {
@@ -118,15 +124,15 @@ export default function UserInfoPage() {
               onClickMonth={() => {
                 navigate(
                   `/journal/list/${id}?startDate=${startOfMonth(
-                    date
-                  ).toISOString()}&endDate=${endOfMonth(date).toISOString()}`
+                    date,
+                  ).toISOString()}&endDate=${endOfMonth(date).toISOString()}`,
                 );
               }}
               onClickDate={(date: Date) => {
                 navigate(
                   `/journal/list/${id}?startDate=${startOfDay(
-                    date
-                  ).toISOString()}&endDate=${endOfDay(date).toISOString()}`
+                    date,
+                  ).toISOString()}&endDate=${endOfDay(date).toISOString()}`,
                 );
               }}
             />

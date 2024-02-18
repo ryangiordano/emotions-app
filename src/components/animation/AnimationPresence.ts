@@ -1,7 +1,7 @@
-import { ModalAnimatePresence } from "./types";
+import { type ModalAnimatePresence } from "./types";
 
 export const getAnimatePresenceConfig = (
-  animatePresence: ModalAnimatePresence
+  animatePresence: ModalAnimatePresence,
 ) => {
   switch (animatePresence) {
     case "slide-left":

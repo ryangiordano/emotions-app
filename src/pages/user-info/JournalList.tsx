@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 import "./journal-list.scss";
 import { emotionColorMap } from "../../components/constants";
-import { Emotions } from "../../components/face/constants";
+import { type Emotions } from "../../components/face/constants";
 import { AnimatePresence, motion } from "framer-motion";
 
 export default function JournalList({ journals }: { journals: any[] }) {

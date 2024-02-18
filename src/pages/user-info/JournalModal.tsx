@@ -2,7 +2,6 @@ import { useQuery } from "react-query";
 import { emotionBackgroundMap } from "../../components/constants";
 import Modal from "../../components/modal/Modal";
 import { db } from "../../services/firebase";
-import { useParams } from "react-router-dom";
 import { getJournalsByUser } from "../../services/firebase/journal-service";
 import JournalList from "./JournalList";
 import { format, isSameDay } from "date-fns";
@@ -26,9 +25,9 @@ export default function JournalModal({
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: `journals-${userId}-${startDate}-${endDate}`,
-    queryFn: () => {
-      return getJournalsByUser(db, userId ?? "0", startDate, endDate);
+    queryKey: `journals-${userId}-${startDate.toISOString()}-${endDate.toISOString()}`,
+    queryFn: async () => {
+      return await getJournalsByUser(db, userId ?? "0", startDate, endDate);
     },
   });
   const loading = isLoading || isFetching;
@@ -43,7 +42,7 @@ export default function JournalModal({
       onClose={onClose}
       animatePresence="flip-in-x"
       backgroundColor={
-        loading ? emotionBackgroundMap["sad"] : emotionBackgroundMap["anxious"]
+        loading ? emotionBackgroundMap.sad : emotionBackgroundMap.anxious
       }
     >
       {isLoading || isFetching ? (

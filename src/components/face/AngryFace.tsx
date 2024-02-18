@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { eyeBlink } from "./animations/eye-blink";
-import { hover, shake } from "./animations/idle";
+import { shake } from "./animations/idle";
 import { transitionInUp } from "./animations/transition";
 import "./face.scss";
 

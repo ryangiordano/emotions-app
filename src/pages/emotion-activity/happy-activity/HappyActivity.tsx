@@ -65,12 +65,14 @@ export default function HappyActivity() {
         </div>
         <HappyCardGrid
           array={shuffledEmotions}
-          onComplete={() => navigate("/")}
+          onComplete={() => {
+            navigate("/");
+          }}
         />
       </div>
 
       <div className="nav-button-container">
-        <Link to={`/`}>
+        <Link to={"/"}>
           <AnimatedButton background={emotionBackgroundMap[Emotions.happy]}>
             ◀
           </AnimatedButton>

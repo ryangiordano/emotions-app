@@ -8,6 +8,7 @@ import TextInput from "../../components/forms/inputs/TextInput";
 import InputLabel from "../../components/forms/label/InputLabel";
 import UIButton from "../../components/buttons/Button";
 import { emotionBackgroundMap } from "../../components/constants";
+import { errorToast } from "../../components/toasts";
 
 export default function UserCreateModal({
   isOpen,
@@ -19,14 +20,13 @@ export default function UserCreateModal({
   onClose: () => void;
 }) {
   const [username, setUsername] = useState("");
-  const [hasError, setHasError] = useState(false);
   return (
     <Modal
       header={"Add User"}
       open={isOpen}
       onClose={onClose}
       animatePresence="flip-in-x"
-      backgroundColor={emotionBackgroundMap["anxious"]}
+      backgroundColor={emotionBackgroundMap.anxious}
     >
       <FormContainer
         onSubmit={(e) => {
@@ -41,7 +41,7 @@ export default function UserCreateModal({
             })
             .catch(() => {
               setUsername("");
-              setHasError(true);
+              errorToast();
             });
         }}
       >
@@ -51,7 +51,9 @@ export default function UserCreateModal({
           <TextInput
             id="username"
             className="ui-input"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
           />
         </FormSection>
         <UIButton

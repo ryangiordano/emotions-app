@@ -15,7 +15,7 @@ import JournalButton from "../../components/nav/buttons/JournalButton";
 
 export default function EmotionSelectPage() {
   const [selectedEmotion, setSelectedEmotion] = useState<Emotions | undefined>(
-    undefined
+    undefined,
   );
   const emotionText = getEmotionSelectText({
     emotion: selectedEmotion,
@@ -23,9 +23,9 @@ export default function EmotionSelectPage() {
 
   const updateEmotion = useCallback(
     (emotion: Emotions) => {
-      return setSelectedEmotion(emotion);
+      setSelectedEmotion(emotion);
     },
-    [selectedEmotion]
+    [selectedEmotion],
   );
   const navigate = useNavigate();
 
@@ -34,7 +34,9 @@ export default function EmotionSelectPage() {
       <TopNav>
         <CurrentUserSelect />
         <JournalButton
-          onClick={() => navigate(`/journal/${selectedEmotion}`)}
+          onClick={() => {
+            navigate(`/journal/${selectedEmotion}`);
+          }}
         />
       </TopNav>
 

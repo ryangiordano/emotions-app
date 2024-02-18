@@ -1,7 +1,4 @@
-import {
-  signInWithEmailAndPassword,
-  deleteUser as deleteFirebaseUser,
-} from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useIdToken } from "react-firebase-hooks/auth";
 import { auth } from "../../services/firebase";
 import { Emotions } from "../../components/face/constants";
@@ -14,8 +11,8 @@ import InputLabel from "../../components/forms/label/InputLabel";
 import FormContainer from "../../components/forms/container/FormContainer";
 import FormSection from "../../components/forms/container/FormSection";
 
-const login = (username: string, password: string) => {
-  return signInWithEmailAndPassword(auth, username, password);
+const login = async (username: string, password: string) => {
+  return await signInWithEmailAndPassword(auth, username, password);
 };
 
 // const deleteUser = (user: User) => {
@@ -63,7 +60,9 @@ function LoginPage() {
           <TextInput
             id="username"
             className="ui-input"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => {
+              setUsername(e.target.value);
+            }}
           />
         </FormSection>
         <FormSection>
@@ -72,7 +71,9 @@ function LoginPage() {
             id="password"
             className="ui-input"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+            }}
           />
         </FormSection>
 
@@ -92,8 +93,6 @@ function LoginPage() {
       </FormContainer>
     </EmotionBackground>
   );
-
-  return <></>;
 }
 
 export default LoginPage;

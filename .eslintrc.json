@@ -5,7 +5,7 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:prettier/recommended",
+    // "plugin:prettier/recommended",
     "standard-with-typescript"
   ],
   "plugins": ["react", "prettier"],
@@ -17,7 +17,18 @@
     "@typescript-eslint/explicit-function-return-type": "off",
     "react/react-in-jsx-scope": "off",
     "@typescript-eslint/triple-slash-reference": "off",
-    "@typescript-eslint/strict-boolean-expressions": "off"
+    "@typescript-eslint/strict-boolean-expressions": "off",
+    // Disable the "extra semicolon" rule
+    "no-extra-semi": "off",
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
+    // Disable the "strings need to be single quote" rule
+    "@typescript-eslint/quotes": ["error", "double"],
+    "prettier/prettier": ["error", { "singleQuote": false, "semi": true }],
+    "@typescript-eslint/comma-dangle": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    "@typescript-eslint/indent": "off",
+    "multiline-ternary": "off"
   },
-  "ignorePatterns": ["node_modules", "dist", "build"]
+  "ignorePatterns": ["node_modules", "dist", "build", "vite.config.ts"]
 }
