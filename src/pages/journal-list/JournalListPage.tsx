@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams, useSearchParams } from "react-router-dom";
 import { db } from "../../services/firebase";
 import { getJournalsByUser } from "../../services/firebase/journal-service";
@@ -23,7 +23,7 @@ export default function JournalListPage() {
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: `journals-${id}-${start.toISOString()}-${end.toISOString()}`,
+    queryKey: ["journals", id, start.toISOString(), end.toISOString()],
     queryFn: async () => {
       return await getJournalsByUser(db, id ?? "0", start, end);
     },
@@ -34,7 +34,7 @@ export default function JournalListPage() {
     : format(start, "MMMM, yyyy");
 
   const { data } = useQuery({
-    queryKey: `user-${id}`,
+    queryKey: ["user", id],
     queryFn: async () => await getUser(db, id ?? "0"),
   });
   return (

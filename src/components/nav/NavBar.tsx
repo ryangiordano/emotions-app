@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function NavBar({
   extraActions,
 }: {
-  extraActions?: JSX.Element;
+  extraActions?: React.ReactNode;
 }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   return (

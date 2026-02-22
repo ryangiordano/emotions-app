@@ -9,7 +9,7 @@ import { useCurrentUser } from "../../services/local-storage/current-user";
 export default function BottomNav({
   topAccessories,
 }: {
-  topAccessories?: JSX.Element;
+  topAccessories?: React.ReactNode;
 }) {
   const [loggedInUser, loading] = useIdToken(auth);
   const { userId } = useCurrentUser();

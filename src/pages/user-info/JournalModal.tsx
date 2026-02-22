@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { emotionBackgroundMap } from "../../components/constants";
 import Modal from "../../components/modal/Modal";
 import { db } from "../../services/firebase";
@@ -25,7 +25,7 @@ export default function JournalModal({
     isLoading,
     isFetching,
   } = useQuery({
-    queryKey: `journals-${userId}-${startDate.toISOString()}-${endDate.toISOString()}`,
+    queryKey: ["journals", userId, startDate.toISOString(), endDate.toISOString()],
     queryFn: async () => {
       return await getJournalsByUser(db, userId ?? "0", startDate, endDate);
     },

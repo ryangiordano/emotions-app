@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import EmotionPieGraph from "../../components/datavis/EmotionPieGraph";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { Emotions } from "../../components/face/constants";
@@ -42,7 +42,7 @@ export default function UserInfoPage() {
     isFetching,
     isLoading,
   } = useQuery({
-    queryKey: `journals-${id}-${startOfMonth(date).toISOString()}-${endOfMonth(date).toISOString()}`,
+    queryKey: ["journals", id, startOfMonth(date).toISOString(), endOfMonth(date).toISOString()],
     queryFn: async () => {
       return await getJournalsByUser(
         db,

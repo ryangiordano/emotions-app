@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { Emotions } from "../../components/face/constants";
 import { getUsers } from "../../services/firebase/user-service";
@@ -40,7 +40,7 @@ function UserSquare({
 export default function AccountInfoPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const { data, isLoading, isFetching } = useQuery({
-    queryKey: "users",
+    queryKey: ["users"],
     queryFn: async () => {
       return await getUsers(db);
     },

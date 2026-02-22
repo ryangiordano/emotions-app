@@ -5,10 +5,11 @@ import AnimatedButton from "../../components/buttons/AnimatedButton";
 import {
   emotionBackgroundMap,
   emotionToTextMap,
+  getCalmingBackground,
 } from "../../components/constants";
 import "./emotion-journal.scss";
 import DialogBox from "../../components/dialog-box/DialogBox";
-import { useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import TextCounter from "./TextCounter";
 import { db } from "../../services/firebase";
 import { createJournal } from "../../services/firebase/journal-service";
@@ -24,8 +25,18 @@ export default function EmotionJournalPage() {
   const ref = useRef<HTMLTextAreaElement>(null);
   const textLimit = 350;
   const [text, setText] = useState(ref.current?.value ?? "");
+  const [keystrokeCount, setKeystrokeCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+
+  const maxKeystrokes = 100;
+  const isNegativeEmotion = emotion === "angry" || emotion === "sad" || emotion === "anxious";
+
+  const backgroundOverride = useMemo(() => {
+    if (!isNegativeEmotion || !emotion) return undefined;
+    const progress = Math.min(keystrokeCount / maxKeystrokes, 1);
+    return getCalmingBackground(emotion as Emotions, progress);
+  }, [keystrokeCount, emotion, isNegativeEmotion]);
 
   const successToast = () =>
     toast(
@@ -37,7 +48,7 @@ export default function EmotionJournalPage() {
     );
 
   return (
-    <EmotionContainer emotion={emotion as Emotions}>
+    <EmotionContainer emotion={emotion as Emotions} backgroundOverride={backgroundOverride}>
       <TopNav>
         <CurrentUserSelect />
       </TopNav>
@@ -59,6 +70,7 @@ export default function EmotionJournalPage() {
               return;
             }
             setText(e.target.value);
+            setKeystrokeCount((c) => c + 1);
           }}
           value={text}
           className="journal-textarea emotion-journal"
@@ -78,12 +90,11 @@ export default function EmotionJournalPage() {
               onClick={() => {
                 if (emotion && !isLoading) {
                   setIsLoading(true);
-                  // TODO: Navigate to a 'now how do you feel' page;
                   createJournal(db, { text, emotion })
                     .then((journal) => {
                       if (journal) {
                         successToast();
-                        navigate("/");
+                        navigate(`/checkin/${emotion}`);
                       }
                     })
                     .catch(() => {

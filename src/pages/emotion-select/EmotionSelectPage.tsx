@@ -53,7 +53,7 @@ export default function EmotionSelectPage() {
         topAccessories={
           <>
             <div className="emotion-confirm-container slider">
-              <Link to={`confirm/${selectedEmotion}`}>
+              <Link to={`journal/${selectedEmotion}`}>
                 <EmotionConfirmButton emotion={selectedEmotion} />
               </Link>
 

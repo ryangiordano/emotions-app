@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import EmotionBackground from "../../components/emotion-container/EmotionBackground";
 import { db } from "../../services/firebase";
@@ -20,7 +20,7 @@ export default function JournalDetailPage() {
     throw new Error("id is undefined");
   }
   const { data, isFetching, isLoading } = useQuery({
-    queryKey: `journals-${id}`,
+    queryKey: ["journals", id],
     queryFn: async () => {
       return await getJournal(db, id);
     },

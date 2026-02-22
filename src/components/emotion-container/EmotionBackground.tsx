@@ -6,15 +6,17 @@ export default function EmotionBackground({
   emotion,
   children,
   className,
+  backgroundOverride,
   ...rest
 }: {
   children: React.ReactNode;
   emotion: Emotions;
   className?: string;
+  backgroundOverride?: string;
 } & MotionProps) {
   return (
     <motion.div
-      animate={{ background: emotionBackgroundMap[emotion] }}
+      animate={{ background: backgroundOverride ?? emotionBackgroundMap[emotion] }}
       transition={{ duration: 1 }}
       className={`emotion-container ${className}`}
     >
