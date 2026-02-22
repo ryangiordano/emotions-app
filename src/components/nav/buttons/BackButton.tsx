@@ -14,7 +14,7 @@ export default function BackButton({
         width: "50px",
       }}
     >
-      <LeftChevron fill="white" />
+      <LeftChevron fill="var(--theme-icon-fill, white)" />
     </button>
   );
 }

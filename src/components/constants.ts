@@ -1,3 +1,4 @@
+import type React from "react";
 import { Emotions } from "./face/constants";
 
 export const emotionBackgroundMap = {
@@ -56,6 +57,29 @@ const calmTarget = { start: [240, 240, 240] as const, end: [255, 255, 255] as co
 function lerpChannel(a: number, b: number, t: number): number {
   return Math.round(a + (b - a) * t);
 }
+
+export function getCalmingTextColor(progress: number): string {
+  const t = Math.min(Math.max(progress, 0), 1);
+  const r = lerpChannel(255, 51, t);
+  const g = lerpChannel(255, 51, t);
+  const b = lerpChannel(255, 51, t);
+  return `rgb(${r},${g},${b})`;
+}
+
+export function getCalmingThemeStyle(progress: number): React.CSSProperties {
+  const t = Math.min(Math.max(progress, 0), 1);
+  const color = getCalmingTextColor(t);
+  const placeholderOpacity = 0.8 + (0.6 - 0.8) * t;
+  return {
+    "--theme-text": color,
+    "--theme-border": color,
+    "--theme-shadow-inset": color,
+    "--theme-icon-fill": color,
+    "--theme-placeholder-opacity": String(placeholderOpacity),
+  } as React.CSSProperties;
+}
+
+export const calmThemeStyle: React.CSSProperties = getCalmingThemeStyle(1);
 
 export function getCalmingBackground(emotion: Emotions, progress: number): string {
   const colors = emotionGradientColors[emotion];

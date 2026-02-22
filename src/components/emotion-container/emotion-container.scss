@@ -1,4 +1,11 @@
 .emotion-container {
+  --theme-text: #ffffff;
+  --theme-border: #ffffff;
+  --theme-shadow-inset: #ffffff;
+  --theme-icon-fill: #ffffff;
+  --theme-placeholder-opacity: 0.8;
+  --theme-shadow-outer: rgba(0, 0, 0, 0.25);
+
   background: linear-gradient(to bottom, #00b3e6, #00e67b);
   height: 100%;
   padding: 10px;

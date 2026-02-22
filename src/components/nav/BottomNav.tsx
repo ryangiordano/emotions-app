@@ -47,7 +47,7 @@ export default function BottomNav({
             width: "50px",
           }}
         >
-          <Home fill="white" />
+          <Home fill="var(--theme-icon-fill, white)" />
         </NavLink>
         {!loading && loggedInUser && (
           <NavLink
@@ -58,7 +58,7 @@ export default function BottomNav({
               width: "50px",
             }}
           >
-            <History fill={"white"} />
+            <History fill={"var(--theme-icon-fill, white)"} />
           </NavLink>
         )}
         {!loading && loggedInUser && (
@@ -70,7 +70,7 @@ export default function BottomNav({
               width: "50px",
             }}
           >
-            <Config fill={"white"} />
+            <Config fill={"var(--theme-icon-fill, white)"} />
           </NavLink>
         )}
 

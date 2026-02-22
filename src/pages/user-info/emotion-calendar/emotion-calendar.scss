@@ -1,5 +1,6 @@
 .calendar-cell {
-  border: 3px solid white;
+  border: 3px solid var(--theme-border, white);
+  transition: border-color 0.3s ease;
   border-radius: 7px;
   height: 35px;
   width: 35px;

@@ -5,7 +5,7 @@ import { Emotions } from "../../components/face/constants";
 import DialogBox from "../../components/dialog-box/DialogBox";
 import Face from "../../components/face/Face";
 import AnimatedButton from "../../components/buttons/AnimatedButton";
-import { calmBackground } from "../../components/constants";
+import { calmBackground, calmThemeStyle } from "../../components/constants";
 import TopNav from "../../components/nav/TopNav";
 import BottomNav from "../../components/nav/BottomNav";
 import CurrentUserSelect from "../emotion-select/CurrentUserSelect";
@@ -18,6 +18,7 @@ export default function EmotionCheckinPage() {
     <EmotionContainer
       emotion={Emotions.neutral}
       backgroundOverride={calmBackground}
+      themeStyle={calmThemeStyle}
     >
       <TopNav>
         <CurrentUserSelect />

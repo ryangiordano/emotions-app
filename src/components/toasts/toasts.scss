@@ -18,6 +18,7 @@
 
 /** Classes for the displayed toast **/
 .Toastify__toast {
+  --theme-text: #ffffff;
   margin: 16px;
   animation-duration: 0.25s;
   border-radius: 8px;

@@ -6,6 +6,7 @@ import {
   emotionBackgroundMap,
   emotionToTextMap,
   getCalmingBackground,
+  getCalmingThemeStyle,
 } from "../../components/constants";
 import "./emotion-journal.scss";
 import DialogBox from "../../components/dialog-box/DialogBox";
@@ -32,11 +33,17 @@ export default function EmotionJournalPage() {
   const maxKeystrokes = 100;
   const isNegativeEmotion = emotion === "angry" || emotion === "sad" || emotion === "anxious";
 
+  const calmingProgress = isNegativeEmotion ? Math.min(keystrokeCount / maxKeystrokes, 1) : 0;
+
   const backgroundOverride = useMemo(() => {
     if (!isNegativeEmotion || !emotion) return undefined;
-    const progress = Math.min(keystrokeCount / maxKeystrokes, 1);
-    return getCalmingBackground(emotion as Emotions, progress);
-  }, [keystrokeCount, emotion, isNegativeEmotion]);
+    return getCalmingBackground(emotion as Emotions, calmingProgress);
+  }, [calmingProgress, emotion, isNegativeEmotion]);
+
+  const themeStyle = useMemo(() => {
+    if (!isNegativeEmotion) return undefined;
+    return getCalmingThemeStyle(calmingProgress);
+  }, [calmingProgress, isNegativeEmotion]);
 
   const successToast = () =>
     toast(
@@ -48,7 +55,7 @@ export default function EmotionJournalPage() {
     );
 
   return (
-    <EmotionContainer emotion={emotion as Emotions} backgroundOverride={backgroundOverride}>
+    <EmotionContainer emotion={emotion as Emotions} backgroundOverride={backgroundOverride} themeStyle={themeStyle}>
       <TopNav>
         <CurrentUserSelect />
       </TopNav>
@@ -56,6 +63,7 @@ export default function EmotionJournalPage() {
       <DialogBox
         emotion={emotion as Emotions}
         text={"Tell me about what you're feeling..."}
+        backgroundOverride={backgroundOverride}
       />
       <div className="journal-container">
         <TextCounter text={text} limit={textLimit} />
@@ -86,7 +94,7 @@ export default function EmotionJournalPage() {
             <AnimatedButton
               disabled={text.length === 0}
               isLoading={isLoading}
-              background={emotionBackgroundMap[emotion as Emotions]}
+              background={backgroundOverride ?? emotionBackgroundMap[emotion as Emotions]}
               onClick={() => {
                 if (emotion && !isLoading) {
                   setIsLoading(true);

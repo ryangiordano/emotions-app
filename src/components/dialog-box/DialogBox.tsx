@@ -6,9 +6,11 @@ import useAnimatedText from "../animation/animated-text/use-animated-text";
 export default function DialogBox({
   text,
   emotion,
+  backgroundOverride,
 }: {
   text?: string;
   emotion: Emotions;
+  backgroundOverride?: string;
 }) {
   const animatedText = useAnimatedText({
     text,
@@ -17,7 +19,7 @@ export default function DialogBox({
   return (
     <div style={{ display: "flex" }}>
       <motion.div
-        animate={{ background: emotionBackgroundMap[emotion] }}
+        animate={{ background: backgroundOverride ?? emotionBackgroundMap[emotion] }}
         className="dialog-box"
       >
         {animatedText}

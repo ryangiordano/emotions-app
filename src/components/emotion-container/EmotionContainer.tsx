@@ -7,14 +7,16 @@ export default function EmotionContainer({
   emotion,
   className,
   backgroundOverride,
+  themeStyle,
 }: {
   children: React.ReactNode;
   emotion: Emotions;
   className?: string;
   backgroundOverride?: string;
+  themeStyle?: React.CSSProperties;
 }) {
   return (
-    <EmotionBackground emotion={emotion} className={className} backgroundOverride={backgroundOverride}>
+    <EmotionBackground emotion={emotion} className={className} backgroundOverride={backgroundOverride} themeStyle={themeStyle}>
       {children}
     </EmotionBackground>
   );
